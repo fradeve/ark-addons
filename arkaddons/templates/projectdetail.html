@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Project details
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ object.projectname }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ object.projectdesc }}</td>
+        </tr>
+        <tr>
+            <td>Database name</td>
+            <td>{{ object.arkdbname }}</td>
+        </tr>
+        <tr>
+            <td>Project status</td>
+            <td>
+                {% if object.projectstatus == False %}
+                    Not imported, <a href="{{ object.projectslug }}/import">proceed</a>
+                {% else %}
+                    Imported
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

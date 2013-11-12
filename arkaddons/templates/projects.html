@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Set up ARK projects
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            Add new ARK instance
+            <a type="button" class="btn btn-success" href="addproject">+</a>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Project id</th>
+                    <th>Project name</th>
+                    <th>Project desc</th>
+                    <th>Host</th>
+                </tr>
+            </thead>
+            {% if object_list %}
+                <tbody>
+                    {% for project in object_list %}
+                        <tr>
+                            <td>
+                                <a href="{{ project.get_absolute_url }}">{{ project.projectslug}}</a>
+                            </td>
+                            <td>
+                                {{ project.projectname }}
+                            </td>
+                            <td>
+                                {{ project.projectdesc }}
+                            </td>
+                            <td>
+                                {{ project.arkdbhost }} <button class="btn btn-default btn-xs" href="{{ project.get_absolute_url }}"><i class="icon-wrench"></i></button> <button projectslug="{{ project.projectslug }}" class="btn btn-default btn-xs projectbutton"><i class="icon-refresh"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+
+            function raiseerror(){
+                $('.alert').show()
+            }
+
+            $('.projectbutton').click(function(e){
+                var selectedbutton = $(this)
+                var projectslug = $(this).attr('projectslug')
+                console.log(projectslug)
+                $.post(
+                        '/statuscheck/',
+                        {slug: projectslug}
+                ).done(function(data){
+                            console.log(data)
+                            if (data == 'active'){
+                                selectedbutton.addClass('btn-success', 200)
+                            }else{
+                                selectedbutton.addClass('btn-danger', 200)
+                            }
+                        });
+            })
+        })
+    </script>
+{% endblock %}
