@@ -7,6 +7,8 @@
 # Editor temp files:
 *.swp
 *~
+.idea/workspace.xml
+.idea/tasks.xml
 
 # Sphinx docs:
 build

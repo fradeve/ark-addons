@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
-from core.views import IndexView, ManageProjectsView, ArkCreateView, ArkProjectView, ArkProjectEdit, checkdbstatus
+from core.views import IndexView, ManageProjectsView, ArkCreateView, ArkProjectView, CheckDbStatusView
+
+from django.utils.importlib import import_module
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -9,11 +11,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', IndexView.as_view()),
     (r'^projects', ManageProjectsView.as_view()),
-    url(r'^statuscheck/', checkdbstatus),
+    url(r'^statuscheck/', CheckDbStatusView.as_view(), name="statuscheck"),
     url(r'^addproject/', ArkCreateView.as_view(), name='ark_create_view'),
     url(r'^project/(?P<slug>[^/]+)', ArkProjectView.as_view(), name="ark_project_view"),
-    url(r'^project/(?P<slug>[^/]+)/edit', ArkProjectEdit.as_view(), name="ark_project_edit"),
-    #url(r'^project/(?P<slug>[^/]+)/import', ArkProjectImport.as_view()), #FIXME
+    #url(r'^project/(?P<slug>[^/]+)/(?P<cxtid>[^/]+)', getcompletecxt, name='get_context'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),

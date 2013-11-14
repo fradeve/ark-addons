@@ -17,6 +17,7 @@
                     <th>Project name</th>
                     <th>Project desc</th>
                     <th>Host</th>
+                    <th>Tools</th>
                 </tr>
             </thead>
             {% if object_list %}
@@ -33,7 +34,10 @@
                                 {{ project.projectdesc }}
                             </td>
                             <td>
-                                {{ project.arkdbhost }} <button class="btn btn-default btn-xs" href="{{ project.get_absolute_url }}"><i class="icon-wrench"></i></button> <button projectslug="{{ project.projectslug }}" class="btn btn-default btn-xs projectbutton"><i class="icon-refresh"></i></button>
+                                {{ project.arkdbhost }}
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-xs" href="{{ project.get_absolute_url }}"><i class="icon-wrench"></i></button> <button projectslug="{{ project.projectslug }}" class="btn btn-default btn-xs projectbutton"><i class="icon-refresh"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
