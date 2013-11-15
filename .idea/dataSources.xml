@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1072375296">
-    <data-source source="LOCAL" name="Django default" uuid="3bf53691-2525-47b6-a88a-1d9baa2c65b9">
+  <component name="DataSourceManagerImpl" format="xml" hash="1754006895">
+    <data-source source="LOCAL" name="Django default" uuid="eb621356-2038-4c7f-8bb6-2265d6d8b478">
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/arkaddons/arkaddons/default.db</jdbc-url>
+      <jdbc-url>jdbc:mysql://sdonk.org:3306/arkaddons</jdbc-url>
+      <user-name>arkaddonsuser</user-name>
+      <user-password>dfcbdfd8dfc1dfcbdfcedfcedfc5dfc4dfd9dfdfdfd9dfcfdfd8dfdedfcfdfd9dfde</user-password>
       <libraries>
         <library>
-          <url>file://$USER_HOME$/.PyCharm20/config/jdbc-drivers/mysql-connector-license.txt</url>
+          <url>file://$USER_HOME$/.PyCharm30/config/jdbc-drivers/mysql-connector-license.txt</url>
         </library>
         <library>
-          <url>file://$USER_HOME$/.PyCharm20/config/jdbc-drivers/mysql-connector-java-5.1.26-bin.jar</url>
+          <url>file://$USER_HOME$/.PyCharm30/config/jdbc-drivers/mysql-connector-java-5.1.26-bin.jar</url>
         </library>
       </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="Django arktest" uuid="9465bc92-6c3e-45f6-8bd6-76cb7eb6bcd1">
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://sdonk.org:3306/ark</jdbc-url>
-      <user-name>arkuser</user-name>
-      <user-password>dfcbdfd8dfc9dfc2dfcfdfc5dfc6dfc5dfcddfc3</user-password>
-      <libraries />
     </data-source>
   </component>
 </project>

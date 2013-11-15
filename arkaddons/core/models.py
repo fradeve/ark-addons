@@ -1,8 +1,8 @@
+from django.core.management.commands import startapp
 from django.db import models
 from django.db.models import signals
 import django.conf as conf
 
-import arkmodels
 
 class ArkProjectModel(models.Model):
     """Stores each ARK project's details and info"""
@@ -21,11 +21,12 @@ class ArkProjectModel(models.Model):
         return 'ark_project_view', (), {'slug': self.projectslug}
 
 
-def adddatabase(sender, instance, created, **kwargs):
+def addappdb(sender, instance, created, **kwargs):
     """Add database to the conf.settings.DATABASES dict just
     after creation, using the post_save signal"""
     if created:
-        conf.settings.DATABASES[instance.projectslug.encode('utf8')] = {
+        arkappdbname = 'ark_' + instance.projectslug.encode('utf8')
+        conf.settings.DATABASES[arkappdbname] = {
             'ENGINE': 'django.db.backends.mysql',
             'AUTOCOMMIT': True,
             'ATOMIC_REQUESTS': False,
@@ -43,4 +44,4 @@ def adddatabase(sender, instance, created, **kwargs):
             'PORT': instance.arkdbport}
     print(conf.settings.DATABASES)
 
-signals.post_save.connect(adddatabase, sender=ArkProjectModel)
+signals.post_save.connect(addappdb, sender=ArkProjectModel)

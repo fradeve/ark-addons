@@ -6,7 +6,8 @@ from core.models import ArkProjectModel
 import django.conf as conf
 
 for model in ArkProjectModel.objects.all():
-    conf.settings.DATABASES[model.projectslug.encode('utf8')] = {
+    arkappdbname = 'ark_' + model.projectslug.encode('utf8')
+    conf.settings.DATABASES[arkappdbname] = {
         'ENGINE': 'django.db.backends.mysql',
         'AUTOCOMMIT': True,
         'ATOMIC_REQUESTS': False,

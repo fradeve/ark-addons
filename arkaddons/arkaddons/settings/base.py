@@ -44,11 +44,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'arkaddons',
-        'USER': 'arkaddonsuser',
-        'PASSWORD': 'arkaddonsusertest',
-        'HOST': 'sdonk.org',
-        'PORT': '3306',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 ########## END DATABASE CONFIGURATION
