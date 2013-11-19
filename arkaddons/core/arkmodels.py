@@ -29,12 +29,11 @@ class CorTblUsers(models.Model):
         managed = False
         db_table = 'cor_tbl_users'
 
-
 class CorLutAttributetype(models.Model):
     id = models.IntegerField(primary_key=True)
     attributetype = models.CharField(max_length=255)
     module = models.CharField(max_length=3)
-    cre_by = models.ForeignKey(CorTblUsers)# linked
+    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                     # linked
     cre_on = models.DateTimeField()
 
     class Meta:
@@ -224,6 +223,10 @@ class CorLutTxttype(models.Model):
     class Meta:
         managed = False
         db_table = 'cor_lut_txttype'
+
+    def __unicode__(self):
+        return '%s' % self.txttype
+
 
 ###### START IGNORED MODELS
 # These models are related to the ARK Php interface more then data,
@@ -429,9 +432,9 @@ class CorTblAction(models.Model):
     id = models.IntegerField(primary_key=True)
     actiontype = models.ForeignKey(CorLutActiontype, db_column='actiontype')    # linked
     itemkey = models.CharField(max_length=50)
-    itemvalue = models.CharField(max_length=30)
+    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue')             # linked
     actor_itemkey = models.CharField(max_length=50)
-    actor_itemvalue = models.CharField(max_length=50)
+    actor_itemvalue = models.ForeignKey(AbkTblAbk, db_column='actor_itemvalue') # linked
     cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
     cre_on = models.DateTimeField()
 
@@ -453,20 +456,6 @@ class CorTblAlias(models.Model):
     class Meta:
         managed = False
         db_table = 'cor_tbl_alias'
-
-
-class CorTblAttribute(models.Model):
-    id = models.IntegerField(primary_key=True)
-    attribute = models.IntegerField()
-    itemkey = models.CharField(max_length=50)                   # FIXME
-    itemvalue = models.CharField(max_length=30)                 # FIXME
-    boolean = models.IntegerField()
-    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
-    cre_on = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'cor_tbl_attribute'
 
 
 class CorTblCmap(models.Model):                                 # ignored
@@ -547,20 +536,6 @@ class CorTblCol(models.Model):                              # ignored
     class Meta:
         managed = False
         db_table = 'cor_tbl_col'
-
-
-class CorTblDate(models.Model):
-    id = models.IntegerField(primary_key=True)
-    datetype = models.ForeignKey(CorLutDatetype)            # linked
-    itemkey = models.CharField(max_length=50)
-    itemvalue = models.CharField(max_length=30)
-    date = models.DateTimeField()
-    cre_by = models.ForeignKey(CorTblUsers)                 # linked
-    cre_on = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'cor_tbl_date'
 
 
 class CorTblFile(models.Model):                             # ignored
@@ -710,6 +685,9 @@ class CxtLutCxttype(models.Model):
         managed = False
         db_table = 'cxt_lut_cxttype'
 
+    def __unicode__(self):
+        return '%s' % self.cxttype
+
 
 class CxtTblCxt(models.Model):
     cxt_cd = models.CharField(primary_key=True, max_length=30)
@@ -728,7 +706,7 @@ class CorTblTxt(models.Model):
     id = models.IntegerField(primary_key=True)
     txttype = models.ForeignKey(CorLutTxttype, db_column='txttype')                 # linked
     itemkey = models.CharField(max_length=50)
-    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue')                 # linked
+    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue', related_name='frag_txt')                 # linked
     txt = models.TextField()
     language = models.CharField(max_length=10)
     cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                     # linked
@@ -737,6 +715,37 @@ class CorTblTxt(models.Model):
     class Meta:
         managed = False
         db_table = 'cor_tbl_txt'
+
+    def __unicode__(self):
+        return '%s' % self.txt
+
+
+class CorTblAttribute(models.Model):
+    id = models.IntegerField(primary_key=True)
+    attribute = models.ForeignKey(CorLutAttribute, db_column='attribute')
+    itemkey = models.CharField(max_length=50)
+    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue', related_name='frag_attrs')      # linked
+    boolean = models.IntegerField()
+    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
+    cre_on = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'cor_tbl_attribute'
+
+
+class CorTblDate(models.Model):
+    id = models.IntegerField(primary_key=True)
+    datetype = models.ForeignKey(CorLutDatetype, db_column='datetype')          # linked
+    itemkey = models.CharField(max_length=50)
+    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue', related_name='frag_date')   # linked
+    datefield = models.DateTimeField(db_column='date')
+    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
+    cre_on = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'cor_tbl_date'
 
 
 class CorTblWmc(models.Model):                              # ignored

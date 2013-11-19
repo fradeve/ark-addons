@@ -15,6 +15,7 @@ class ArkProjectModel(models.Model):
     arkdbpassword = models.CharField(max_length=50, null=True, verbose_name="ARK database password")
     arkdbhost = models.CharField(max_length=30, null=True, verbose_name="ARK database host")
     arkdbport = models.SmallIntegerField(max_length=4, blank=True, verbose_name="ARK database port")
+    arkwfsaddress = models.URLField(null=True, verbose_name="ARK WFS link")
 
     @models.permalink
     def get_absolute_url(self):

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/models.py" line="17" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/models.py" line="18" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="215" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="704" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="722" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="114" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="31" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="540" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="127" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="736" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="430" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="91" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1b2a55e-6b0d-43ff-b434-b7e85c8db8a4" name="Default" comment="" />
@@ -30,44 +40,65 @@
     <favorites_list name="arkaddonscode" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="30" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="192" max-vertical-offset="416">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0" vertical-offset="48" max-vertical-offset="816">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/core/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="12" selection-start="1895" selection-end="1895" vertical-scroll-proportion="0.0" vertical-offset="608" max-vertical-offset="832">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="arkmodels.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="714" column="61" selection-start="23733" selection-end="23733" vertical-scroll-proportion="18.76771" vertical-offset="0" max-vertical-offset="13504">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="arkmodels.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="749" column="0" selection-start="25195" selection-end="25195" vertical-scroll-proportion="0.0" vertical-offset="11952" max-vertical-offset="13648">
+                  <folding>
+                    <marker date="1384858232118" expanded="true" signature="24651:25195" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="serializers.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/arkaddons/core/serializers.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="79" column="25" selection-start="1984" selection-end="1984" vertical-scroll-proportion="0.0" vertical-offset="967" max-vertical-offset="1632">
+                  <folding>
+                    <element signature="e#134#172#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/arkaddons/core/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="17" column="46" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.3790186" vertical-offset="0" max-vertical-offset="800">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="54" column="84" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="241" max-vertical-offset="832">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="arkmodels.py" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="736" column="30" selection-start="24650" selection-end="24650" vertical-scroll-proportion="0.75126904" vertical-offset="11300" max-vertical-offset="13648">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -77,30 +108,28 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/arkaddons/arkapi/models.py" />
         <option value="$PROJECT_DIR$/arkaddons/templates/index.html" />
         <option value="$PROJECT_DIR$/arkaddons/templates/addproject.html" />
         <option value="$PROJECT_DIR$/arkaddons/templates/base.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/projectdetail.html" />
         <option value="$PROJECT_DIR$/arkaddons/templates/projectedit.html" />
         <option value="$PROJECT_DIR$/arkaddons/templates/projects.html" />
-        <option value="$PROJECT_DIR$/arkaddons/arkaddons/urls.py" />
         <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/local.py" />
-        <option value="$PROJECT_DIR$/arkaddons/core/views.py" />
         <option value="$PROJECT_DIR$/arkaddons/core/router.py" />
         <option value="$PROJECT_DIR$/arkaddons/core/__init__.py" />
         <option value="$PROJECT_DIR$/README.rst" />
-        <option value="$PROJECT_DIR$/arkaddons/core/models.py" />
         <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/projectdetail.html" />
+        <option value="$PROJECT_DIR$/arkaddons/arkaddons/urls.py" />
+        <option value="$PROJECT_DIR$/arkaddons/core/views.py" />
         <option value="$PROJECT_DIR$/arkaddons/core/arkmodels.py" />
+        <option value="$PROJECT_DIR$/arkaddons/core/serializers.py" />
+        <option value="$PROJECT_DIR$/arkaddons/core/models.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="-1" />
-    <option name="width" value="1368" />
-    <option name="height" value="753" />
+    <option name="width" value="1366" />
+    <option name="height" value="748" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -144,52 +173,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="arkaddons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="arkaddons">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="templates">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -240,33 +223,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
@@ -491,19 +457,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1368" height="753" extended-state="0" />
+    <frame x="0" y="0" width="1366" height="748" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.591195" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26969698" sideWeight="0.5927673" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27424243" sideWeight="0.5956113" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40880504" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40695915" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="589" y="9" width="712" height="739" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31595576" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="589" y="9" width="712" height="739" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -524,31 +490,11 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="41" selection-end="41" vertical-scroll-proportion="0.0" vertical-offset="32" max-vertical-offset="1152">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/projectedit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="10" selection-start="191" selection-end="191" vertical-scroll-proportion="0.19112629" vertical-offset="0" max-vertical-offset="586" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/projects.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="32" selection-start="1371" selection-end="1371" vertical-scroll-proportion="0.7565674" vertical-offset="192" max-vertical-offset="1312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="29" selection-start="1818" selection-end="1818" vertical-scroll-proportion="0.76450515" vertical-offset="384" max-vertical-offset="1376" />
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/django/utils/importlib.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="69" selection-end="69" vertical-scroll-proportion="0.026359143" vertical-offset="0" max-vertical-offset="720" />
@@ -593,40 +539,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="41" selection-end="41" vertical-scroll-proportion="-0.26359144" vertical-offset="192" max-vertical-offset="1248">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="30" selection-start="405" selection-end="405" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="416">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0" vertical-offset="48" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/core/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="12" selection-start="1895" selection-end="1895" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-          <folding />
+        <state line="0" column="4" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1280">
+          <folding>
+            <element signature="e#41#75#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="0" selection-start="1409" selection-end="1409" vertical-scroll-proportion="0.76441514" vertical-offset="352" max-vertical-offset="3984" />
+        <state line="195" column="20" selection-start="5888" selection-end="5888" vertical-scroll-proportion="1.2345679" vertical-offset="2704" max-vertical-offset="4000">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/projectdetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="429" selection-end="429" vertical-scroll-proportion="0.5460751" vertical-offset="0" max-vertical-offset="586" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/rest_framework/tests/test_routers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="6" selection-start="554" selection-end="554" vertical-scroll-proportion="-0.8407225" vertical-offset="624" max-vertical-offset="3408" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/rest_framework/viewsets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="6" selection-start="3892" selection-end="3892" vertical-scroll-proportion="0.33333334" vertical-offset="1381" max-vertical-offset="2256" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="20" selection-start="345" selection-end="345" vertical-scroll-proportion="0.28899837" vertical-offset="0" max-vertical-offset="609" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="84" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="241" max-vertical-offset="832">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="714" column="61" selection-start="23733" selection-end="23733" vertical-scroll-proportion="18.76771" vertical-offset="0" max-vertical-offset="13504">
+        <state line="749" column="0" selection-start="25195" selection-end="25195" vertical-scroll-proportion="0.0" vertical-offset="11952" max-vertical-offset="13648">
+          <folding>
+            <marker date="1384858232118" expanded="true" signature="24651:25195" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/core/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="25" selection-start="1984" selection-end="1984" vertical-scroll-proportion="0.0" vertical-offset="967" max-vertical-offset="1632">
+          <folding>
+            <element signature="e#134#172#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="46" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.3790186" vertical-offset="0" max-vertical-offset="800">
           <folding />
         </state>
       </provider>

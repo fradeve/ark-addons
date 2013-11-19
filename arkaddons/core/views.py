@@ -1,22 +1,30 @@
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, FormView
 from django.http import HttpResponse
-from braces.views import LoginRequiredMixin
 
+from braces.views import LoginRequiredMixin
+from rest_framework import viewsets
+from rest_framework import response
+from .serializers import CxtSerializer
 import MySQLdb
 
 from .models import ArkProjectModel
+from .arkmodels import CxtTblCxt
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
+
 
 class ManageProjectsView(LoginRequiredMixin, ListView):
     template_name = "projects.html"
     model = ArkProjectModel
 
+
 class ArkCreateView(LoginRequiredMixin, CreateView):
     """Creates a new instance using ArkProjectModel model"""
     template_name = "addproject.html"
     model = ArkProjectModel
+
 
 class ArkProjectView(LoginRequiredMixin, DetailView):
     model = ArkProjectModel
@@ -24,9 +32,6 @@ class ArkProjectView(LoginRequiredMixin, DetailView):
     slug_field = 'projectslug'
     context_object_name = 'object'
 
-# when listing table fields, this might be useful
-# http://django-inspect-model.readthedocs.org
-# http://stackoverflow.com/questions/6585373/django-multiple-and-dynamic-databases
 
 class CheckDbStatusView(FormView):
 
@@ -43,3 +48,9 @@ class CheckDbStatusView(FormView):
             except:
                 return HttpResponse('')
 
+
+#queryset = CxtTblCxt.objects.using('ark_' + request.POST.get('slug')).all()
+
+class CxtAllViewSet(viewsets.ReadOnlyModelViewSet):
+        queryset = CxtTblCxt.objects.using('ark_arkprescot').filter(cxt_cd='PCO06_100')
+        serializer_class = CxtSerializer

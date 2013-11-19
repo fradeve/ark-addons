@@ -18,15 +18,5 @@
             <td>Database name</td>
             <td>{{ object.arkdbname }}</td>
         </tr>
-        <tr>
-            <td>Project status</td>
-            <td>
-                {% if object.projectstatus == False %}
-                    Not imported, <a href="{{ object.projectslug }}/import">proceed</a>
-                {% else %}
-                    Imported
-                {% endif %}
-            </td>
-        </tr>
     </table>
 {% endblock %}
