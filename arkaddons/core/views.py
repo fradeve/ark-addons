@@ -3,7 +3,6 @@ from django.http import HttpResponse
 
 from braces.views import LoginRequiredMixin
 from rest_framework import viewsets
-from rest_framework import response
 from .serializers import CxtSerializer
 import MySQLdb
 

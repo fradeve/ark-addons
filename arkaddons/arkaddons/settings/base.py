@@ -188,6 +188,7 @@ DJANGO_APPS = (
     # Admin panel and documentation:
     'django.contrib.admin',
     # 'django.contrib.admindocs',
+    'django.contrib.gis',
 )
 
 THIRD_PARTY_APPS = (

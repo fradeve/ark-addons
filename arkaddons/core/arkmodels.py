@@ -428,21 +428,6 @@ class CorLvuUsersSeq(models.Model):
 ###### END IGNORED MODELS
 
 
-class CorTblAction(models.Model):
-    id = models.IntegerField(primary_key=True)
-    actiontype = models.ForeignKey(CorLutActiontype, db_column='actiontype')    # linked
-    itemkey = models.CharField(max_length=50)
-    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue')             # linked
-    actor_itemkey = models.CharField(max_length=50)
-    actor_itemvalue = models.ForeignKey(AbkTblAbk, db_column='actor_itemvalue') # linked
-    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
-    cre_on = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'cor_tbl_action'
-
-
 class CorTblAlias(models.Model):
     id = models.IntegerField(primary_key=True)
     alias = models.CharField(max_length=255)
@@ -746,6 +731,21 @@ class CorTblDate(models.Model):
     class Meta:
         managed = False
         db_table = 'cor_tbl_date'
+
+
+class CorTblAction(models.Model):
+    id = models.IntegerField(primary_key=True)
+    actiontype = models.ForeignKey(CorLutActiontype, db_column='actiontype')    # linked
+    itemkey = models.CharField(max_length=50)
+    itemvalue = models.ForeignKey(CxtTblCxt, db_column='itemvalue')             # linked
+    actor_itemkey = models.CharField(max_length=50)
+    actor_itemvalue = models.ForeignKey(AbkTblAbk, db_column='actor_itemvalue') # linked
+    cre_by = models.ForeignKey(CorTblUsers, db_column='cre_by')                 # linked
+    cre_on = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'cor_tbl_action'
 
 
 class CorTblWmc(models.Model):                              # ignored
