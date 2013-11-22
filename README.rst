@@ -9,6 +9,10 @@ Install
 -------
 
 * virtualenv
-* mysql database
-* spatialite
-* create spatialite tables
+* requirements
+
+* syncdb
+* manage.py schemamigration core --initial
+* manage.py migrate
+
+* cp misc/core_init.py to core/__init__.py

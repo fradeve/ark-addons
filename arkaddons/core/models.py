@@ -1,4 +1,3 @@
-from django.core.management.commands import startapp
 from django.db import models
 from django.db.models import signals
 import django.conf as conf
@@ -15,11 +14,11 @@ class ArkProjectModel(models.Model):
     arkdbpassword = models.CharField(max_length=50, null=True, verbose_name="ARK database password")
     arkdbhost = models.CharField(max_length=30, null=True, verbose_name="ARK database host")
     arkdbport = models.SmallIntegerField(max_length=4, blank=True, verbose_name="ARK database port")
-    arkwfsaddress = models.URLField(null=True, verbose_name="ARK WFS link")
+    arkwfsaddress = models.URLField(null=True, blank=True, verbose_name="ARK WFS link")
 
     @models.permalink
     def get_absolute_url(self):
-        return 'ark_project_view', (), {'slug': self.projectslug}
+        return 'ark_detail_view', (), {'slug': self.projectslug}
 
 
 def addappdb(sender, instance, created, **kwargs):
@@ -42,7 +41,8 @@ def addappdb(sender, instance, created, **kwargs):
             'USER': instance.arkdbuser.encode('utf8'),
             'TEST_CHARSET': None,
             'PASSWORD': instance.arkdbpassword.encode('utf8'),
-            'PORT': instance.arkdbport}
-    print(conf.settings.DATABASES)
+            'PORT': instance.arkdbport,
+            'WFS': instance.arkwfsaddress,
+            'STECD': instance.projectsitecode.encode('utf8')}
 
 signals.post_save.connect(addappdb, sender=ArkProjectModel)

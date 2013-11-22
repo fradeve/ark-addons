@@ -22,6 +22,4 @@ for model in ArkProjectModel.objects.all():
         'USER': model.arkdbuser.encode('utf8'),
         'TEST_CHARSET': None,
         'PASSWORD': model.arkdbpassword.encode('utf8'),
-        'PORT': model.arkdbport,
-        'WFS': model.arkwfsaddress,
-        'STECD': model.projectsitecode.encode('utf8')}
+        'PORT': model.arkdbport}

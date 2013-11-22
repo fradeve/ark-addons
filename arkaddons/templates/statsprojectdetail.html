@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block appname %}Stats{% endblock %}
+{% block navbar_type %}navbar-default{% endblock %}
+
+{% block page_title %}
+    {{ object.projectname }}'s details
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static "css/json2html.css" %}" rel="stylesheet">
+    <link href="{% static "css/ladda.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="modal fade" id="apidatamodal" tabindex="-1" role="dialog" aria-labelledby="apidatamodal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">API structure</h4>
+                </div>
+                <div class="modal-body" id="apidatadiv">test</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">Project code: <span class="label label-default">{{ object.projectcode }}</span></div>
+                <table class="table">
+                    <tr>
+                        <td>Description</td>
+                        <td>{{ object.projectdesc }}</td>
+                    </tr>
+                    <tr>
+                        <td>API URL</td>
+                        <td>
+                            {% if object.apiuser %}
+                                <i class="glyphicon glyphicon-user"></i>
+                            {% endif %}
+                            <a href="{{ object.apiurl }}">{{ object.apiurl }}</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="panel-footer">
+                    <p class="text-left">Data mappings</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Tools</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Use the following shortcuts to gather informations about API status.</p>
+                        <div class="btn-group btn-group-justified">
+                            <a type="button" class="btn btn-default btn-xs projectbutton" projectcode="{{ object.projectcode }}">Test address <i class="glyphicon glyphicon-link"></i></a>
+                            <a type="button" class="btn btn-primary ladda-button projectbutton-get-str" data-style="slide-down" data-size="xs" apiurl="{{ object.apiurl }}">
+                                <span class="ladda-label">
+                                    Get API structure <i class="glyphicon glyphicon-th-list"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <li class="list-group-item">
+                            <p>Use these buttons to manage the mappings for data in this API.</p>
+                            <div class="btn-group btn-group-justified">
+                                <a type="button" class="btn btn-info btn-xs" href="addproject">Add map</a>
+                                <a type="button" class="btn btn-warning btn-xs" href="addproject">Edit maps</a>
+                                <a type="button" class="btn btn-danger btn-xs" href="addproject">Delete maps</a>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "js/json2html.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/jquery.json2html.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/json2html-transforms.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/json2html-helpers.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/checkbutton.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/getapibutton.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/spin.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/ladda.min.js" %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block active_projects %}active{% endblock %}
+{% block appname %}APIs{% endblock %}
+{% block navbar_type %}navbar-inverse{% endblock %}
 
 {% block page_title %}
     Set up ARK projects
@@ -42,7 +47,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <button class="btn btn-default btn-xs" href="{{ project.get_absolute_url }}"><i class="glyphicon glyphicon-wrench"></i></button> <button projectslug="{{ project.projectslug }}" class="btn btn-default btn-xs projectbutton"><i class="glyphicon glyphicon-refresh"></i></button>
+                                <button class="btn btn-default btn-xs" href="{{ project.get_absolute_url }}"><i class="glyphicon glyphicon-wrench"></i></button> <button projectcode="{{ project.projectslug }}" class="btn btn-default btn-xs projectbutton"><i class="glyphicon glyphicon-refresh"></i></button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -53,29 +58,5 @@
 {% endblock %}
 
 {% block extra_js %}
-        <script type="text/javascript" charset="utf-8">
-        $(document).ready(function(){
-
-            function raiseerror(){
-                $('.alert').show()
-            }
-
-            $('.projectbutton').click(function(e){
-                var selectedbutton = $(this)
-                var projectslug = $(this).attr('projectslug')
-                console.log(projectslug)
-                $.post(
-                        '/statuscheck/',
-                        {slug: projectslug}
-                ).done(function(data){
-                            console.log(data)
-                            if (data == 'active'){
-                                selectedbutton.addClass('btn-success', 200)
-                            }else{
-                                selectedbutton.addClass('btn-danger', 200)
-                            }
-                        });
-            })
-        })
-    </script>
+    <script src="{% static "js/checkbutton.js" %}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

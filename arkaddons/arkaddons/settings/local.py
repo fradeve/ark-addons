@@ -23,7 +23,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'ENGINE': 'django.db.contrib.gis.db.backends.spatialite',
     #    'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
     #    'USER': '',
     #    'PASSWORD': '',
@@ -31,12 +31,8 @@ DATABASES = {
     #    'PORT': '',
     #}
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'arkaddons',
-        'USER': 'arkaddonsuser',
-        'PASSWORD': 'arkaddonsusertest',
-        'HOST': 'sdonk.org',
-        'PORT': '3306',
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
     }
 }
 ########## END DATABASE CONFIGURATION

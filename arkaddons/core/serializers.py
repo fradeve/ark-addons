@@ -4,8 +4,14 @@ __license__ = "GNU GPL 3.0 or later"
 
 __version__ = ""
 
+import django.conf as conf
+
 from rest_framework import serializers
 from rest_framework.relations import RelatedField
+
+from osgeo import ogr
+import json
+
 from .arkmodels import CxtTblCxt, CxtLutCxttype, CorTblUsers, CorTblTxt,\
     CorTblAttribute, CorLutAttribute, CorLutAttributetype, CorTblDate,\
     CorLutDatetype
@@ -91,7 +97,34 @@ class CxtSerializer(serializers.ModelSerializer):
     frag_attrs = FragAttrsSerializer()
     #frag_spans
     frag_date = FragEventsSerializer()  # need to link action to event
-    #frag_geo
+    frag_geo = serializers.SerializerMethodField('get_geo')
 
     class Meta:
         model = CxtTblCxt
+
+    def get_geo(self, obj):
+        """
+        Get the current context and returns all the associated shapefiles as geoJSON.
+        """
+
+        # scans available DB for the current project and takes the WFS value
+        for setting in conf.settings.DATABASES:
+            if obj.ste_cd in conf.settings.DATABASES[setting].values():     # get the current project settings
+                if conf.settings.DATABASES[setting]['WFS'] is None:         # WFS field in db is null=True
+                    return "None"
+                else:
+                    # retrieves the layer from the SHP and filters it using current context id
+                    driver = ogr.GetDriverByName('WFS')
+                    wfs = driver.Open('WFS:' + conf.settings.DATABASES[setting]['WFS'])
+                    layer = wfs.GetLayerByName('cxt_schm')  # FIXME
+                    query = "ark_id = '" + obj.ste_cd + '_' + str(obj.cxt_no) + "'"
+                    layer.SetAttributeFilter(str(query))
+                    # creates a new dictionary on which append the geoJSON
+                    features = {}
+                    # export geometry as geoJSON, transform in dict and append to main dict
+                    for feature in layer:
+                        selectedfeat = json.loads(feature.ExportToJson())
+                        features.update(selectedfeat)
+                    return features
+            else:
+                pass

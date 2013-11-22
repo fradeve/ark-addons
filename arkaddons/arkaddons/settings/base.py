@@ -43,8 +43,8 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
@@ -172,6 +172,11 @@ ROOT_URLCONF = '%s.urls' % SITE_NAME
 ########## END URL CONFIGURATION
 
 
+########## LOGIN CONFIGURATION
+LOGIN_REDIRECT_URL = '/projects'
+########## END LOGIN CONFIGURATION
+
+
 ########## APP CONFIGURATION
 DJANGO_APPS = (
     # Default Django apps:
@@ -186,6 +191,7 @@ DJANGO_APPS = (
     # 'django.contrib.humanize',
 
     # Admin panel and documentation:
+    'suit',  # should be listed in THIRD_PARTY below, but it is required here
     'django.contrib.admin',
     # 'django.contrib.admindocs',
     'django.contrib.gis',
@@ -200,6 +206,7 @@ THIRD_PARTY_APPS = (
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'core',
+    'stats',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

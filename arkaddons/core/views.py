@@ -1,13 +1,22 @@
-from django.views.generic import ListView, TemplateView, CreateView, DetailView, FormView
+__appname__ = "core"
+__author__ = "Francesco de Virgilio (fradeve)"
+__license__ = "GNU GPL 3.0 or later"
+
+__version__ = ""
+
+from django.views.generic import ListView, TemplateView, CreateView, DetailView,\
+    FormView
 from django.http import HttpResponse
 
 from braces.views import LoginRequiredMixin
 from rest_framework import viewsets
-from .serializers import CxtSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import link
 import MySQLdb
 
 from .models import ArkProjectModel
 from .arkmodels import CxtTblCxt
+from .serializers import CxtSerializer
 
 
 class IndexView(TemplateView):
@@ -48,8 +57,19 @@ class CheckDbStatusView(FormView):
                 return HttpResponse('')
 
 
-#queryset = CxtTblCxt.objects.using('ark_' + request.POST.get('slug')).all()
-
 class CxtAllViewSet(viewsets.ReadOnlyModelViewSet):
-        queryset = CxtTblCxt.objects.using('ark_arkprescot').filter(cxt_cd='PCO06_100')
+
+        queryset = CxtTblCxt.objects.using('ark_arkprescot2').filter(cxt_cd='PCO06_220')
         serializer_class = CxtSerializer
+
+class RetrieveViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = CxtTblCxt.objects.using('ark_arkprescot2').all()
+    serializer_class = CxtSerializer
+
+    @link()
+    def detail(self, request):
+        #queryset = CxtTblCxt.objects.using('ark_' + request.POST.get('slug')).all()
+        queryset = CxtTblCxt.objects.all()
+        serializer = CxtSerializer(queryset)
+        return Response(serializer.data)
