@@ -201,6 +201,7 @@ THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
     'rest_framework',
+    'crispy_forms',
 )
 
 # Apps specific for this project go here.

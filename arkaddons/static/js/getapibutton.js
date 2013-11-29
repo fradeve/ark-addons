@@ -10,12 +10,12 @@ $(document).ready(function(){
             var l = Ladda.create(this);
             var apiurl = $(this).attr('apiurl');
             $.getJSON(apiurl, function(data){
-                    visualize(data)
-                    $("#apidatamodal").modal()
+                    visualize(data);
+                    $("#apidatamodal").modal();
                     l.stop()
                 },
                 "json").fail(function(){
-                    activebutton.html('GET failed')
+                    activebutton.html('GET failed');
                     activebutton.addClass('btn-danger')
                 })
         }

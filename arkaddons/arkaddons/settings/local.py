@@ -68,3 +68,11 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 ########## END TOOLBAR CONFIGURATION
+
+
+########## GRAPHVIZ CONFIGURATION
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+########## END GRAPHVIZ CONFIGURATION

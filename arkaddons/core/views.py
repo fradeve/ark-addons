@@ -42,6 +42,7 @@ class ArkProjectView(LoginRequiredMixin, DetailView):
 
 
 class CheckDbStatusView(FormView):
+    """Queries API url and returns status"""
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
@@ -57,10 +58,17 @@ class CheckDbStatusView(FormView):
                 return HttpResponse('')
 
 
-class CxtAllViewSet(viewsets.ReadOnlyModelViewSet):
+class CxtOneViewSet(viewsets.ReadOnlyModelViewSet):
 
         queryset = CxtTblCxt.objects.using('ark_arkprescot2').filter(cxt_cd='PCO06_220')
         serializer_class = CxtSerializer
+
+
+class CxtAllViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = CxtTblCxt.objects.using('ark_arkprescot2').all()
+    serializer_class = CxtSerializer
+
 
 class RetrieveViewSet(viewsets.ReadOnlyModelViewSet):
 
