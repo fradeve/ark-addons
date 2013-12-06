@@ -1,4 +1,4 @@
-__appname__ = "core"
+__appname__ = "appcore"
 __author__ = "Francesco de Virgilio (fradeve)"
 __license__ = "GNU GPL 3.0 or later"
 
@@ -9,7 +9,7 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 
-from core.views import IndexView, ManageProjectsView, ArkCreateView, ArkProjectView,\
+from appcore.views import IndexView, ManageProjectsView, ArkCreateView, ArkProjectView,\
     CheckDbStatusView, CxtAllViewSet, RetrieveViewSet, CxtOneViewSet
 
 admin.autodiscover()
@@ -35,6 +35,6 @@ urlpatterns = patterns('',
     # REST APIs
     url(r'^', include(router.urls)),
 
-    # stats app
-    (r'^stats/', include('stats.urls')),
+    # appstats app
+    (r'^stats/', include('appstats.urls')),
 )

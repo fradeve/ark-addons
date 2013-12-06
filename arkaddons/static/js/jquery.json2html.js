@@ -35,7 +35,7 @@
 		//Make sure to take care of any chaining
 		return this.each(function(){ 
 			
-			//let json2html core do it's magic
+			//let json2html appcore do it's magic
 			var result = json2html.transform(json, transform, options);
 			
 			//Attach the html(string) result to the DOM

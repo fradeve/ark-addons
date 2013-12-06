@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block active_projects %}active{% endblock %}
+{% block appname %}Stats{% endblock %}
+{% block navbar_type %}navbar-default{% endblock %}
+{% block page_title %}
+    Edit API map for <em>{{ project.projectname }}</em>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static "css/json2html.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Fields map editor</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="post">
+                            {{ form|crispy }}
+                            <button type="submit" name="add" id="add" class="btn btn-xs btn-default">Add</button>
+                        </form>
+                    </div>
+                    <div class="list-group">
+                        {% for item in field_list %}
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ item.key }} <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#"><i class="glyphicon glyphicon-remove"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" class="form-control text-right" placeholder="{{ item.jsonfield }}">
+                                </div>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">
+                                <p class="text-muted">No data mapping defined.</p>
+                            </li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Context structure</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="apidatadiv"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/json2html.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/jquery.json2html.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/json2html-transforms.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/json2html-helpers.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/spin.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "js/ladda.min.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+
+            // on page load, display the API JSON for this project as HTML
+            $.getJSON('{{ project.apiurl }}', function(data){
+                visualize(data);
+            }, "json").fail(function(){
+                        $('#apidatadiv').html('<p class="text-muted">Unable to get context structure. Please check API address or API JSON output.</p>');
+                    });
+
+        })
+    </script>
+{% endblock %}
+<!--
+TODO:
+- FIX DELETE FIELD: http://stackoverflow.com/questions/15122382/django-can-i-use-createview-and-deleteview-in-same-form
+
+TODO: filter JSON fields using [underscore.js]
+TODO: autocomplete input box based on filtered results [jquery-ui autocomplete]
+TODO: give each field in input box a label-like appearance [bootstrap-tagsinput] http://timschlechter.github.io/bootstrap-tagsinput/examples/
+-->

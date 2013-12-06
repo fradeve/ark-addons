@@ -104,15 +104,43 @@ where to find a unique identifier for each context in the API's JSON.* This can
 be done using a [JSON XPath](http://goessner.net/articles/JsonPath).
 
 
-
 Installation
 ------------
 
-* virtualenv
-* requirements
+    sudo apt-get install spatialite
 
-* syncdb
-* manage.py schemamigration core --initial
-* manage.py migrate
+    pip install virtualenvwrapper
+    mkwirtualenv --python=python2.7 arkaddons
+    workon arkaddons
 
-* cp misc/core_init.py to core/__init__.py
+    pip install -r requirements/base.txt
+
+Starting with provided Spatialite db
+....................................
+
+Attached to this project comes a preconfigured Spatialite database, containing
+all the necessary tables to use all the apps. Just copy the `default.db` file
+from `misc` folder to `arkaddons`:
+
+    cd arkaddons
+    cp arkaddons/misc/default.db arkaddons/arkaddons/.
+
+Start your own Spatialite db
+............................
+
+    cd arkaddons/arkaddons/arkaddons
+    python manage.py syncdb
+    spatialite default.db "SELECT InitSpatialMetaData();"
+    python manage.py schemamigration appcore --initial
+    python manage.py schemamigration appstats --initial
+    python manage.py schemamigration appgeostat --initial
+    python manage.py migrate
+
+Independently of any of the above procedures, you have to rename the `__init__.py`
+file in the `core` app before starting the server:
+
+    cp appcore/core_init.py to appcore/__init__.py
+
+
+FAQs
+----

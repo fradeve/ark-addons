@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/models.py" line="16" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="212" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="686" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="704" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="111" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="28" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="522" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="124" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="718" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="427" />
-    <bookmark url="file://$PROJECT_DIR$/arkaddons/core/arkmodels.py" line="88" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/models.py" line="16" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="212" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="686" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="704" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="111" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="28" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="522" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="124" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="718" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="427" />
+    <bookmark url="file://$PROJECT_DIR$/arkaddons/appcore/arkmodels.py" line="88" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1b2a55e-6b0d-43ff-b434-b7e85c8db8a4" name="Default" comment="" />
@@ -35,75 +35,32 @@
     <groupTables value="false" />
     <sortChildren value="false" />
   </component>
+  <component name="DjangoConsoleOptions" module-name="arkaddonscode" is-module-sdk="true">
+    <option name="myUseModuleSdk" value="true" />
+    <option name="myModuleName" value="arkaddonscode" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="arkaddonscode" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/stats/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="28" selection-start="2772" selection-end="2772" vertical-scroll-proportion="0.0" vertical-offset="815" max-vertical-offset="1424">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/stats/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="8" selection-start="3948" selection-end="3948" vertical-scroll-proportion="0.0" vertical-offset="1728" max-vertical-offset="2752">
-              <folding>
-                <element signature="e#125#139#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.rst" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.rst" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.rst">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="0" selection-start="4248" selection-end="4248" vertical-scroll-proportion="0.55172414" vertical-offset="1344" max-vertical-offset="1984">
+            <state line="123" column="0" selection-start="4724" selection-end="4724" vertical-scroll-proportion="0.0" vertical-offset="1447" max-vertical-offset="2432">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/arkaddons/appstats/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="62" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.0" vertical-offset="559" max-vertical-offset="1216">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="51" selection-start="566" selection-end="566" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="720">
+            <state line="165" column="0" selection-start="6020" selection-end="6020" vertical-scroll-proportion="0.93811077" vertical-offset="1776" max-vertical-offset="2768">
               <folding>
-                <element signature="e#124#175#0" expanded="true" />
+                <element signature="e#128#142#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="statsprojectdetail.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/templates/statsprojectdetail.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="64" selection-start="9005" selection-end="9005" vertical-scroll-proportion="3.0434783" vertical-offset="2758" max-vertical-offset="3344">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editmap.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/arkaddons/templates/editmap.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="13" selection-start="2696" selection-end="2696" vertical-scroll-proportion="-24.913044" vertical-offset="387" max-vertical-offset="1584">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -118,30 +75,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/statsprojects.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/projects.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/editmap2.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/addproject.html" />
-        <option value="$PROJECT_DIR$/arkaddons/stats/forms.py" />
-        <option value="$PROJECT_DIR$/arkaddons/stats/models.py" />
-        <option value="$PROJECT_DIR$/arkaddons/stats/urls.py" />
-        <option value="$PROJECT_DIR$/arkaddons/static/js/getapibutton.js" />
         <option value="$PROJECT_DIR$/arkaddons/templates/editmap.html" />
         <option value="$PROJECT_DIR$/arkaddons/static/js/checkbutton.js" />
         <option value="$PROJECT_DIR$/arkaddons/templates/statsprojectdetail.html" />
         <option value="$PROJECT_DIR$/arkaddons/core/views.py" />
-        <option value="$PROJECT_DIR$/arkaddons/arkaddons/urls.py" />
         <option value="$PROJECT_DIR$/arkaddons/stats/views.py" />
+        <option value="$PROJECT_DIR$/arkaddons/appcore/__init__.py" />
+        <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/local.py" />
+        <option value="$PROJECT_DIR$/arkaddons/arkaddons/urls.py" />
         <option value="$PROJECT_DIR$/README.rst" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/floppyforms/row/bootstrap.html" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/floppyforms/layouts/bootstrap.html" />
+        <option value="$PROJECT_DIR$/arkaddons/appstats/forms.py" />
+        <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/addproject.html" />
+        <option value="$PROJECT_DIR$/requirements/base.txt" />
+        <option value="$PROJECT_DIR$/arkaddons/appstats/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-1" />
-    <option name="width" value="1368" />
-    <option name="height" value="753" />
+    <option name="width" value="1922" />
+    <option name="height" value="1065" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -194,84 +151,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="arkaddonscode" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddonscode" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arkaddons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -348,7 +227,11 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="stats">
+            <PATH_ELEMENT USER_OBJECT="templates">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="appstats">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -366,7 +249,11 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="core">
+            <PATH_ELEMENT USER_OBJECT="templates">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="appcore">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -383,14 +270,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
-      <PyConsoleSettings />
+      <console-settings />
     </option>
   </component>
   <component name="RecentsManager">
@@ -398,6 +285,8 @@
       <recent name="$PROJECT_DIR$/arkaddons/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/arkaddons/templates/appstats" />
+      <recent name="$PROJECT_DIR$/arkaddons/templates/appcore" />
       <recent name="$PROJECT_DIR$/arkaddons/templates" />
     </key>
   </component>
@@ -469,24 +358,6 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="docs" factoryName="Docutils task">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="arkaddonscode" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="docutils_input_file" value="" />
-      <option name="docutils_output_file" value="" />
-      <option name="docutils_params" value="" />
-      <option name="docutils_task" value="" />
-      <option name="docutils_open_in_browser" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -504,7 +375,22 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="arkaddonscode" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -528,6 +414,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -625,28 +514,48 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1368" height="753" extended-state="6" />
+    <frame x="-1" y="-1" width="1922" height="1065" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3275862" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.591195" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2901515" sideWeight="0.5705329" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18249734" sideWeight="0.5726316" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40729" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42946708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="651" y="0" width="712" height="739" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.407173" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42736843" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="651" y="0" width="712" height="739" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842106" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328594" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842106" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.591195" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40729" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3275862" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28975454" sideWeight="0.5715789" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42842105" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="651" y="0" width="712" height="739" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -659,121 +568,124 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/arkaddons/appstats/views.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="7" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/arkaddons/stats/forms.py">
+    <entry file="file://$PROJECT_DIR$/arkaddons/appcore/core_init.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="25" selection-start="457" selection-end="457" vertical-scroll-proportion="0.52545154" vertical-offset="0" max-vertical-offset="609" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/static/js/json2html-helpers.js">
+    <entry file="file://$PROJECT_DIR$/arkaddons/appcore/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="9" selection-start="348" selection-end="348" vertical-scroll-proportion="0.42036125" vertical-offset="0" max-vertical-offset="1776" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.3754267" vertical-offset="806" max-vertical-offset="1392">
+        <state line="68" column="0" selection-start="1937" selection-end="1937" vertical-scroll-proportion="0.8705114" vertical-offset="256" max-vertical-offset="1312">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/static/js/getapibutton.js">
+    <entry file="file://$PROJECT_DIR$/arkaddons/appstats/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="464">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/statsprojects.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.87085515" vertical-offset="499" max-vertical-offset="1072">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/stats/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="44" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0" vertical-offset="159" max-vertical-offset="768">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/osgeo/ogr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2907" column="8" selection-start="95994" selection-end="95994" vertical-scroll-proportion="0.33333334" vertical-offset="46309" max-vertical-offset="80336">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/static/js/checkbutton.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="4" selection-start="603" selection-end="603" vertical-scroll-proportion="0.49917898" vertical-offset="0" max-vertical-offset="609">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/stats/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="28" selection-start="2772" selection-end="2772" vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1424">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/editmap.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="13" selection-start="2696" selection-end="2696" vertical-scroll-proportion="-24.913044" vertical-offset="387" max-vertical-offset="1584">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/core/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="32" selection-start="3674" selection-end="3674" vertical-scroll-proportion="0.6321839" vertical-offset="1567" max-vertical-offset="2176">
-          <folding>
-            <element signature="e#134#160#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="51" selection-start="566" selection-end="566" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="720">
-          <folding>
-            <element signature="e#124#175#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="62" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.0" vertical-offset="559" max-vertical-offset="1216">
+        <state line="38" column="8" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.5559175" vertical-offset="0" max-vertical-offset="921">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/statsprojectdetail.html">
+    <entry file="file://$PROJECT_DIR$/arkaddons/appstats/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="64" selection-start="9005" selection-end="9005" vertical-scroll-proportion="3.0434783" vertical-offset="2758" max-vertical-offset="3344">
+        <state line="16" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.27795875" vertical-offset="0" max-vertical-offset="1424">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/stats/views.py">
+    <entry file="file://$PROJECT_DIR$/requirements/base.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="8" selection-start="3948" selection-end="3948" vertical-scroll-proportion="0.0" vertical-offset="1728" max-vertical-offset="2752">
-          <folding>
-            <element signature="e#125#139#0" expanded="true" />
-          </folding>
+        <state line="8" column="11" selection-start="160" selection-end="160" vertical-scroll-proportion="0.13897938" vertical-offset="0" max-vertical-offset="921">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="216" column="0" selection-start="6434" selection-end="6434" vertical-scroll-proportion="0.3995657" vertical-offset="3072" max-vertical-offset="4224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/appstats/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="39" selection-start="193" selection-end="193" vertical-scroll-proportion="0.13897938" vertical-offset="0" max-vertical-offset="921">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appcore/projectdetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appstats/statsprojectdetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="3344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appcore/projectedit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appcore/projects.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/addproject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="898">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.rst">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="0" selection-start="4248" selection-end="4248" vertical-scroll-proportion="0.55172414" vertical-offset="1344" max-vertical-offset="1984">
+        <state line="123" column="0" selection-start="4724" selection-end="4724" vertical-scroll-proportion="0.0" vertical-offset="1447" max-vertical-offset="2432">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/appstats/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="165" column="0" selection-start="6020" selection-end="6020" vertical-scroll-proportion="0.93811077" vertical-offset="1776" max-vertical-offset="2768">
+          <folding>
+            <element signature="e#128#142#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

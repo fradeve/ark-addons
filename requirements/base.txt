@@ -5,10 +5,13 @@ South==0.8.1
 bpython==0.12
 django-braces==1.2.2
 django-debug-toolbar==0.11.0
-django-floppyforms==1.1
 django-model-utils==1.5.0
 gunicorn==0.17.4
 logutils==0.3.3
 six==1.4.1
 sqlparse==0.1.10
 wsgiref==0.1.2
+django-crispy-forms==1.4.0
+djangorestframework==2.3.9
+django-suit==0.2.5
+gdal==1.10.0
