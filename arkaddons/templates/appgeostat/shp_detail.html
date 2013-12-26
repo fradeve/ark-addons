@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+
+{% block extra_head %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .leaflet-container {  /* all maps */
+            height: 600px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/Control.FullScreen.css' %}"/>
+{% endblock %}
+
+{% block appname %}GeoStats{% endblock %}
+{% block navbar_type %}navbar-default{% endblock %}
+
+{% block page_title %}
+    {{ shape.filename }}
+{% endblock %}
+
+{% block page_added %}
+    Added on:
+    {% if shape.dateadded %}
+        {{ shape.dateadded }}
+    {% else %}
+        <p style="display: inline" class="text-muted">No date</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% leaflet_map "shapemap" callback="window.map_init_basic" %}
+                    </div>
+                    <div class="panel-footer">
+                        <h5 id="legend"></h5>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar">
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Associated data</h4>
+                    </div>
+                    <div class="panel-body">
+                        <dl>
+                            <dt>Description</dt>
+                            <dd>
+                                {% if shape.desc %}
+                                    {{ shape.desc }}
+                                {% else %}
+                                    <p class="text-muted">No description available</p>
+                                {% endif %}
+                            </dd>
+                            <br>
+                            <dt>Maps</dt>
+                            <dd></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Actions</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a type="button" class="btn btn-info btn-block" href="#">Print report</a>
+                        <a type="button" class="btn btn-warning btn-block" href="#">Create custom plots</a>
+                        <a type="button" class="btn btn-danger btn-block" href="{% url 'shape_delete' shape.pk %}">Delete shapefile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel-group" id="accordion">
+                    <div class="well well-sm">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        Settlement
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <table id="settlement" class="table table-hover">
+                                        {% if shape.helpersettlementarea_set.first.storedarea %}
+                                            {% include "appgeostat/shp_detail_tbl_row.html" with pk=shape.id group="settlement" value="Area" status="success" result=shape.helpersettlementarea_set.first.storedarea geom='yes' %}
+                                        {% else %}
+                                            {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="Area" status="danger" result="" %}
+                                        {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well well-sm">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        Ditches
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    test
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well well-sm">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        Compounds
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    test
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/Control.FullScreen.js' %}"></script>
+    <script type="text/javascript">
+        function map_init_basic (map, options) {
+
+            // define baselayer style
+            function baseStyle(feature){
+                return {{ style_base|safe }}
+            }
+
+            // adding layer with features from the current Shapefile, apply style
+            var data = {{ geojson|safe }};
+            var baseLayer = L.geoJson(data, {style: baseStyle}).addTo(map);
+
+            // default zoom to baselayer extension
+            map.fitBounds(baseLayer.getBounds());
+
+            // add fullscreen button from FullScreen plugin
+            var fullScreen = new L.Control.FullScreen();
+            map.addControl(fullScreen);
+
+            // legend
+            var legend = L.control({position: 'bottomright'});
+            legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                div.innerHTML = 'ciao';
+                return div;
+            };
+            legend.addTo(map);
+
+            /**
+             * An array to store the IDs of the layers added to the map;
+             * how to get layer ID: `layerObject._leaflet_id`
+             *
+             * addedLayers = [{'name': 'area', 'id': '1',}]
+             */
+            addedLayers = [];
+
+            /**
+             * Create a group to store each layer containing statistics data;
+             * this ease the process of checking if a layer has been already
+             * added, using `eachLayer` method on the `layerGroup` in the
+             * function that follows, `removeLayer`.
+             */
+            statGroup = L.layerGroup().addTo(map);
+
+        }
+    </script>
+    <script type="text/javascript">
+        /**
+         * Function to return the position of a property in an array of
+         * objects; if the property is not in any of the objects of the
+         * array, returns `-1`.
+         */
+        function arrayObjectIndexOf(myArray, searchTerm, property) {
+            for(var i = 0, len = myArray.length; i < len; i++) {
+                if (myArray[i][property] === searchTerm) return i;
+            }
+            return -1;
+        }
+
+        /**
+         * Function to remove a layer from a group using layer's ID
+         * @param id
+         * @param group
+         */
+        function removeLayer(id, group) {
+            group.eachLayer(function (layer) {
+                if (layer._leaflet_id === id){
+                    group.removeLayer(layer)
+                }
+            });
+        }
+
+        /**
+         * On click on any button with `.btn-stats` class, starts a POST request
+         * using `pk` and `url` from the button attributes. Returns a rendered
+         * template (table row) from geographical calculation and adds the new
+         * row in the correct position inside the table.
+         */
+        $('.btn-stats').click(function(e){
+            var group = $(this).parents('table').attr('id');
+            var value = $(this).attr('value');
+            var stat_url = window.location.pathname + '/' + value;
+            var shp_pk = $(this).attr('pk');
+            $.post(stat_url, {'pk':shp_pk}, function(data){
+                $('#' + group + '-' + value).replaceWith(data);
+            });
+        });
+
+        /**
+         * On click, gets the value from the button's `value` attribute and use
+         * it to activate/deactivate a layer on the map. A delegated jQuery
+         * interceptor has been used because the table row is inserted when
+         * clicking on `.btn-stats` and injected after page load.
+         */
+        $('#settlement').on('click', '.btn-show', function(e){
+            var group = $(this).parents('table').attr('id');
+            var value = $(this).attr('value');
+            var stat_url = window.location.pathname + '/' + value + '/geojson';
+            var shp_pk = $(this).attr('pk');
+
+            // position of the selected layer in the layers array (`-1` if none)
+            var pos = arrayObjectIndexOf(addedLayers, value, 'name');
+
+            // if the selected layer is already in the array...
+            if (pos > -1){
+                removeLayer(addedLayers[pos].id, statGroup); //remove from map
+                addedLayers.splice(addedLayers[pos], 1); // remove from array
+                $(this).find('i').removeClass('glyphicon-remove-sign').addClass('glyphicon-map-marker'); // change icon
+                $('#legend').find("[map=" + value + "]").remove(); // remove legend
+            }else{
+                $.post(stat_url,
+                    {'pk': shp_pk, 'stat': value, 'group': group},
+                    function(data){
+                        var curGeom = JSON.parse(data).geom;
+                        var curStyle = JSON.parse(data).style;
+                        var curStyleColor = JSON.parse(data).style.fillColor;
+
+                        var curLayer = L.geoJson(JSON.parse(curGeom), {style: curStyle});
+                        statGroup.addLayer(curLayer); // add to layers group
+
+                        var newLayer = {'name': value, 'id': curLayer._leaflet_id};
+                        addedLayers.push(newLayer); // add to layers array
+
+                        $('#legend').append('<span class="label" map="' + value + '" style="color:#000; background-color:' + curStyleColor + '">' + value + '</span>'); // add legend
+                    }
+                );
+                $(this).find('i').removeClass('glyphicon-map-marker').addClass('glyphicon-remove-sign'); // change icon
+            }
+        });
+    </script>
+{% endblock %}

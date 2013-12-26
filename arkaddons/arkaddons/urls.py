@@ -37,4 +37,6 @@ urlpatterns = patterns('',
 
     # appstats app
     (r'^stats/', include('appstats.urls')),
+    # appgeostat app
+    (r'^geostat/', include('appgeostat.urls')),
 )

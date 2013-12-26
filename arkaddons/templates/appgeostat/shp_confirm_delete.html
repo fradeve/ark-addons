@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block appname %}GeoStats{% endblock %}
+{% block navbar_type %}navbar-default{% endblock %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <p>This will delete also all the statistics, features and attributes associated to this shapefile.</p>
+        <input class="btn-default" type="submit" value="Confirm" />
+    </form>
+{% endblock %}

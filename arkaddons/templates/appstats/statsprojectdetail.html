@@ -116,7 +116,7 @@
                         <h4 class="panel-title">Tools</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Use the following shortcuts to gather informations about API status.</p>
+                        <p>Use the following shortcuts to gather information about API status.</p>
                         <a type="button" class="btn btn-primary ladda-button projectbutton" data-size="xs" projectcode="{{ project.projectcode }}">
                             <span class="ladda-label">
                                 Test address <i class="glyphicon glyphicon-link"></i>
@@ -195,7 +195,6 @@
         $(document).on('click', '.confirmcxt', function(){
             // change the JS array to an object
             resultobj = $.extend({}, result);
-            console.log('resultobj: ', resultobj);
             resultjson = JSON.stringify(resultobj);
             console.log('resultjson: ', resultjson);
             $.post('{{ project.projectcode }}/synccxt', {queryresult: resultjson});

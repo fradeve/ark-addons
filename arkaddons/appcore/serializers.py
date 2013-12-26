@@ -104,24 +104,31 @@ class CxtSerializer(serializers.ModelSerializer):
 
     def get_geo(self, obj):
         """
-        Get the current context and returns all the associated shapefiles as geoJSON.
+        Get the current context and returns
+        all the associated shapefiles as geoJSON.
         """
 
         # scans available DB for the current project and takes the WFS value
         for setting in conf.settings.DATABASES:
-            if obj.ste_cd in conf.settings.DATABASES[setting].values():     # get the current project settings
-                if conf.settings.DATABASES[setting]['WFS'] is None:         # WFS field in db is null=True
+            # get the current project settings
+            if obj.ste_cd in conf.settings.DATABASES[setting].values():
+                # WFS field in db is null=True
+                if conf.settings.DATABASES[setting]['WFS'] is None:
                     return "None"
                 else:
-                    # retrieves the layer from the SHP and filters it using current context id
+                    # retrieves the layer from the SHP
+                    # and filters it using current context id
                     driver = ogr.GetDriverByName('WFS')
-                    wfs = driver.Open('WFS:' + conf.settings.DATABASES[setting]['WFS'])
+                    wfs = driver.Open(
+                        'WFS:' + conf.settings.DATABASES[setting]['WFS'])
                     layer = wfs.GetLayerByName('cxt_schm')  # FIXME
-                    query = "ark_id = '" + obj.ste_cd + '_' + str(obj.cxt_no) + "'"
+                    query = "ark_id = '" + obj.ste_cd + \
+                            '_' + str(obj.cxt_no) + "'"
                     layer.SetAttributeFilter(str(query))
                     # creates a new dictionary on which append the geoJSON
                     features = {}
-                    # export geometry as geoJSON, transform in dict and append to main dict
+                    # export geometry as geoJSON,
+                    # transform in dict and append to main dict
                     for feature in layer:
                         selectedfeat = json.loads(feature.ExportToJson())
                         features.update(selectedfeat)

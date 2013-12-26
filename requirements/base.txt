@@ -15,3 +15,6 @@ django-crispy-forms==1.4.0
 djangorestframework==2.3.9
 django-suit==0.2.5
 gdal==1.10.0
+pyproj==1.9.3
+django-leaflet==0.9.0
+vectorformats==0.1

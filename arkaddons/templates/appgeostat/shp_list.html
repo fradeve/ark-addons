@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block page_title %}
+    Shapefiles <img src="{% static "icons/icon_polygon.svg" %}" width="30px" height="30px">
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a type="button" class="btn btn-xs btn-info" href="{% url 'shape_import' %}">Add new shapefile <i class="glyphicon glyphicon-plus"></i></a>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Shapefile name</th>
+                <th>Description</th>
+                <th>Geometry type</th>
+            </tr>
+            </thead>
+            {% if shapes %}
+                <tbody>
+                {% for shape in shapes %}
+                    <tr>
+                        <td>
+                            <a href="{{ shape.get_absolute_url }}">{{ shape.filename }}</a>
+                        </td>
+                        <td>
+                            {{ shape.desc }}
+                        </td>
+                        <td>
+                            {{ shape.geom_type }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+    </div>
+{% endblock %}

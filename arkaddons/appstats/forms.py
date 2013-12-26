@@ -8,6 +8,7 @@ from django import forms
 
 from .models import StatsProjectModel, ApiFieldsModel
 
+
 class ApiFieldsForm(forms.ModelForm):
     class Meta:
         model = ApiFieldsModel
@@ -15,7 +16,6 @@ class ApiFieldsForm(forms.ModelForm):
 
 
 class StatsCreateForm(forms.ModelForm):
-
     class Meta:
         model = StatsProjectModel
         exclude = ('map',)

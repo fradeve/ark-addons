@@ -61,7 +61,8 @@ class StatsProjectView(LoginRequiredMixin, DetailView):
     def dispatch(self, request, *args, **kwargs):
         """
         Parse the current request and save the current project object obtained
-        from StatsProjectModel as a global variable accessible from anywhere in the class.
+        from StatsProjectModel as a global variable accessible from anywhere
+        in the class.
         """
         curslug = self.kwargs['slug']
         self.curproject = StatsProjectModel.objects.get(projectcode=curslug)
@@ -73,8 +74,7 @@ class StatsProjectView(LoginRequiredMixin, DetailView):
         this is a workaround.
         """
         kwargs['mapped_cxt_count'] =\
-            ApiFieldsModel.objects.filter(
-                map_id=self.curproject.map_id)\
+            ApiFieldsModel.objects.filter(map_id=self.curproject.map_id)\
                 .exclude(cxt=None).values('cxt').distinct().count()
         return super(StatsProjectView, self).get_context_data(**kwargs)
 
@@ -97,7 +97,8 @@ class CreateFieldsView(LoginRequiredMixin, CreateView):
         return super(CreateFieldsView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs['field_list'] = ApiFieldsModel.objects.filter(map_id=self.curproject.map_id)
+        kwargs['field_list'] = ApiFieldsModel.objects.filter(
+            map_id=self.curproject.map_id)
         kwargs['project'] = self.curproject
         return super(CreateFieldsView, self).get_context_data(**kwargs)
 
@@ -107,7 +108,8 @@ class CreateFieldsView(LoginRequiredMixin, CreateView):
         return super(CreateFieldsView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('stats_editmap_view', kwargs={'slug': self.kwargs['slug']})
+        return reverse('stats_editmap_view',
+                       kwargs={'slug': self.kwargs['slug']})
 
 
 ### START test #####################
@@ -148,21 +150,25 @@ class CheckApiStatusView(FormView):
 
 
 class SyncContextView(TemplateView):
-    """Reads all the contexts from current project's API and save them in CxtModel"""
-
+    """
+    Reads all the contexts from current project's API
+    and save them in CxtModel
+    """
     def dispatch(self, request, *args, **kwargs):
         """Creates class-wide variable with current project ID"""
         curslug = self.kwargs['slug']
-        self.curprojectid = StatsProjectModel.objects.get(projectcode=curslug).id
+        self.curprojectid = StatsProjectModel.objects.get(
+            projectcode=curslug).id
         return super(SyncContextView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        """Gets contexts from AJAX and recursively add them in the db."""
+        """Gets data from AJAX POST and recursively add them in the db."""
         if request.is_ajax():
             result = request.POST.get('queryresult')
             js = json.loads(result)
             # iterate on the contexts and save them in the table
             for item in js:
-                newcxt = CxtModel(id=int(item), cxt=str(js[item][0:]), project_id=self.curprojectid)
+                newcxt = CxtModel(id=int(item), cxt=str(js[item][0:]),
+                                  project_id=self.curprojectid)
                 newcxt.save()
             return HttpResponse(result)

@@ -201,12 +201,15 @@ THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
     'rest_framework',
+    'leaflet',
+    'vectorformats',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'appcore',
     'appstats',
+    'appgeostat',
     'crispy_forms',
 )
 
@@ -218,6 +221,32 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## START TEMPLATE CONFIGURATION
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 ########## END TEMPLATE CONFIGURATION
+
+
+########## START LEAFLET CONFIGURATION
+LEAFLET_CONFIG = {
+    'RESET_VIEW': False,
+    'NO_GLOBALS': False,
+}
+########## END LEAFLET CONFIGURATION
+
+
+########## START LAYERS STYLE CONFIGURATION
+LAYERS_STYLES = {
+    'base': {
+        'fillColor': '#468000',
+        'color': 'black',
+        'weight': 0.5,
+        'opacity': 1.65
+    },
+    'area': {
+        'fillColor': '#FFEDA0',
+        'color': 'black',
+        'weight': 0.5,
+        'opacity': 1.65
+    }
+}
+########## END LAYERS STYLE CONFIGURATION
 
 
 ########## LOGGING CONFIGURATION

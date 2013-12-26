@@ -1,0 +1,20 @@
+{# This template could be rendered directly thanks to an inclusion from the #}
+{# `shp_detail.html` or from a view. Each rendering process uses its variables. #}
+{#  #}
+{# - group: the group of analysis belonging to: settlement, ditch, compound #}
+{# - value: the value type: area, perimeter #}
+{# - result: the result of the calculation #}
+{# - geom: geojson associated to the result #}
+<tr id="{{ group }}-{{ value|lower }}">
+    <td class="{{ status }}" id="{{ value|lower }}">{{ value }}</td>
+    <td class="{{ status }}">{{ result|floatformat:2 }}</td>
+    <td class="{{ status }}">
+        {% if status == 'success' %}
+            {% if geom == 'yes' %}
+                {% include "appgeostat/shp_detail_stat_showmap.html" with shp_number=pk stat_value=value|lower %}
+            {% endif %}
+        {% else %}{# data need to be generated #}
+            {% include "appgeostat/shp_detail_stat_btn.html" with stat_link=value|lower %}
+        {% endif %}
+    </td>
+</tr>
