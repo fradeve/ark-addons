@@ -270,7 +270,11 @@
                         var newLayer = {'name': value, 'id': curLayer._leaflet_id};
                         addedLayers.push(newLayer); // add to layers array
 
-                        $('#legend').append('<span class="label" map="' + value + '" style="color:#000; background-color:' + curStyleColor + '">' + value + '</span>'); // add legend
+                        $('#legend').append('<span class="label" map="' +
+                                value +
+                                '" style="color:#000; background-color:' +
+                                curStyleColor + '">' +
+                                value + '</span>'); // add legend
                     }
                 );
                 $(this).find('i').removeClass('glyphicon-map-marker').addClass('glyphicon-remove-sign'); // change icon
