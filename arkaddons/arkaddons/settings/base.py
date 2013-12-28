@@ -240,13 +240,29 @@ LAYERS_STYLES = {
         'opacity': 1.65
     },
     'area': {
-        'fillColor': '#FFEDA0',
-        'color': 'black',
-        'weight': 0.5,
-        'opacity': 1.65
+        'attributes': {
+            'storedarea'
+        },
+        'popover': {
+            'no'
+        },
+        'style': {
+            'fillColor': '#FFEDA0',
+            'color': 'black',
+            'weight': 0.5,
+            'opacity': 1.65
+        },
     }
 }
 ########## END LAYERS STYLE CONFIGURATION
+
+
+########## START GEOSTAT SETTINGS CONFIGURATION
+GEOSTAT_SETTINGS = {
+    'avg_ditch_perimeter': '',
+    'avg_compound_perimeter': ''
+}
+########## END GEOSTAT SETTINGS CONFIGURATION
 
 
 ########## LOGGING CONFIGURATION

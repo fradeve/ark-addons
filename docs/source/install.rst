@@ -32,7 +32,7 @@ from ``misc`` folder to ``arkaddons``:
 .. code-block:: bash
 
     cd arkaddons
-    cp arkaddons/misc/default.db arkaddons/arkaddons/.
+    cp arkaddons/misc/start.db arkaddons/arkaddons/default.db
 
 Default username: `admin`, password: `admin`.
 
@@ -43,6 +43,17 @@ Start your own Spatialite db
 
     cd arkaddons/arkaddons/arkaddons
     spatialite arkaddons/default.db "SELECT InitSpatialMetaData();"
+
+Don't worry if this commands exits with the following error, and go on:
+
+.. code-block:: bash
+
+    the SPATIAL_REF_SYS table already contains some row(s)
+        InitSpatiaMetaData() error:"table spatial_ref_sys already exists"
+    0
+
+.. code-block:: bash
+
     python manage.py schemamigration appcore --initial
     python manage.py schemamigration appstats --initial
     python manage.py schemamigration appgeostat --initial

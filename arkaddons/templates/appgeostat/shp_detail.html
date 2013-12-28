@@ -14,6 +14,7 @@
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/Control.FullScreen.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-switch.min.css' %}"/>
 {% endblock %}
 
 {% block appname %}GeoStats{% endblock %}
@@ -21,6 +22,15 @@
 
 {% block page_title %}
     {{ shape.filename }}
+{% endblock %}
+
+{% block page_description %}
+    {% if shape.desc %}
+        {{ shape.desc }}
+    {% else %}
+        <p class="text-muted">No description available</p>
+    {% endif %}
+    | {{ shape.count_features }} structures
 {% endblock %}
 
 {% block page_added %}
@@ -36,109 +46,63 @@
     <div class="container">
         <br>
         <div class="row">
-            <div class="col-md-9">
-                <div class="panel panel-default">
+            <div class="col-md-8">
+                <div class="panel panel-success">
                     <div class="panel-body">
                         {% leaflet_map "shapemap" callback="window.map_init_basic" %}
                     </div>
                     <div class="panel-footer">
-                        <h5 id="legend"></h5>
+                        <h5>
+                            <dl>
+                                <dt class="dl-horizontal" style="display: inline">Legend&nbsp;</dt>
+                                <dd id="legend" style="display: inline"></dd>
+                            </dl>
+                        </h5>
                     </div>
                 </div>
             </div>
-            <div id="sidebar">
-            </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
+            <div class="col-md-4">
+                <div class="btn-group btn-group-justified btn-group-sm">
+                    <a type="button" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i> PDF report</a>
+                    <a type="button" class="btn btn-default"><i class="glyphicon glyphicon-stats"></i> Plot statistics</a>
+                    <a type="button" class="btn btn-default" href="{% url 'shape_delete' shape.pk %}"><i class="glyphicon glyphicon-remove-circle"></i> Delete</a>
+                </div>
+                <br>
+                <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Associated data</h4>
+                        <h4 class="panel-title">Settlement</h4>
                     </div>
-                    <div class="panel-body">
-                        <dl>
-                            <dt>Description</dt>
-                            <dd>
-                                {% if shape.desc %}
-                                    {{ shape.desc }}
-                                {% else %}
-                                    <p class="text-muted">No description available</p>
-                                {% endif %}
-                            </dd>
-                            <br>
-                            <dt>Maps</dt>
-                            <dd></dd>
-                        </dl>
-                    </div>
+                    <table id="settlement" class="table">
+                        {% if shape.helpersettlementarea_set.first.storedarea %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with pk=shape.id group="settlement" value="Area" unit='sq_m' status="success" result=shape.helpersettlementarea_set.first.storedarea geom='yes' %}
+                        {% else %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="Area" status="danger" result="" %}
+                        {% endif %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="ASLM" status="danger" result="" %}
+                    </table>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Actions</h4>
+                        <h4 class="panel-title">Ditches</h4>
                     </div>
-                    <div class="panel-body">
-                        <a type="button" class="btn btn-info btn-block" href="#">Print report</a>
-                        <a type="button" class="btn btn-warning btn-block" href="#">Create custom plots</a>
-                        <a type="button" class="btn btn-danger btn-block" href="{% url 'shape_delete' shape.pk %}">Delete shapefile</a>
-                    </div>
+                    <table id="ditches" class="table">
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Contained area" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Double" status="danger" result="" %}
+                    </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <div class="panel-group" id="accordion">
-                    <div class="well well-sm">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        Settlement
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    <table id="settlement" class="table table-hover">
-                                        {% if shape.helpersettlementarea_set.first.storedarea %}
-                                            {% include "appgeostat/shp_detail_tbl_row.html" with pk=shape.id group="settlement" value="Area" status="success" result=shape.helpersettlementarea_set.first.storedarea geom='yes' %}
-                                        {% else %}
-                                            {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="Area" status="danger" result="" %}
-                                        {% endif %}
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Compounds</h4>
                     </div>
-                    <div class="well well-sm">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Ditches
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    test
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="well well-sm">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        Compounds
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    test
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <table id="compounds" class="table">
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="Number" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="AVG area" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="min/max area" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Orientation" status="danger" result="" %}
+                    </table>
+                </div>
                 </div>
             </div>
         </div>
@@ -147,6 +111,7 @@
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'js/Control.FullScreen.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-switch.min.js' %}"></script>
     <script type="text/javascript">
         function map_init_basic (map, options) {
 
@@ -165,15 +130,6 @@
             // add fullscreen button from FullScreen plugin
             var fullScreen = new L.Control.FullScreen();
             map.addControl(fullScreen);
-
-            // legend
-            var legend = L.control({position: 'bottomright'});
-            legend.onAdd = function (map) {
-                var div = L.DomUtil.create('div', 'info legend');
-                div.innerHTML = 'ciao';
-                return div;
-            };
-            legend.addTo(map);
 
             /**
              * An array to store the IDs of the layers added to the map;
@@ -208,8 +164,6 @@
 
         /**
          * Function to remove a layer from a group using layer's ID
-         * @param id
-         * @param group
          */
         function removeLayer(id, group) {
             group.eachLayer(function (layer) {
@@ -241,7 +195,7 @@
          * interceptor has been used because the table row is inserted when
          * clicking on `.btn-stats` and injected after page load.
          */
-        $('#settlement').on('click', '.btn-show', function(e){
+        $('#settlement, #ditches, #compounds').on('click', '.btn-show', function(e){
             var group = $(this).parents('table').attr('id');
             var value = $(this).attr('value');
             var stat_url = window.location.pathname + '/' + value + '/geojson';
@@ -274,7 +228,7 @@
                                 value +
                                 '" style="color:#000; background-color:' +
                                 curStyleColor + '">' +
-                                value + '</span>'); // add legend
+                                value + '</span>&nbsp;'); // add legend
                     }
                 );
                 $(this).find('i').removeClass('glyphicon-map-marker').addClass('glyphicon-remove-sign'); // change icon

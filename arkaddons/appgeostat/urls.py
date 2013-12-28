@@ -7,7 +7,8 @@ __version__ = "0.1"
 from django.conf.urls import patterns, url
 
 from .views import import_shapefile, ListShapefileView, DetailShapefileView,\
-    DeleteShapefileView, AreaTemplateView, GetStatGeojsonView
+    DeleteShapefileView, AreaTemplateView, GetStatGeojsonView,\
+    DitchCompoundTemplateView
 
 urlpatterns = patterns('',
                        # list all loaded SHPs
@@ -34,6 +35,11 @@ urlpatterns = patterns('',
                        url(r'^(?P<pk>[^/]+)/area$',
                            AreaTemplateView.as_view(),
                            name='shape_area'),
+
+                       # recognize shapefile's ditches/compounds
+                       url(r'^(?P<pk>[^/]+)/number$',
+                           DitchCompoundTemplateView.as_view(),
+                           name='shape_rec_ditch_comp'),
 
                        # get geoJSON associated to a statistic
                        url(r'^(?P<pk>[^/]+)/(?P<stat>[^/]+)/geojson$',

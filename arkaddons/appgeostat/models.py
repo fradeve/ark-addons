@@ -1,3 +1,4 @@
+from django.contrib.gis import geos
 from django.contrib.gis.db import models
 
 
@@ -56,9 +57,7 @@ class Feature(models.Model):
         models.GeometryCollectionField(srid=4326,
                                        blank=True,
                                        null=True)
-
     objects = models.GeoManager()
-    type = models.TextField(max_length=255, null=True)
 
     def __unicode__(self):
         return unicode(self.id) or u''
@@ -76,9 +75,20 @@ class AttributeValue(models.Model):
 
 class HelperSettlementArea(models.Model):
     """
-    Table ot save all the helper layer containing settlements area
+    Table to save all the helper layer containing settlements area
     """
     shapefile = models.ForeignKey(Shapefile)
     objects = models.GeoManager()
     poly = models.PolygonField()
     storedarea = models.FloatField(null=True)
+
+
+class HelperDitchesNumber(models.Model):
+    """
+    Table to save the helper layer containing data about ditches and compounds
+    """
+    shapefile = models.ForeignKey(Shapefile)
+    objects = models.GeoManager()
+    poly = models.MultiPolygonField(srid=900913)
+    type = models.TextField(max_length=255, null=True)
+    perimeter = models.FloatField(null=True)

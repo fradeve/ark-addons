@@ -7,7 +7,7 @@
 {# - geom: geojson associated to the result #}
 <tr id="{{ group }}-{{ value|lower }}">
     <td class="{{ status }}" id="{{ value|lower }}">{{ value }}</td>
-    <td class="{{ status }}">{{ result|floatformat:2 }}</td>
+    <td class="{{ status }}">{{ result|floatformat:2 }} {% if unit == 'sq_m' %}m&sup2{% elif unit == 'm' %}m{% else %}{% endif %}</td>
     <td class="{{ status }}">
         {% if status == 'success' %}
             {% if geom == 'yes' %}

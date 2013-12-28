@@ -5,7 +5,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="7">
+          <list size="8">
             <item index="0" class="java.lang.String" itemvalue="django-model-utils" />
             <item index="1" class="java.lang.String" itemvalue="Django" />
             <item index="2" class="java.lang.String" itemvalue="gunicorn" />
@@ -13,6 +13,7 @@
             <item index="4" class="java.lang.String" itemvalue="django-crispy-forms" />
             <item index="5" class="java.lang.String" itemvalue="South" />
             <item index="6" class="java.lang.String" itemvalue="Pygments" />
+            <item index="7" class="java.lang.String" itemvalue="django-debug-toolbar" />
           </list>
         </value>
       </option>
