@@ -2,7 +2,7 @@ import datetime
 import json
 from django.conf import settings
 from django.db.models import get_app, get_models
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
@@ -18,6 +18,7 @@ from vectorformats.Formats import Django, GeoJSON
 from appgeostat import importer
 from utils import get_geos_geometry
 from utils import get_jenks_breaks
+from utils import classify
 
 from .models import Shapefile, Feature, HelperSettlementArea,\
     HelperDitchesNumber
@@ -90,6 +91,8 @@ class DetailShapefileView(LoginRequiredMixin, DetailView):
             properties=['shapefile_id'])
         kwargs['geojson'] = geoj.encode(djf.decode(qs))
         kwargs['style_base'] = settings.LAYERS_STYLES['base']
+        kwargs['default_classes'] =\
+            settings.GEOSTAT_SETTINGS['jenk_natural_breaks_classes']
 
         return super(DetailShapefileView, self).get_context_data(**kwargs)
 
@@ -101,70 +104,56 @@ class AreaTemplateView(LoginRequiredMixin, View):
     """
     template_name = "appgeostat/shp_detail_tbl_row.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        """Creates class-wide variable with current project ID"""
-        self.cur_shp_id = kwargs['pk']
-        return super(AreaTemplateView, self).dispatch(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
+            cur_shp_id = kwargs['pk']
 
-            # if we have an area object associated to the current shapefile,
-            # get the stored area value and the geoJSON
-            if HelperSettlementArea.objects.filter(shapefile_id=self.cur_shp_id):
-                area_obj = HelperSettlementArea.objects.get(
-                    shapefile_id=self.cur_shp_id)
+            # calculate area as GEOS object using convex hull operation,
+            # save it, calculate area value, save it in db as geometry attribute
+            cur_shp = Shapefile.objects.get(id=cur_shp_id)
+            cur_shp_geom = get_geos_geometry(cur_shp)
+            area_geom = GEOSGeometry(cur_shp_geom.convex_hull)
 
-            else:
-                # if we don't have any area object already in db, calculate it
-                # as GEOS object, save geometry, calculate area and save it
-                cur_shp = Shapefile.objects.get(id=self.cur_shp_id)
-                cur_shp_geom = get_geos_geometry(cur_shp)
-                area_geom = GEOSGeometry(cur_shp_geom.convex_hull)
+            # save the new GEOS area to geometry in db
+            new_area = HelperSettlementArea(poly=area_geom,
+                                            shapefile_id=cur_shp_id)
+            new_area.save()
 
-                # save the new GEOS area to geometry in db
-                new_area = HelperSettlementArea(poly=area_geom,
-                                                shapefile_id=self.cur_shp_id)
-                new_area.save()
+            # calculates the area and update the db entry
+            area_geom.set_srid(4326)  # get measure in squared meters
+            area_geom.transform(900913)  # ibidem
+            HelperSettlementArea.objects.filter(
+                shapefile_id=cur_shp_id)\
+                .update(storedarea=area_geom.area)
 
-                # calculates the area and update the db entry
-                area_geom.set_srid(4326)  # get measure in squared meters
-                area_geom.transform(900913)  # ibidem
-                HelperSettlementArea.objects.filter(
-                    shapefile_id=self.cur_shp_id)\
-                    .update(storedarea=area_geom.area)
+            area_obj = HelperSettlementArea.objects.get(
+                shapefile_id=cur_shp_id)
 
-                area_obj = HelperSettlementArea.objects.get(
-                    shapefile_id=self.cur_shp_id)
+        data = {
+            'status': 'success',
+            'group': 'settlement',
+            'value': 'Area',
+            'result': area_obj.storedarea,
+            'unit': 'sq_m',
+            'geom': 'yes'
+        }
 
-            data = {
-                'status': 'success',
-                'group': 'settlement',
-                'value': 'Area',
-                'result': area_obj.storedarea,
-                'unit': 'sq_m',
-                'geom': 'yes',
-                'pk': self.cur_shp_id
-            }
-
-            return render_to_response(self.template_name, data)
+        return render_to_response(self.template_name, data)
 
 
-class DitchCompoundTemplateView(LoginRequiredMixin, View):
+class DitchCompoundView(LoginRequiredMixin, View):
     """
-    Returns a single row template to be inserted in a table, with the data
-    resulted from the calculation of ditches and compounds.
+    Differently from other stats views, this just checks values in the tables
+    and calculates classes for each feature when started using AJAX POST. It is
+    called by the Ditches Recognize Wizard before starting the guided procedure.
     """
     def dispatch(self, request, *args, **kwargs):
         self.cur_shp_id = kwargs['pk']
-        return super(DitchCompoundTemplateView, self).dispatch(request, *args, **kwargs)
+        return super(DitchCompoundView, self)\
+            .dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
-
-            if HelperDitchesNumber.objects.filter(type__isnull=True) is None:
-                print('All features have a type attribute.')
-                pass
 
             # [1] layers with ditches and compounds:
             # for each feature, get the perimeter and divide by classes
@@ -175,31 +164,6 @@ class DitchCompoundTemplateView(LoginRequiredMixin, View):
             # fields to store polygons and multipolygons will generate problems,
             # so here we are storing polygons as multipolygons to use a single
             # field for all geometries.
-            else:
-                # [A] fill in perimeter value for each feature
-                cur_shp_geom = get_geos_geometry(Shapefile.objects.get(
-                    id=self.cur_shp_id))
-                cur_shp_geom.set_srid(4326)
-                cur_shp_geom.transform(900913)
-                for feature in cur_shp_geom:
-                    if feature.geom_type == 'Polygon':
-                        feature = MultiPolygon(feature)
-                    new_feat = HelperDitchesNumber(
-                        poly=feature,
-                        shapefile_id=self.cur_shp_id,
-                        perimeter=feature.length)
-                    new_feat.save()
-
-                # [B] get all parameters as list
-                perimeters = HelperDitchesNumber.objects.values_list(
-                    'perimeter', flat=True)
-                perim_list = []
-                for x in perimeters:
-                    perim_list.append(x)
-
-                # [C] calculate Jenks Natural Breaks and save in Shapefile
-                jnb = get_jenks_breaks(perim_list, 5)
-                print(jnb)
 
             # [2] layer with just compounds:
             # get the avg perimeters for all compounds and ditches in all
@@ -209,34 +173,134 @@ class DitchCompoundTemplateView(LoginRequiredMixin, View):
             # use as values avg perimeter of ditches and compounds defined
             # in settings
 
+            cur_shp = Shapefile.objects.get(id=self.cur_shp_id)
+
+            # [A] check if features for this shp already exist in helper table
+            if cur_shp.feature_set.count() == HelperDitchesNumber.objects\
+                .filter(shapefile_id=self.cur_shp_id)\
+                    .count():
+                cur_feat = HelperDitchesNumber.objects.filter(
+                    shapefile_id=self.cur_shp_id)
+            else:
+                # create helping features and fill in perimeter for each
+                cur_shp_geom = get_geos_geometry(cur_shp)
+                cur_shp_geom.set_srid(4326)
+                cur_shp_geom.transform(3857)
+                for feature in cur_shp_geom:
+                    if feature.geom_type == 'Polygon':
+                        feature = MultiPolygon(feature)
+                    new_feat = HelperDitchesNumber(
+                        poly=feature,
+                        shapefile_id=self.cur_shp_id,
+                        perimeter=feature.length)
+                    new_feat.save()
+                cur_feat = HelperDitchesNumber.objects.filter(
+                    shapefile_id=self.cur_shp_id)
+
+            # [B] check if this shapefile has custom class number defined
+            if cur_shp.classes:
+                class_num = cur_shp.classes
+            else:
+                class_num = settings.GEOSTAT_SETTINGS['jenk_natural_breaks_classes']
+
+            # [C] get all perimeters as list
+            perimeters = cur_feat.values_list('perimeter', flat=True)
+            perim_list = []
+            for x in perimeters:
+                perim_list.append(x)
+
+            # [D] calculate Jenks Natural Breaks, save in shapefile and features
+            jnb_classes_list = get_jenks_breaks(perim_list, int(class_num))
+            Shapefile.objects.filter(id=self.cur_shp_id)\
+                .update(jnb=jnb_classes_list)
+
+            # [E] fill in the class for each feature of the helper layer
+            for feature in cur_feat:
+                class_val = classify(feature.perimeter, jnb_classes_list)
+                feature.class_n = class_val
+                feature.save()
+
+            response = {'status': 'success'}
+
+            return HttpResponse(json.dumps(response))
+
+
+class SaveDefaultClassesView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax:
+            cur_shp_id = kwargs['pk']
+            new_classes = request.POST.get('classes')
+            Shapefile.objects.filter(id=cur_shp_id).update(classes=new_classes)
+
+        return HttpResponse('success')
+
+
+class SaveDitchesClassesView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax:
+            cur_shp_id = kwargs['pk']
+            ditches_classes = self.request.POST.get('ditches').split()
+
+            cur_features = HelperDitchesNumber.objects\
+                .filter(shapefile_id=cur_shp_id)
+
+            cur_features.update(type=None)  # clean type field
+
+            for item in ditches_classes:  # write all ditches
+                cur_features.filter(class_n=int(item)).update(type='ditch')
+
+            cur_features.exclude(type='ditch').update(type='compound')
+
+            return HttpResponse('success')
+
 
 class GetStatGeojsonView(LoginRequiredMixin, View):
 
-    def post(self, context, **response_kwargs):
-        self.cur_shp_id = self.request.POST.get('pk')
-        self.stat = self.request.POST.get('stat')
-        self.group = self.request.POST.get('group')
+    def dispatch(self, request, *args, **kwargs):
+        if kwargs['field']:
+            self.filter_field = kwargs['field']
+            self.filter_value = kwargs['value']
+        else:
+            self.filter_field = None
 
-        cur_model_name = 'helper' + self.group + self.stat
+        return super(GetStatGeojsonView, self) \
+            .dispatch(request, *args, **kwargs)
 
-        # iterate on helper models and select the one containing the statistics
-        # we are interested in (according to parameters passed by AJAX POST)
-        for model in get_models(get_app('appgeostat')):
-            if 'helper' in model._meta.model_name:
-                if model._meta.model_name == cur_model_name:
-                    CurModel = model
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax:
+            cur_shp_id = kwargs['pk']
+            stat = kwargs['stat']
+            group = self.request.POST.get('group')
 
-        # create a geoJSON string from the result of the statistical geometry
-        qs = CurModel.objects.filter(shapefile_id=self.cur_shp_id)
-        geoj = GeoJSON.GeoJSON()
-        djf = Django.Django(
-            geodjango="poly",
-            properties=settings.LAYERS_STYLES[self.stat]['attributes'])
-        stat_geom = geoj.encode(djf.decode(qs))
+            cur_model_name = 'helper' + group + stat
 
-        response = {
-            'geom': stat_geom,
-            'style': settings.LAYERS_STYLES[self.stat]['style']
-        }
+            # iterate on helper models, select the one containing the statistics
+            # we are interested in (according to parameters passed by AJAX POST)
+            for model in get_models(get_app('appgeostat')):
+                if 'helper' in model._meta.model_name:
+                    if model._meta.model_name == cur_model_name:
+                        CurModel = model
 
-        return HttpResponse(json.dumps(response))
+            # create a geoJSON string from the result of the statistical geometry
+            qs = CurModel.objects.filter(shapefile_id=cur_shp_id)
+
+            # use a filter parameter to refine filter, if it has been passed
+            if self.filter_field is not None:
+                qs = qs.filter(**{self.filter_field: self.filter_value})
+
+            qs.transform()
+            geoj = GeoJSON.GeoJSON()
+            djf = Django.Django(
+                geodjango="poly",
+                properties=settings.LAYERS_STYLES[stat]['attributes'])
+            stat_geom = geoj.encode(djf.decode(qs))
+
+            response = {
+                'geom': stat_geom,
+                'style': settings.LAYERS_STYLES[stat]['style'],
+                'palette': settings.LAYERS_STYLES[stat]['palette']
+            }
+
+            return HttpResponse(json.dumps(response))

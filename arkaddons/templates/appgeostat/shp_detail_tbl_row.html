@@ -7,14 +7,18 @@
 {# - geom: geojson associated to the result #}
 <tr id="{{ group }}-{{ value|lower }}">
     <td class="{{ status }}" id="{{ value|lower }}">{{ value }}</td>
-    <td class="{{ status }}">{{ result|floatformat:2 }} {% if unit == 'sq_m' %}m&sup2{% elif unit == 'm' %}m{% else %}{% endif %}</td>
+    <td class="{{ status }}">{{ result|floatformat:0 }} {% if unit == 'sq_m' %}m&sup2{% elif unit == 'm' %}m{% else %}{% endif %}</td>
     <td class="{{ status }}">
-        {% if status == 'success' %}
-            {% if geom == 'yes' %}
-                {% include "appgeostat/shp_detail_stat_showmap.html" with shp_number=pk stat_value=value|lower %}
+        {% if status == 'success' %} {# data already in db #}
+            {% if geom %}
+                {% include "appgeostat/shp_detail_stat_showmap.html" with stat_value=value|lower action=action post_attr=geom %}
             {% endif %}
         {% else %}{# data need to be generated #}
-            {% include "appgeostat/shp_detail_stat_btn.html" with stat_link=value|lower %}
+            {% if link %}
+                {% include "appgeostat/shp_detail_stat_btn.html" with link=link %} {# open external url, e.g. a wizard #}
+            {% else %}
+                {% include "appgeostat/shp_detail_stat_btn.html" with stat_link=value|lower %} {# defines value for statistic, passed to POST #}
+            {% endif %}
         {% endif %}
     </td>
 </tr>

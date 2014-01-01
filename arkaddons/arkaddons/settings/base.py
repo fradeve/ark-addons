@@ -241,10 +241,7 @@ LAYERS_STYLES = {
     },
     'area': {
         'attributes': {
-            'storedarea'
-        },
-        'popover': {
-            'no'
+            'storedarea': ''
         },
         'style': {
             'fillColor': '#FFEDA0',
@@ -252,6 +249,33 @@ LAYERS_STYLES = {
             'weight': 0.5,
             'opacity': 1.65
         },
+        'palette': ''
+    },
+    'number': {
+        'attributes': {
+            'class_n': ''
+        },
+        'style': {
+            'color': 'green',
+            'weight': 0.5,
+            'opacity': 1.65,
+            'fillOpacity': 0.9,
+            'dashArray': 3
+        },
+        'palette': {
+            '1': '#a6cee3',
+            '2': '#1f78b4',
+            '3': '#b2df8a',
+            '4': '#33a02c',
+            '5': '#fb9a99',
+            '6': '#e31a1c',
+            '7': '#fdbf6f',
+            '8': '#ff7f00',
+            '9': '#cab2d6',
+            '10': '#6a3d9a',
+            '11': '#ffff99',
+            '12': '#b15928'
+        }
     }
 }
 ########## END LAYERS STYLE CONFIGURATION
@@ -260,7 +284,8 @@ LAYERS_STYLES = {
 ########## START GEOSTAT SETTINGS CONFIGURATION
 GEOSTAT_SETTINGS = {
     'avg_ditch_perimeter': '',
-    'avg_compound_perimeter': ''
+    'avg_compound_perimeter': '',
+    'jenk_natural_breaks_classes': '5'
 }
 ########## END GEOSTAT SETTINGS CONFIGURATION
 

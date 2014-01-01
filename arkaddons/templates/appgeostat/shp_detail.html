@@ -14,7 +14,6 @@
         }
     </style>
     <link rel="stylesheet" href="{% static 'css/Control.FullScreen.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap-switch.min.css' %}"/>
 {% endblock %}
 
 {% block appname %}GeoStats{% endblock %}
@@ -52,12 +51,10 @@
                         {% leaflet_map "shapemap" callback="window.map_init_basic" %}
                     </div>
                     <div class="panel-footer">
-                        <h5>
-                            <dl>
-                                <dt class="dl-horizontal" style="display: inline">Legend&nbsp;</dt>
-                                <dd id="legend" style="display: inline"></dd>
-                            </dl>
-                        </h5>
+                        <div class="row">
+                            <div class="col-md-2">Legend</div>
+                            <div class="col-md-10" id="legend"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,11 +71,11 @@
                     </div>
                     <table id="settlement" class="table">
                         {% if shape.helpersettlementarea_set.first.storedarea %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with pk=shape.id group="settlement" value="Area" unit='sq_m' status="success" result=shape.helpersettlementarea_set.first.storedarea geom='yes' %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with pk=shape.id status="success" group="settlement" value="Area" result=shape.helpersettlementarea_set.first.storedarea unit='sq_m' geom='geojson' %}
                         {% else %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="Area" status="danger" result="" %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="Area" status="danger" %}
                         {% endif %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="ASLM" status="danger" result="" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="settlement" value="ASLM" status="danger" %}  {# TODO #}
                     </table>
                 </div>
                 <div class="panel panel-info">
@@ -86,10 +83,16 @@
                         <h4 class="panel-title">Ditches</h4>
                     </div>
                     <table id="ditches" class="table">
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Contained area" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Double" status="danger" result="" %}
+                        {% url 'ditches_wizard' shape.pk as classify_wizard %}
+                        {% if shape.count_ditches == 0 %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" link=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" %}
+                        {% else %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Number" result=shape.count_ditches geom='geojson&type=ditch' action=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Perimeter" result=shape.perimeter_ditches unit='m' %}
+                        {% endif %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Contained area" status="danger" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Double" status="danger" %}
                     </table>
                 </div>
                 <div class="panel panel-info">
@@ -97,12 +100,18 @@
                         <h4 class="panel-title">Compounds</h4>
                     </div>
                     <table id="compounds" class="table">
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="Number" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="AVG area" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="min/max area" status="danger" result="" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Orientation" status="danger" result="" %}
+                        {% url 'ditches_wizard' shape.pk as classify_wizard %}
+                        {% if shape.count_compounds == 0 %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" link=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" %}
+                        {% else %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Number" result=shape.count_compounds geom='geojson&type=compound' action=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Perimeter" result=shape.perimeter_compounds unit='m' %}
+                        {% endif %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="AVG area" status="danger" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="min/max area" status="danger" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="Orientation" status="danger" %}
                     </table>
-                </div>
                 </div>
             </div>
         </div>
@@ -111,7 +120,6 @@
 
 {% block extra_js %}
     <script type="text/javascript" src="{% static 'js/Control.FullScreen.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap-switch.min.js' %}"></script>
     <script type="text/javascript">
         function map_init_basic (map, options) {
 
@@ -179,12 +187,11 @@
          * template (table row) from geographical calculation and adds the new
          * row in the correct position inside the table.
          */
-        $('.btn-stats').click(function(e){
+        $('.btn-stats').click(function(){
             var group = $(this).parents('table').attr('id');
             var value = $(this).attr('value');
             var stat_url = window.location.pathname + '/' + value;
-            var shp_pk = $(this).attr('pk');
-            $.post(stat_url, {'pk':shp_pk}, function(data){
+            $.post(stat_url, {'pk': {{ shape.pk }}}, function(data){
                 $('#' + group + '-' + value).replaceWith(data);
             });
         });
@@ -195,28 +202,28 @@
          * interceptor has been used because the table row is inserted when
          * clicking on `.btn-stats` and injected after page load.
          */
-        $('#settlement, #ditches, #compounds').on('click', '.btn-show', function(e){
-            var group = $(this).parents('table').attr('id');
+        $('#settlement, #ditches, #compounds').on('click', '.btn-show', function(){
+            var group = $(this).attr('group');
             var value = $(this).attr('value');
-            var stat_url = window.location.pathname + '/' + value + '/geojson';
-            var shp_pk = $(this).attr('pk');
+            var post_attr = $(this).attr('geom');
+            var stat_url = window.location.pathname + '/' + value + '/' + post_attr;
 
             // position of the selected layer in the layers array (`-1` if none)
             var pos = arrayObjectIndexOf(addedLayers, value, 'name');
 
-            // if the selected layer is already in the array...
             if (pos > -1){
+                // if the selected layer is already in the array...
                 removeLayer(addedLayers[pos].id, statGroup); //remove from map
                 addedLayers.splice(addedLayers[pos], 1); // remove from array
                 $(this).find('i').removeClass('glyphicon-remove-sign').addClass('glyphicon-map-marker'); // change icon
                 $('#legend').find("[map=" + value + "]").remove(); // remove legend
             }else{
                 $.post(stat_url,
-                    {'pk': shp_pk, 'stat': value, 'group': group},
+                    {'pk': {{ shape.pk }}, 'stat': value, 'group': group},
                     function(data){
                         var curGeom = JSON.parse(data).geom;
                         var curStyle = JSON.parse(data).style;
-                        var curStyleColor = JSON.parse(data).style.fillColor;
+                        var curStyleColor = curStyle.fillColor || curStyle.color;
 
                         var curLayer = L.geoJson(JSON.parse(curGeom), {style: curStyle});
                         statGroup.addLayer(curLayer); // add to layers group

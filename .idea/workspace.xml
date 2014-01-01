@@ -15,26 +15,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1b2a55e-6b0d-43ff-b434-b7e85c8db8a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/misc/start.db" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/arkaddons/static/css/bootstrap-theme.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/arkaddons/static/css/bootstrap.min.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appcore/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/arkaddons/appcore/migrations/0001_initial.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/arkaddons/static/lib/array.unique.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_classes_wizard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/misc/start.db" afterPath="$PROJECT_DIR$/misc/start.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appgeostat/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/arkaddons/appgeostat/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rst" afterPath="$PROJECT_DIR$/README.rst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/templates/base.html" afterPath="$PROJECT_DIR$/arkaddons/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" afterPath="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/source/install.rst" afterPath="$PROJECT_DIR$/docs/source/install.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/fradeve.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/fradeve.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appgeostat/models.py" afterPath="$PROJECT_DIR$/arkaddons/appgeostat/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html" afterPath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html" afterPath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html" afterPath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html" afterPath="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appgeostat/urls.py" afterPath="$PROJECT_DIR$/arkaddons/appgeostat/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appgeostat/utils.py" afterPath="$PROJECT_DIR$/arkaddons/appgeostat/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arkaddons/appgeostat/views.py" afterPath="$PROJECT_DIR$/arkaddons/appgeostat/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -67,79 +60,35 @@
     <favorites_list name="arkaddonscode" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.48025614">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="189" column="49" selection-start="7448" selection-end="7448" vertical-scroll-proportion="0.0" vertical-offset="2480" max-vertical-offset="3584">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="utils.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/utils.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="199" column="18" selection-start="6865" selection-end="6865" vertical-scroll-proportion="0.0" vertical-offset="3303" max-vertical-offset="4224">
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/urls.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="40" column="51" selection-start="1540" selection-end="1540" vertical-scroll-proportion="0.6948969" vertical-offset="0" max-vertical-offset="921">
-                  <folding>
-                    <element signature="e#133#175#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="93" column="43" selection-start="3049" selection-end="3049" vertical-scroll-proportion="0.0" vertical-offset="1084" max-vertical-offset="1600">
-                  <folding>
-                    <element signature="e#0#35#0" expanded="true" />
-                    <marker date="1388250946806" expanded="true" signature="2727:3050" placeholder="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="shp_detail.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="199" column="45" selection-start="8712" selection-end="8712" vertical-scroll-proportion="-18.304348" vertical-offset="2763" max-vertical-offset="3888">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="194" column="42" selection-start="7647" selection-end="7647" vertical-scroll-proportion="0.76438653" vertical-offset="2400" max-vertical-offset="3952">
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0" vertical-offset="295" max-vertical-offset="1840">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="99" column="49" selection-start="3532" selection-end="3532" vertical-scroll-proportion="0.0" vertical-offset="2855" max-vertical-offset="4592">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="44" column="33" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.30510315" vertical-offset="327" max-vertical-offset="1248">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -157,22 +106,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/arkaddons/appstats/forms.py" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/addproject.html" />
-        <option value="$PROJECT_DIR$/requirements/base.txt" />
-        <option value="$PROJECT_DIR$/arkaddons/appstats/views.py" />
         <option value="$PROJECT_DIR$/README.rst" />
         <option value="$PROJECT_DIR$/arkaddons/templates/base.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html" />
-        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html" />
-        <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
         <option value="$PROJECT_DIR$/arkaddons/appgeostat/utils.py" />
         <option value="$PROJECT_DIR$/docs/source/install.rst" />
+        <option value="$PROJECT_DIR$/arkaddons/static/lib/array.unique.js" />
+        <option value="$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html" />
         <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html" />
+        <option value="$PROJECT_DIR$/arkaddons/static/lib/easyWizard/easyWizard.css" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_ditches_wizard.html" />
         <option value="$PROJECT_DIR$/arkaddons/appgeostat/urls.py" />
-        <option value="$PROJECT_DIR$/arkaddons/appgeostat/models.py" />
         <option value="$PROJECT_DIR$/arkaddons/appgeostat/views.py" />
+        <option value="$PROJECT_DIR$/arkaddons/appgeostat/models.py" />
+        <option value="$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_classes_wizard.html" />
       </list>
     </option>
   </component>
@@ -231,7 +180,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -242,7 +191,317 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope">
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Problems" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="templates">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="templates">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="appgeostat">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="slider">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="slider">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="js">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Changed Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="templates/appgeostat">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static/lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddonscode">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="arkaddons">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddonscode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arkaddons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -252,10 +511,10 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -343,24 +602,6 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="docs" factoryName="Docutils task">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="arkaddonscode" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="docutils_input_file" value="" />
-      <option name="docutils_output_file" value="" />
-      <option name="docutils_params" value="" />
-      <option name="docutils_task" value="" />
-      <option name="docutils_open_in_browser" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -378,7 +619,22 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="arkaddonscode" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -402,6 +658,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -499,15 +758,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1063" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1063" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3275862" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.591195" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1839166" sideWeight="0.6719409" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18303095" sideWeight="0.5736842" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.407173" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -537,9 +796,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28975454" sideWeight="0.5715789" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42842105" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="651" y="0" width="712" height="739" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42842105" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="651" y="0" width="712" height="739" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -564,118 +823,99 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/arkaddons/appstats/views.py">
+    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/django/views/generic/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="0" selection-start="5862" selection-end="5862" vertical-scroll-proportion="1.8067318" vertical-offset="976" max-vertical-offset="2864">
-          <folding>
-            <element signature="e#128#142#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="77" selection-start="558" selection-end="558" vertical-scroll-proportion="0.32142857" vertical-offset="0" max-vertical-offset="1552">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="112" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/django/contrib/gis/geos/geometry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="48" selection-start="6419" selection-end="6419" vertical-scroll-proportion="-13.344828" vertical-offset="10927" max-vertical-offset="11536">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="185" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="53" selection-start="975" selection-end="975" vertical-scroll-proportion="0.43686005" vertical-offset="0" max-vertical-offset="586" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="262" column="31" selection-start="7399" selection-end="7399" vertical-scroll-proportion="0.83916086" vertical-offset="3696" max-vertical-offset="4944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm30/system/python_stubs/-1397350540/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="230" column="4" selection-start="7696" selection-end="7696" vertical-scroll-proportion="-5.666004" vertical-offset="6530" max-vertical-offset="81584">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="45" selection-start="8712" selection-end="8712" vertical-scroll-proportion="-18.304348" vertical-offset="2763" max-vertical-offset="3888">
+        <state line="46" column="8" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.31270358" vertical-offset="288" max-vertical-offset="3440">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/source/install.rst">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="36" selection-start="1750" selection-end="1783" vertical-scroll-proportion="1.5193799" vertical-offset="160" max-vertical-offset="1168">
+        <state line="59" column="36" selection-start="1750" selection-end="1783" vertical-scroll-proportion="0.8512486" vertical-offset="160" max-vertical-offset="1168" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="203" column="37" selection-start="6976" selection-end="6976" vertical-scroll-proportion="0.14875136" vertical-offset="3047" max-vertical-offset="4160" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/static/lib/array.unique.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="921" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_btn.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="78" selection-start="78" selection-end="78" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="112" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_tbl_row.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="140" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.33853006" vertical-offset="0" max-vertical-offset="898" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail_stat_showmap.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="70" selection-start="269" selection-end="269" vertical-scroll-proportion="0.053452116" vertical-offset="0" max-vertical-offset="898" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="688" selection-end="688" vertical-scroll-proportion="0.39198217" vertical-offset="0" max-vertical-offset="1552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/static/lib/easyWizard/easyWizard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="46" selection-start="493" selection-end="493" vertical-scroll-proportion="0.43431053" vertical-offset="0" max-vertical-offset="921" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/static/lib/slider/js/bootstrap-slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="325" column="8" selection-start="9437" selection-end="9437" vertical-scroll-proportion="5.0384617" vertical-offset="746" max-vertical-offset="6288" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="73" selection-start="2503" selection-end="2503" vertical-scroll-proportion="-2.11804" vertical-offset="3054" max-vertical-offset="4000">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="43" selection-start="3049" selection-end="3049" vertical-scroll-proportion="0.0" vertical-offset="1084" max-vertical-offset="1600">
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <marker date="1388250946806" expanded="true" signature="2727:3050" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="18" selection-start="6865" selection-end="6865" vertical-scroll-proportion="0.0" vertical-offset="3303" max-vertical-offset="4224">
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/django/db/models/query.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1061" column="6" selection-start="40611" selection-end="40611" vertical-scroll-proportion="0.054263566" vertical-offset="16692" max-vertical-offset="27536">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.virtualenvs/arkaddons/lib/python2.7/site-packages/django/db/models/manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="41" selection-start="7689" selection-end="7689" vertical-scroll-proportion="0.3638171" vertical-offset="3081" max-vertical-offset="4528">
+        <state line="13" column="0" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0" vertical-offset="295" max-vertical-offset="1840">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="49" selection-start="7448" selection-end="7448" vertical-scroll-proportion="0.0" vertical-offset="2480" max-vertical-offset="3584">
+        <state line="99" column="49" selection-start="3532" selection-end="3532" vertical-scroll-proportion="0.0" vertical-offset="2855" max-vertical-offset="4592">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/arkaddons/settings/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="247" column="22" selection-start="7097" selection-end="7097" vertical-scroll-proportion="-0.017372422" vertical-offset="3952" max-vertical-offset="5344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arkaddons/templates/appgeostat/shp_classes_wizard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="0" selection-start="7187" selection-end="7187" vertical-scroll-proportion="2.832962" vertical-offset="0" max-vertical-offset="3408">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/arkaddons/appgeostat/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="51" selection-start="1540" selection-end="1540" vertical-scroll-proportion="0.6948969" vertical-offset="0" max-vertical-offset="921">
-          <folding>
-            <element signature="e#133#175#0" expanded="true" />
-          </folding>
+        <state line="44" column="33" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.30510315" vertical-offset="327" max-vertical-offset="1248">
+          <folding />
         </state>
       </provider>
     </entry>

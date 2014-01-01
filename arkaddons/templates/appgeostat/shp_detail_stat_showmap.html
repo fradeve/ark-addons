@@ -1,1 +1,8 @@
-<a class="btn btn-default btn-sm pull-right btn-show" value="{{ stat_value }}" pk="{{ shp_number }}"><i class="glyphicon glyphicon-map-marker"></i></a>
+{% if action %}
+    <div class="btn-group navbar-right">
+        <a class="btn btn-default btn-sm btn-action" value="{{ stat_value }}" href="{{ action }}"><i class="glyphicon glyphicon-cog"></i></a>
+        <button class="btn btn-default btn-sm btn-show" group="{{ group }}" value="{{ stat_value }}" geom="{{ post_attr }}"><i class="glyphicon glyphicon-map-marker"></i></button>
+    </div>
+{% else %}
+    <a class="btn btn-default btn-sm navbar-right btn-show" group="{{ group }}" value="{{ stat_value }}" geom="{{ post_attr }}"><i class="glyphicon glyphicon-map-marker"></i></a>
+{% endif %}

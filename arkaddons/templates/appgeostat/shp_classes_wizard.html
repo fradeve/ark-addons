@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+
+{% block extra_head %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .leaflet-container {  /* all maps */
+            height: 600px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/Control.FullScreen.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/easyWizard/easyWizard.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/slider/css/slider.css' %}"/>
+{% endblock %}
+
+{% block appname %}GeoStats{% endblock %}
+{% block navbar_type %}navbar-default{% endblock %}
+
+{% block page_title %}
+    Feature recognition for {{ shape.filename|truncatechars:22 }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="myWizard">
+                    <section class="step" data-step-title="Default classes">
+                        The map on the right shows the default classes generated using the Jenks Natural Breaks: every color represent a class. Ditches and compounds must not share the same color (class).
+                        <ul>
+                            <li>If you find that each ditch is represented by a class, just select all the ditches you see on the map, clicking on it; when you are ok, select the "Finish" button that will appear on the bottom of the map.</li>
+                            <li>If you see that ditches and compounds share the same color, we need to change the number of classes when calculating Jenk Natural Breaks. Please click on the "Next" button.</li>
+                        </ul>
+                    </section>
+                    <section class="step" data-step-title="Define classes">
+                        Since some ditches and compounds are sharing the same color, we need to change the number of classes calculated with the Jenks Natural Break algorythm.<br><br>
+                        Please define the new number of classes below, than press the "Calculate" button.<br><br>
+                        <div class="well">
+                            <div class="row">
+                                <div class="col-md-2">Classes</div>
+                                <div class="col-md-5">
+                                    <div id="slider"></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <a class="btn btn-sm pull-right btn-warning" id="btn-calculate">Calculate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-body">
+                        {% leaflet_map "shapemap" callback="window.map_init_basic" %}
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-4">Selected classes:</div>
+                            <div class="col-md-6" id="classes-list"></div>
+                            <div class="col-md-1">
+                                <button id="btn-confirm-classes" class="btn btn-sm btn-info disabled">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/Control.FullScreen.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/easyWizard/jquery.easyWizard.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/slider/js/bootstrap-slider.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/array.unique.js' %}"></script>
+    <script type="text/javascript">
+        function map_init_basic (map, options) {
+
+            /**
+             * Variables and functions to apply to classes layer
+             */
+            var clickedDitches = [];
+            var numberLayer;
+            var generate_class_url = '{% url 'shape_rec_ditch_comp' shape.pk %}';
+            var save_ditch_class_url = '{% url 'shape_save_ditch_class' shape.pk %}';
+            var save_default_class_url = '{% url 'shape_save_default_class' shape.pk %}';
+            var data_url = '{% url 'stat_geojson' shape.pk 'number' %}';
+            var shape_detail_url = '{% url 'shape_detail' shape.pk %}';
+
+            function highlightFeature(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 5,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                });
+                if (!L.Browser.ie && !L.Browser.opera) {
+                    layer.bringToFront();
+                }
+            }
+
+            function resetHighlight(e) {
+                numberLayer.resetStyle(e.target);
+            }
+
+            function selectFeature(e) {
+                clickedDitches.push(e.target.feature.properties.class_n);
+                $('#classes-list').html(clickedDitches.unique().join(', '));
+                $('#btn-confirm-classes').removeClass('disabled');
+            }
+
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    click: selectFeature
+                });
+            }
+
+            function generateLayer() {
+                $.post(data_url,
+                    {'group': 'ditches'},
+                        function(data){
+                            var curGeom = JSON.parse(data).geom;
+
+                            // create style function for cloropleth map
+                            function curStyle(feature) {
+                                return {
+                                    fillColor: JSON.parse(data).palette[feature.properties.class_n],
+                                    weight: JSON.parse(data).style.weight,
+                                    opacity: JSON.parse(data).style.opacity,
+                                    color: JSON.parse(data).style.color,
+                                    dashArray: JSON.parse(data).style.dashArray,
+                                    fillOpacity: JSON.parse(data).style.fillOpacity
+                                };
+                            }
+
+                            numberLayer = L.geoJson(JSON.parse(curGeom), {'style': curStyle, onEachFeature: onEachFeature}).addTo(map);
+                            map.fitBounds(numberLayer.getBounds());
+                    }
+                )
+            }
+
+            /**
+             * Map's basic configuration
+             */
+            var fullScreen = new L.Control.FullScreen();
+            map.addControl(fullScreen);
+
+             // Map loads: POST calls view to generate class data from perimeters
+            var generate_class = $.post(generate_class_url);
+            // wait data to be generated, request new geoJSON features by POST
+            $.when(generate_class).done(function(){generateLayer()});
+
+            // button actions
+            $('#btn-confirm-classes').on('click', function(){
+                $.post(save_ditch_class_url,
+                        {'ditches': clickedDitches.unique().join().split(',').join(' ')},
+                        function(response){
+                            if (response = 'success'){
+                                window.location.href = shape_detail_url; // redirect
+                            }
+                        }
+                )
+            });
+
+            $('#btn-calculate').on('click', function(){
+                var new_class = $('.slider .tooltip-inner').html();
+                var save_new_class = $.post(save_default_class_url, {'classes': new_class});
+                $.when(save_new_class).done(function(){
+                    map.removeLayer(numberLayer);
+                });
+                var regenerate_class = $.post(generate_class_url);
+                $.when(regenerate_class).done(function(){generateLayer()});
+            });
+
+            /**
+             * easyWizard controls
+             */
+            var wizardSelector = $('#myWizard');
+
+            wizardSelector.easyWizard({
+                'buttonsClass': 'btn btn-default',
+                'submitButton': false
+            });
+
+            wizardSelector.on('click', '.next', function(){
+                $('#btn-confirm-classes').addClass('disabled'); // restore btn state
+                clickedDitches.length = 0; // empty the clicked layers array
+                $('#classes-list').html(''); // empty map's classes list
+
+                $('#slider').slider({
+                    'min': 1,
+                    'max': 12,
+                    'value': {{ default_classes }}
+                });
+            });
+        }
+    </script>
+{% endblock %}

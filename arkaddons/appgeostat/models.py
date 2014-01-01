@@ -1,5 +1,5 @@
-from django.contrib.gis import geos
 from django.contrib.gis.db import models
+from django.db.models import Sum
 
 
 class Shapefile(models.Model):
@@ -9,12 +9,28 @@ class Shapefile(models.Model):
     encoding = models.CharField(max_length=20, null=True)
     desc = models.CharField(max_length=500, null=True)
     dateadded = models.DateTimeField(null=True)
+    classes = models.IntegerField(null=True)
+    jnb = models.CharField(max_length=500, null=True)
 
     def __unicode__(self):
         return self.filename
 
     def count_features(self):
         return self.feature_set.count()
+
+    def count_ditches(self):
+        return self.helperditchesnumber_set.filter(type='ditch').count()
+
+    def perimeter_ditches(self):
+        return self.helperditchesnumber_set.filter(type='ditch')\
+            .aggregate(Sum('perimeter'))['perimeter__sum']
+
+    def count_compounds(self):
+        return self.helperditchesnumber_set.filter(type='compound').count()
+
+    def perimeter_compounds(self):
+        return self.helperditchesnumber_set.filter(type='compound') \
+            .aggregate(Sum('perimeter'))['perimeter__sum']
 
     @models.permalink
     def get_absolute_url(self):
@@ -89,6 +105,7 @@ class HelperDitchesNumber(models.Model):
     """
     shapefile = models.ForeignKey(Shapefile)
     objects = models.GeoManager()
-    poly = models.MultiPolygonField(srid=900913)
-    type = models.TextField(max_length=255, null=True)
+    poly = models.MultiPolygonField(srid=3857)
     perimeter = models.FloatField(null=True)
+    class_n = models.IntegerField(null=True)
+    type = models.TextField(max_length=255, null=True)

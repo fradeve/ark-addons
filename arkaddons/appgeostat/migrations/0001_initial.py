@@ -17,6 +17,9 @@ class Migration(SchemaMigration):
             ('encoding', self.gf('django.db.models.fields.CharField')(max_length=20, null=True)),
             ('desc', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
             ('dateadded', self.gf('django.db.models.fields.DateTimeField')(null=True)),
+            ('classes', self.gf('django.db.models.fields.IntegerField')(null=True)),
+            ('jnb', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
+            ('user_check_jnb', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'appgeostat', ['Shapefile'])
 
@@ -65,9 +68,10 @@ class Migration(SchemaMigration):
         db.create_table(u'appgeostat_helperditchesnumber', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
-            ('poly', self.gf('django.contrib.gis.db.models.fields.MultiPolygonField')(srid=900913)),
-            ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
+            ('poly', self.gf('django.contrib.gis.db.models.fields.MultiPolygonField')(srid=3857)),
             ('perimeter', self.gf('django.db.models.fields.FloatField')(null=True)),
+            ('class_n', self.gf('django.db.models.fields.IntegerField')(null=True)),
+            ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
         ))
         db.send_create_signal(u'appgeostat', ['HelperDitchesNumber'])
 
@@ -121,9 +125,10 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.helperditchesnumber': {
             'Meta': {'object_name': 'HelperDitchesNumber'},
+            'class_n': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'perimeter': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
-            'poly': ('django.contrib.gis.db.models.fields.MultiPolygonField', [], {'srid': '900913'}),
+            'poly': ('django.contrib.gis.db.models.fields.MultiPolygonField', [], {'srid': '3857'}),
             'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"}),
             'type': ('django.db.models.fields.TextField', [], {'max_length': '255', 'null': 'True'})
         },
@@ -136,13 +141,16 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.shapefile': {
             'Meta': {'object_name': 'Shapefile'},
+            'classes': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'dateadded': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
             'desc': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             'encoding': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'}),
             'filename': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
             'geom_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'})
+            'jnb': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
+            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
+            'user_check_jnb': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 
