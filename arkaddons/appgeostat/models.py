@@ -15,9 +15,14 @@ class Shapefile(models.Model):
     def __unicode__(self):
         return self.filename
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'shape_detail', (), {'pk': self.id}
+
     def count_features(self):
         return self.feature_set.count()
 
+    # ditches
     def count_ditches(self):
         return self.helperditchesnumber_set.filter(type='ditch').count()
 
@@ -25,6 +30,11 @@ class Shapefile(models.Model):
         return self.helperditchesnumber_set.filter(type='ditch')\
             .aggregate(Sum('perimeter'))['perimeter__sum']
 
+    def area_ditches(self):
+        return self.helpercompoundsarea_set.filter(type='ditch')\
+            .aggregate(Sum('storedarea'))['storedarea__sum']
+
+    # compounds
     def count_compounds(self):
         return self.helperditchesnumber_set.filter(type='compound').count()
 
@@ -32,9 +42,9 @@ class Shapefile(models.Model):
         return self.helperditchesnumber_set.filter(type='compound') \
             .aggregate(Sum('perimeter'))['perimeter__sum']
 
-    @models.permalink
-    def get_absolute_url(self):
-        return 'shape_detail', (), {'pk': self.id}
+    def area_compounds(self):
+        return self.helpercompoundsarea_set.filter(type='compound') \
+            .aggregate(Sum('storedarea'))['storedarea__sum']
 
 
 class Attribute(models.Model):
@@ -108,4 +118,15 @@ class HelperDitchesNumber(models.Model):
     poly = models.MultiPolygonField(srid=3857)
     perimeter = models.FloatField(null=True)
     class_n = models.IntegerField(null=True)
+    type = models.TextField(max_length=255, null=True)
+
+
+class HelperCompoundsArea(models.Model):
+    """
+    Table to save all the helper layer containing compounds area
+    """
+    shapefile = models.ForeignKey(Shapefile)
+    objects = models.GeoManager()
+    poly = models.PolygonField(srid=3857)
+    storedarea = models.FloatField(null=True)
     type = models.TextField(max_length=255, null=True)

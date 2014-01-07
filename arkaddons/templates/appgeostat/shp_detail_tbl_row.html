@@ -9,15 +9,26 @@
     <td class="{{ status }}" id="{{ value|lower }}">{{ value }}</td>
     <td class="{{ status }}">{{ result|floatformat:0 }} {% if unit == 'sq_m' %}m&sup2{% elif unit == 'm' %}m{% else %}{% endif %}</td>
     <td class="{{ status }}">
-        {% if status == 'success' %} {# data already in db #}
+        {% if status == 'success' %}
+        {# data already in db #}
             {% if geom %}
                 {% include "appgeostat/shp_detail_stat_showmap.html" with stat_value=value|lower action=action post_attr=geom %}
             {% endif %}
-        {% else %}{# data need to be generated #}
+        {% elif status == 'danger' %}
+        {# data need to be generated #}
             {% if link %}
-                {% include "appgeostat/shp_detail_stat_btn.html" with link=link %} {# open external url, e.g. a wizard #}
+                {# open external url, e.g. a wizard #}
+                <a class="btn btn-default btn-sm pull-right btn-stats" href="{{ link }}"><i class="glyphicon glyphicon-tasks"></i></a>
+            {% elif message %}
+                <div class="tooltip">
+                    <div class="tooltip-inner">
+                        {{ message }}
+                    </div>
+                </div>
+                <a href="#" data-toggle="tooltip" title="first tooltip">Action required</a>
             {% else %}
-                {% include "appgeostat/shp_detail_stat_btn.html" with stat_link=value|lower %} {# defines value for statistic, passed to POST #}
+                {# defines value for statistic, passed to POST #}
+                <a class="btn btn-default btn-sm pull-right btn-stats" value="{{ value|lower }}"><i class="glyphicon glyphicon-tasks"></i></a>
             {% endif %}
         {% endif %}
     </td>

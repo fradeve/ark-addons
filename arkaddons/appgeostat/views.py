@@ -1,14 +1,16 @@
 import datetime
 import json
 from django.conf import settings
-from django.db.models import get_app, get_models
-from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import get_app, get_models, Sum
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib.gis.geos import GEOSGeometry, MultiPolygon
+from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Point, LineString
+from django.contrib.gis.geos import Polygon, MultiPolygon
 from django.views.generic import View, ListView, DeleteView, DetailView
 
 from braces.views import LoginRequiredMixin
@@ -17,11 +19,14 @@ from vectorformats.Formats import Django, GeoJSON
 
 from appgeostat import importer
 from utils import get_geos_geometry
-from utils import get_jenks_breaks
-from utils import classify
+from jenks import get_jenks_breaks
+from jenks import classify
+from trigonometry import get_round_vertex, check_nearest_point
 
-from .models import Shapefile, Feature, HelperSettlementArea,\
-    HelperDitchesNumber
+from .models import Shapefile, Feature
+from .models import HelperDitchesNumber
+from .models import HelperSettlementArea, HelperCompoundsArea
+
 from .forms import ImportShapefileForm
 
 
@@ -233,7 +238,7 @@ class SaveDefaultClassesView(LoginRequiredMixin, View):
             new_classes = request.POST.get('classes')
             Shapefile.objects.filter(id=cur_shp_id).update(classes=new_classes)
 
-        return HttpResponse('success')
+            return HttpResponse('success')
 
 
 class SaveDitchesClassesView(LoginRequiredMixin, View):
@@ -256,20 +261,127 @@ class SaveDitchesClassesView(LoginRequiredMixin, View):
             return HttpResponse('success')
 
 
-class GetStatGeojsonView(LoginRequiredMixin, View):
+class CompoundAreaTemplateView(LoginRequiredMixin, View):
 
-    def dispatch(self, request, *args, **kwargs):
-        if kwargs['field']:
-            self.filter_field = kwargs['field']
-            self.filter_value = kwargs['value']
-        else:
-            self.filter_field = None
-
-        return super(GetStatGeojsonView, self) \
-            .dispatch(request, *args, **kwargs)
+    template_name = "appgeostat/shp_detail_tbl_row.html"
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
+            cur_shp_id = kwargs['pk']
+            cur_group = request.POST.get('value')
+            cur_status = 'danger'
+            cur_status_message = ''
+
+            if Shapefile.objects.get(id=cur_shp_id).feature_set.count() ==\
+                HelperCompoundsArea.objects\
+                    .filter(shapefile_id=cur_shp_id).count():
+                if HelperCompoundsArea.objects.first().type is None:
+                    # areas exist but does not have type defined
+                    cur_status_message = 'You need to distinguish ditches from'\
+                        ' compounds before generating internal areas.'
+                else:
+                    cur_status = 'success'
+                    pass
+
+            else:
+                cur_shp = Shapefile.objects.get(id=cur_shp_id)
+                cur_shp_geom = get_geos_geometry(cur_shp)
+                cur_shp_geom.set_srid(4326)
+                cur_shp_geom.transform(3857)
+
+                for feature in cur_shp_geom:
+                    area_points_list = []
+
+                    # [A] get convex hull and its centroid
+                    feat_convex_hull = feature.convex_hull
+                    feat_centroid = feat_convex_hull.centroid
+
+                    # [B] feature's hull farthest point from centroid
+                    max_point = Point(
+                        feat_convex_hull.extent[2],
+                        feat_convex_hull.extent[3],
+                        srid=3857)
+
+                    radius = max_point.distance(feat_centroid)
+
+                    # get vertexes in a circle (center=centroid), every n angle
+                    vertexes_list = get_round_vertex(1, radius,
+                                                     feat_centroid.x,
+                                                     feat_centroid.y)
+
+                    # for each point in vertex list
+                    for point in vertexes_list:
+
+                    # create new line between point and centroid
+                        line = LineString(feat_centroid, point, srid=3857)
+                    # line intersects geometry: get point nearest to centroid
+                        intersection_line = line.intersection(feature)
+                        if intersection_line.num_coords == 0:  # no intersection
+                            pass
+                        # intersection in 1 point
+                        elif intersection_line.num_coords == 1:
+                            area_points_list.append(Point(
+                                intersection_line.coords[0]))
+                        # intersection in 2 or more points
+                        elif intersection_line.num_coords >= 2:
+                            nearest_point = [None, 10000000]
+                            # intersection generates a MultiLineString (> 2 pts)
+                            if intersection_line.geom_type == 'MultiLineString':
+                                for multiline_tuple in intersection_line.tuple:
+                                    for coords_tuple in multiline_tuple:
+                                        nearest_point = check_nearest_point(
+                                            coords_tuple, 3857,
+                                            feat_centroid,
+                                            nearest_point)
+                                area_points_list.append(nearest_point[0].tuple)
+                            # the intersection generates a LineString (2 pts)
+                            else:
+                                for coords_tuple in intersection_line.tuple:
+                                    nearest_point = check_nearest_point(
+                                        coords_tuple, 3857,
+                                        feat_centroid,
+                                        nearest_point)
+                                area_points_list.append(nearest_point[0].tuple)
+
+                    # close polygon and save concave_hull of all points
+                    if area_points_list.__len__() > 0:
+                        area_points_list.append(area_points_list[0])
+                    internal_area_polygon = Polygon(area_points_list, srid=3857)
+
+                    internal_area_feature = HelperCompoundsArea(
+                        shapefile_id=cur_shp_id,
+                        poly=internal_area_polygon,
+                        storedarea=internal_area_polygon.area
+                    )
+                    internal_area_feature.save()
+
+            result = HelperCompoundsArea.objects.filter(type=cur_group)\
+                .aggregate(Sum('storedarea'))['storedarea__sum']
+
+            data = {
+                'group': cur_group,
+                'value': 'Area2',
+                'status': cur_status,
+                'message': cur_status_message,
+                'result': result,
+                'unit': 'sq_m',
+                'geom': 'yes'
+            }
+
+            return render_to_response(self.template_name, data)
+
+
+class GetStatGeojsonView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax:
+
+            if kwargs['field']:
+                filter_field = kwargs['field']
+                filter_value = kwargs['value']
+            else:
+                filter_field = None
+
             cur_shp_id = kwargs['pk']
             stat = kwargs['stat']
             group = self.request.POST.get('group')
@@ -287,8 +399,8 @@ class GetStatGeojsonView(LoginRequiredMixin, View):
             qs = CurModel.objects.filter(shapefile_id=cur_shp_id)
 
             # use a filter parameter to refine filter, if it has been passed
-            if self.filter_field is not None:
-                qs = qs.filter(**{self.filter_field: self.filter_value})
+            if filter_field is not None:
+                qs = qs.filter(**{filter_field: filter_value})
 
             qs.transform()
             geoj = GeoJSON.GeoJSON()

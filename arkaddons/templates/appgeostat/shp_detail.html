@@ -85,14 +85,14 @@
                     <table id="ditches" class="table">
                         {% url 'ditches_wizard' shape.pk as classify_wizard %}
                         {% if shape.count_ditches == 0 %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" link=classify_wizard %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Number" link=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Perimeter" %}
                         {% else %}
                             {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Number" result=shape.count_ditches geom='geojson&type=ditch' action=classify_wizard %}
                             {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Perimeter" result=shape.perimeter_ditches unit='m' %}
                         {% endif %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Contained area" status="danger" %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Double" status="danger" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Contained area" %}
+                        {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Double" %}
                     </table>
                 </div>
                 <div class="panel panel-info">
@@ -102,13 +102,17 @@
                     <table id="compounds" class="table">
                         {% url 'ditches_wizard' shape.pk as classify_wizard %}
                         {% if shape.count_compounds == 0 %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Number" status="danger" link=classify_wizard %}
-                            {% include "appgeostat/shp_detail_tbl_row.html" with group="ditches" value="Perimeter" status="danger" %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Number" link=classify_wizard %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="ditches" value="Perimeter" %}
                         {% else %}
                             {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Number" result=shape.count_compounds geom='geojson&type=compound' action=classify_wizard %}
                             {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="ditches" value="Perimeter" result=shape.perimeter_compounds unit='m' %}
                         {% endif %}
-                        {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="AVG area" status="danger" %}
+                        {% if shape.area_compounds == None%}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="danger" group="compounds" value="Area2" %}
+                        {% else %}
+                            {% include "appgeostat/shp_detail_tbl_row.html" with status="success" group="compounds" value="Area2" result=shape.area_compounds unit='sq_m' %}
+                        {% endif %}
                         {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="min/max area" status="danger" %}
                         {% include "appgeostat/shp_detail_tbl_row.html" with group="compounds" value="Orientation" status="danger" %}
                     </table>
@@ -191,7 +195,7 @@
             var group = $(this).parents('table').attr('id');
             var value = $(this).attr('value');
             var stat_url = window.location.pathname + '/' + value;
-            $.post(stat_url, {'pk': {{ shape.pk }}}, function(data){
+            $.post(stat_url, {'pk': {{ shape.pk }}, 'group': group}, function(data){
                 $('#' + group + '-' + value).replaceWith(data);
             });
         });

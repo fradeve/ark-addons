@@ -6,10 +6,16 @@ __version__ = "0.1"
 
 from django.conf.urls import patterns, url
 
+# basic views
 from .views import import_shapefile
 from .views import ListShapefileView, DetailShapefileView, DeleteShapefileView
-from .views import AreaTemplateView, DitchCompoundView
+# views returning rendered HTML template
+from .views import AreaTemplateView, CompoundAreaTemplateView
+# views to do calculations and _not_ returning a template
+from .views import DitchCompoundView
+# views returning a geoJSON
 from .views import GetStatGeojsonView
+# views to save values in database
 from .views import SaveDitchesClassesView, SaveDefaultClassesView
 
 urlpatterns = patterns('',
@@ -43,9 +49,17 @@ urlpatterns = patterns('',
 
                        # [POST] get shapefile area
                        # expects:
+                       # returns: HTML table row
                        url(r'^(?P<pk>[^/]+)/area$',
                            AreaTemplateView.as_view(),
                            name='shape_area'),
+
+                       # [POST] recognize shapefile's ditches/compounds areas
+                       # expects: None
+                       # returns: HTML table row
+                       url(r'^(?P<pk>[^/]+)/area2$',
+                           CompoundAreaTemplateView.as_view(),
+                           name='shape_comp_area'),
 
                        # [POST] recognize shapefile's ditches/compounds
                        # expects: None

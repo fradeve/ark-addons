@@ -12,6 +12,28 @@ Install
 
     pip install -r requirements/base.txt
 
+Keep an eye on Spatialite version
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ArkAddons uses some functions (like `ST_ConcaveHull`) available only in Spatialite
+4.0.0 onwards, and not usually included during the packaging process on most
+Linux distributions. You will probably have to compile Spatialite yourself,
+modifying the `configure` command to include `--enable-geostrunk=yes`.
+
+On ArchLinux:
+
+.. code-block:: bash
+
+    mkdir spatialite-test
+    cd spatialite-test
+    wget https://aur.archlinux.org/packages/li/libspatialite/PKGBUILD
+    vim PKGBUILD
+
+    ./configure --prefix=/usr --enable-geostrunk=yes
+
+    makepkg
+    sudo pacman -U libspatialite-4.*.pkg.tar.xz
+
 Keep an eye on Python version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

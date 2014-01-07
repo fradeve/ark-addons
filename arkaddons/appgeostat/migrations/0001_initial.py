@@ -19,7 +19,6 @@ class Migration(SchemaMigration):
             ('dateadded', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('classes', self.gf('django.db.models.fields.IntegerField')(null=True)),
             ('jnb', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
-            ('user_check_jnb', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'appgeostat', ['Shapefile'])
 
@@ -75,6 +74,16 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'appgeostat', ['HelperDitchesNumber'])
 
+        # Adding model 'HelperCompoundsArea'
+        db.create_table(u'appgeostat_helpercompoundsarea', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
+            ('poly', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857)),
+            ('storedarea', self.gf('django.db.models.fields.FloatField')(null=True)),
+            ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
+        ))
+        db.send_create_signal(u'appgeostat', ['HelperCompoundsArea'])
+
 
     def backwards(self, orm):
         # Deleting model 'Shapefile'
@@ -94,6 +103,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'HelperDitchesNumber'
         db.delete_table(u'appgeostat_helperditchesnumber')
+
+        # Deleting model 'HelperCompoundsArea'
+        db.delete_table(u'appgeostat_helpercompoundsarea')
 
 
     models = {
@@ -123,6 +135,14 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"})
         },
+        u'appgeostat.helpercompoundsarea': {
+            'Meta': {'object_name': 'HelperCompoundsArea'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'poly': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857'}),
+            'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"}),
+            'storedarea': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
+            'type': ('django.db.models.fields.TextField', [], {'max_length': '255', 'null': 'True'})
+        },
         u'appgeostat.helperditchesnumber': {
             'Meta': {'object_name': 'HelperDitchesNumber'},
             'class_n': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
@@ -149,8 +169,7 @@ class Migration(SchemaMigration):
             'geom_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'jnb': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
-            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
-            'user_check_jnb': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'})
         }
     }
 
