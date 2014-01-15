@@ -239,12 +239,64 @@ LAYERS_STYLES = {
         'weight': 0.5,
         'opacity': 1.65
     },
-    'area': {
+    'settlement-area': {
         'attributes': {
             'storedarea': ''
         },
         'style': {
-            'fillColor': '#FFEDA0',
+            'fillColor': '#beaed4',
+            'color': 'black',
+            'weight': 0.5,
+            'opacity': 1.65
+        },
+        'palette': ''
+    },
+    'ditch-area': {
+        'attributes': {
+            'storedarea': ''
+        },
+        'style': {
+            'fillColor': '#bdc9e1',
+            'color': 'black',
+            'weight': 0.5,
+            'opacity': 1.65
+        },
+        'palette': ''
+    },
+    'ditch-number': {
+        'attributes': {
+            'class_n': ''
+        },
+        'style': {
+            'fillColor': '#74a9cf',
+            'color': 'green',
+            'weight': 0.5,
+            'opacity': 1.65,
+            'fillOpacity': 0.9,
+            'dashArray': 3
+        },
+        'palette': ''
+    },
+    'compound-number': {
+        'attributes': {
+            'class_n': ''
+        },
+        'style': {
+            'fillColor': '#fd8d3c',
+            'color': 'green',
+            'weight': 0.5,
+            'opacity': 1.65,
+            'fillOpacity': 0.9,
+            'dashArray': 3
+        },
+        'palette': '',
+    },
+    'compound-area': {
+        'attributes': {
+            'storedarea': ''
+        },
+        'style': {
+            'fillColor': '#d94701',
             'color': 'black',
             'weight': 0.5,
             'opacity': 1.65

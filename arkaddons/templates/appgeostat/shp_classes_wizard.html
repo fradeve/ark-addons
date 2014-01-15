@@ -127,7 +127,7 @@
 
             function generateLayer() {
                 $.post(data_url,
-                    {'group': 'ditches'},
+                    {'table': 'helperditchesnumber'},
                         function(data){
                             var curGeom = JSON.parse(data).geom;
 
