@@ -10,9 +10,9 @@ from django.conf.urls import patterns, url
 from .views import import_shapefile
 from .views import ListShapefileView, DetailShapefileView, DeleteShapefileView
 # views returning rendered HTML template
-from .views import AreaTemplateView, CompoundAreaTemplateView
-# views to do calculations and _not_ returning a template
+from .views import AreaTemplateView
 from .views import DitchCompoundView
+from .views import CompoundAreaTemplateView
 # views returning a geoJSON
 from .views import GetStatGeojsonView
 # views to save values in database
@@ -39,6 +39,24 @@ urlpatterns = patterns('',
                            DeleteShapefileView.as_view(),
                            name='shape_delete'),
 
+                       # [POST] get shapefile area
+                       # returns: HTML, rendered template
+                       url(r'^(?P<pk>[^/]+)/area$',
+                           AreaTemplateView.as_view(),
+                           name='shape_area'),
+
+                       # [POST] recognize shapefile's ditches/compounds
+                       # returns: HTML, rendered template
+                       url(r'^(?P<pk>[^/]+)/number$',
+                           DitchCompoundView.as_view(),
+                           name='shape_rec_ditch_comp'),
+
+                       # [POST] recognize shapefile's ditches/compounds areas
+                       # returns: HTML, rendered template
+                       url(r'^(?P<pk>[^/]+)/ditch-compound-area$',
+                           CompoundAreaTemplateView.as_view(),
+                           name='shape_comp_area'),
+
                        # wizard to recognize shapefile's ditches/compounds;
                        # same DetailView as above, with different template
                        url(r'^(?P<pk>[^/]+)/ditches-wizard$',
@@ -46,27 +64,6 @@ urlpatterns = patterns('',
                                template_name='appgeostat/shp_classes_wizard.html'
                            ),
                            name='ditches_wizard'),
-
-                       # [POST] get shapefile area
-                       # expects:
-                       # returns: HTML table row
-                       url(r'^(?P<pk>[^/]+)/area$',
-                           AreaTemplateView.as_view(),
-                           name='shape_area'),
-
-                       # [POST] recognize shapefile's ditches/compounds areas
-                       # expects: None
-                       # returns: HTML table row
-                       url(r'^(?P<pk>[^/]+)/area2$',
-                           CompoundAreaTemplateView.as_view(),
-                           name='shape_comp_area'),
-
-                       # [POST] recognize shapefile's ditches/compounds
-                       # expects: None
-                       # returns: {'status': 'success'}
-                       url(r'^(?P<pk>[^/]+)/number$',
-                           DitchCompoundView.as_view(),
-                           name='shape_rec_ditch_comp'),
 
                        # [POST] save default classes number for this shapefile
                        # expects: classes
@@ -84,7 +81,7 @@ urlpatterns = patterns('',
 
                        # [POST] get geoJSON associated to a statistic;
                        # optionally can filter against URL parameters `field` and `value`
-                       # expects: group
+                       # expects: table
                        # from URL: stat, field, value
                        # returns: geoJSON
                        url(r'^(?P<pk>[^/]+)/(?P<stat>[^/]+)/geojson(?:&(?P<field>[A-Za-z]+)=(?P<value>[A-Za-z]+))?$',

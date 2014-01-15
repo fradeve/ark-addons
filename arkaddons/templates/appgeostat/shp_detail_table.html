@@ -1,0 +1,46 @@
+{% for structure, statistic in context.items %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">{{ structure|capfirst }}</h4>
+        </div>
+        <table id="{{ structure }}" class="table">
+            {% for stat_name, content in statistic.items %}
+                <tr class="{% if content.value == None or content.value == 0 %}danger{% else %}success{% endif %}">
+                    <td id="{{ stat_name }}">{{ content.display }}</td>
+                    <td>
+                        {% if content.value != None and content.value != 0 %}
+                            {{ content.value|floatformat:0 }}
+                            {% if content.unit == 'sq_m' %}m&sup2{% elif content.unit == 'm' %}m{% else %}{% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group navbar-right">
+                            {% if content.value != None and content.value != 0 %}
+                                {% for action, settings in content.actions_on.items %}
+                                    {% if action == 'map' %}
+                                        {% include 'appgeostat/shp_detail_btn_showmap.html' with value=stat_name table=settings.table geom=settings.filter|default:'geojson' %}
+                                    {% elif action == 'edit' %}
+                                        {% include 'appgeostat/shp_detail_btn_action.html' with value=settings.stat link=settings.link %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for action, settings in content.actions_off.items %}
+                                    {% if action == 'request-page' %}
+                                        {% include 'appgeostat/shp_detail_btn_stat.html' with link=settings.link %}
+                                    {% elif action == 'request-ajax' %}
+                                        {% include 'appgeostat/shp_detail_btn_stat.html' with value=settings.value %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% if content.message %}
+                    <tr class="warning">
+                        <td colspan="3"><p class="text-danger"><small>{{ content.message }}</small></p></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+{% endfor %}

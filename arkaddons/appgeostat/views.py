@@ -1,33 +1,31 @@
 import datetime
 import json
 from django.conf import settings
-from django.db.models import get_app, get_models, Sum
+from django.db.models import get_app, get_models
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import redirect, render, render_to_response
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.gis.geos import GEOSGeometry
-from django.contrib.gis.geos import Point, LineString
-from django.contrib.gis.geos import Polygon, MultiPolygon
+from django.contrib.gis.geos import GEOSGeometry            # general geometry
+from django.contrib.gis.geos import Point, LineString, Polygon # base geometries
+from django.contrib.gis.geos import MultiPolygon            # complex geometries
 from django.views.generic import View, ListView, DeleteView, DetailView
 
 from braces.views import LoginRequiredMixin
 
 from vectorformats.Formats import Django, GeoJSON
 
-from appgeostat import importer
-from utils import get_geos_geometry
-from jenks import get_jenks_breaks
-from jenks import classify
-from trigonometry import get_round_vertex, check_nearest_point
-
 from .models import Shapefile, Feature
+from .models import HelperSettlementArea
 from .models import HelperDitchesNumber
-from .models import HelperSettlementArea, HelperCompoundsArea
+from .models import HelperCompoundsArea
 
+from appgeostat import importer
 from .forms import ImportShapefileForm
+from .utils import get_geos_geometry
+from .jenks import get_jenks_breaks
+from .jenks import classify
+from .trigonometry import get_round_vertex, check_nearest_point
 
 
 @login_required
@@ -60,8 +58,149 @@ def import_shapefile(request):
             err_msg = None
 
         return render(request, "appgeostat/shp_upload.html",
-                      {'form': form,
-                       'err_msg': err_msg})
+                      {'form': form, 'err_msg': err_msg})
+
+
+def context_results(shp_id):
+
+    cur_shp = Shapefile.objects.get(id=shp_id)
+
+    if cur_shp.helpersettlementarea_set.first() is None:
+        settlement_area = None
+    else:
+        settlement_area = cur_shp.helpersettlementarea_set.first().storedarea
+
+    results = {
+        'settlement': {
+            'settlement-area': {
+                'display': 'Area',
+                'value': settlement_area,
+                'unit': 'sq_m',
+                'actions_off': {
+                    'request-ajax': {
+                        'value': 'area'
+                    }
+                },
+                'actions_on': {
+                    'map': {
+                        'table': 'helpersettlementarea',
+                    }
+                }
+            }
+        },
+        'ditch': {
+            'ditch-number': {
+                'display': 'Number',
+                'value': cur_shp.ditches_count(),
+                'unit': '',
+                'actions_off': {
+                    'request-page': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    }
+                },
+                'actions_on': {
+                    'edit': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    },
+                    'map': {
+                        'table': 'helperditchesnumber',
+                        'filter': 'geojson&type=ditch',
+                    }
+                }
+            },
+            'perimeter': {
+                'display': 'Perimeter',
+                'value': cur_shp.ditches_perimeter(),
+                'unit': 'm',
+                'actions_off': {
+                    'request-page': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    }
+                },
+                'actions_on': ''
+            },
+            'ditch-area': {
+                'display': 'Area',
+                'value': cur_shp.ditches_area(),
+                'unit': 'sq_m',
+                'actions_off': {
+                    'request-ajax': {
+                        'value': 'ditch-compound-area'
+                    }
+                },
+                'actions_on': {
+                    'map': {
+                        'table': 'helpercompoundsarea',
+                        'filter': 'geojson&type=ditch'
+                    }
+                }
+            },
+            'ditch-avg-area': {
+                'display': 'AVG Area',
+                'value': cur_shp.ditches_avg_area(),
+                'unit': 'sq_m',
+                'actions_off': '',
+                'actions_on': '',
+            }
+        },
+        'compound': {
+            'compound-number': {
+                'display': 'Number',
+                'value': cur_shp.compounds_count(),
+                'unit': '',
+                'actions_off': {
+                    'request-page': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    }
+                },
+                'actions_on': {
+                    'edit': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    },
+                    'map': {
+                        'table': 'helperditchesnumber',
+                        'filter': 'geojson&type=compound',
+                    }
+                }
+            },
+            'perimeter': {
+                'display': 'Perimeter',
+                'value': cur_shp.compounds_perimeter(),
+                'unit': 'm',
+                'actions_off': {
+                    'request-page': {
+                        'link': 'href='+reverse('ditches_wizard', args=(shp_id,))
+                    }
+                },
+                'actions_on': ''
+            },
+            'compound-area': {
+                'display': 'Area',
+                'value': cur_shp.compounds_area(),
+                'unit': 'sq_m',
+                'actions_off': {
+                    'request-ajax': {
+                        'value': 'ditch-compound-area'
+                    }
+                },
+                'actions_on': {
+                    'map': {
+                        'table': 'helpercompoundsarea',
+                        'filter': 'geojson&type=compound',
+                    }
+                }
+            },
+            'compound-avg-area': {
+                'display': 'AVG Area',
+                'value': cur_shp.compounds_avg_area(),
+                'unit': 'sq_m',
+                'actions_off': '',
+                'actions_on': '',
+            }
+        }
+    }
+
+    return results
 
 
 class ListShapefileView(LoginRequiredMixin, ListView):
@@ -98,16 +237,12 @@ class DetailShapefileView(LoginRequiredMixin, DetailView):
         kwargs['style_base'] = settings.LAYERS_STYLES['base']
         kwargs['default_classes'] =\
             settings.GEOSTAT_SETTINGS['jenk_natural_breaks_classes']
+        kwargs['general_context'] = context_results(curslug)
 
         return super(DetailShapefileView, self).get_context_data(**kwargs)
 
 
 class AreaTemplateView(LoginRequiredMixin, View):
-    """
-    Returns a single row template to be inserted in a table, with the data
-    resulted from area calculation.
-    """
-    template_name = "appgeostat/shp_detail_tbl_row.html"
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
@@ -131,19 +266,9 @@ class AreaTemplateView(LoginRequiredMixin, View):
                 shapefile_id=cur_shp_id)\
                 .update(storedarea=area_geom.area)
 
-            area_obj = HelperSettlementArea.objects.get(
-                shapefile_id=cur_shp_id)
-
-        data = {
-            'status': 'success',
-            'group': 'settlement',
-            'value': 'Area',
-            'result': area_obj.storedarea,
-            'unit': 'sq_m',
-            'geom': 'yes'
-        }
-
-        return render_to_response(self.template_name, data)
+            context = context_results(cur_shp_id)
+            return render_to_response(
+                'appgeostat/shp_detail_table.html', {'context': context})
 
 
 class DitchCompoundView(LoginRequiredMixin, View):
@@ -152,15 +277,12 @@ class DitchCompoundView(LoginRequiredMixin, View):
     and calculates classes for each feature when started using AJAX POST. It is
     called by the Ditches Recognize Wizard before starting the guided procedure.
     """
-    def dispatch(self, request, *args, **kwargs):
-        self.cur_shp_id = kwargs['pk']
-        return super(DitchCompoundView, self)\
-            .dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
 
-            # [1] layers with ditches and compounds:
+            cur_shp_id = kwargs['pk']
+
             # for each feature, get the perimeter and divide by classes
             # using perimeters for all the features in this layer.
             #
@@ -170,22 +292,14 @@ class DitchCompoundView(LoginRequiredMixin, View):
             # so here we are storing polygons as multipolygons to use a single
             # field for all geometries.
 
-            # [2] layer with just compounds:
-            # get the avg perimeters for all compounds and ditches in all
-            # layers and try to assign class based on contextual data
-            # [3] if contextual data not available (e.g. it is the first
-            #     shapefile processed:
-            # use as values avg perimeter of ditches and compounds defined
-            # in settings
-
-            cur_shp = Shapefile.objects.get(id=self.cur_shp_id)
+            cur_shp = Shapefile.objects.get(id=cur_shp_id)
 
             # [A] check if features for this shp already exist in helper table
             if cur_shp.feature_set.count() == HelperDitchesNumber.objects\
-                .filter(shapefile_id=self.cur_shp_id)\
+                .filter(shapefile_id=cur_shp_id)\
                     .count():
                 cur_feat = HelperDitchesNumber.objects.filter(
-                    shapefile_id=self.cur_shp_id)
+                    shapefile_id=cur_shp_id)
             else:
                 # create helping features and fill in perimeter for each
                 cur_shp_geom = get_geos_geometry(cur_shp)
@@ -196,11 +310,11 @@ class DitchCompoundView(LoginRequiredMixin, View):
                         feature = MultiPolygon(feature)
                     new_feat = HelperDitchesNumber(
                         poly=feature,
-                        shapefile_id=self.cur_shp_id,
+                        shapefile_id=cur_shp_id,
                         perimeter=feature.length)
                     new_feat.save()
                 cur_feat = HelperDitchesNumber.objects.filter(
-                    shapefile_id=self.cur_shp_id)
+                    shapefile_id=cur_shp_id)
 
             # [B] check if this shapefile has custom class number defined
             if cur_shp.classes:
@@ -216,7 +330,7 @@ class DitchCompoundView(LoginRequiredMixin, View):
 
             # [D] calculate Jenks Natural Breaks, save in shapefile and features
             jnb_classes_list = get_jenks_breaks(perim_list, int(class_num))
-            Shapefile.objects.filter(id=self.cur_shp_id)\
+            Shapefile.objects.filter(id=cur_shp_id)\
                 .update(jnb=jnb_classes_list)
 
             # [E] fill in the class for each feature of the helper layer
@@ -225,9 +339,9 @@ class DitchCompoundView(LoginRequiredMixin, View):
                 feature.class_n = class_val
                 feature.save()
 
-            response = {'status': 'success'}
-
-            return HttpResponse(json.dumps(response))
+            context = context_results(cur_shp_id)
+            return render_to_response(
+                'appgeostat/shp_detail_table.html', context)
 
 
 class SaveDefaultClassesView(LoginRequiredMixin, View):
@@ -263,26 +377,23 @@ class SaveDitchesClassesView(LoginRequiredMixin, View):
 
 class CompoundAreaTemplateView(LoginRequiredMixin, View):
 
-    template_name = "appgeostat/shp_detail_tbl_row.html"
+    template_name = "appgeostat/shp_detail_table.html"
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
             cur_shp_id = kwargs['pk']
-            cur_group = request.POST.get('value')
-            cur_status = 'danger'
-            cur_status_message = ''
 
-            if Shapefile.objects.get(id=cur_shp_id).feature_set.count() ==\
-                HelperCompoundsArea.objects\
-                    .filter(shapefile_id=cur_shp_id).count():
-                if HelperCompoundsArea.objects.first().type is None:
-                    # areas exist but does not have type defined
-                    cur_status_message = 'You need to distinguish ditches from'\
-                        ' compounds before generating internal areas.'
-                else:
-                    cur_status = 'success'
-                    pass
+            error_msg = 'You need to distinguish ditches from' +\
+                        ' compounds before generating internal' +\
+                        ' areas. Use button in Number field.'
 
+            # check if values for ditches and compounds have already been
+            # calculated; if not, raise a warning in the interface
+            results = context_results(cur_shp_id)
+            if results['ditch']['ditch-number']['value'] is 0:
+                if results['compound']['compound-number']['value'] is 0:
+                    results['ditch']['ditch-area']['message'] =\
+                        results['compound']['compound-area']['message'] = error_msg
             else:
                 cur_shp = Shapefile.objects.get(id=cur_shp_id)
                 cur_shp_geom = get_geos_geometry(cur_shp)
@@ -291,6 +402,11 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
 
                 for feature in cur_shp_geom:
                     area_points_list = []
+
+                    # get geometry type from HelperDitchesNumber
+                    cur_shp_type = HelperDitchesNumber.objects\
+                        .filter(perimeter=feature.length)\
+                        .first().type
 
                     # [A] get convex hull and its centroid
                     feat_convex_hull = feature.convex_hull
@@ -314,7 +430,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
 
                     # create new line between point and centroid
                         line = LineString(feat_centroid, point, srid=3857)
-                    # line intersects geometry: get point nearest to centroid
+                        # line intersects geometry: get point nearest to centroid
                         intersection_line = line.intersection(feature)
                         if intersection_line.num_coords == 0:  # no intersection
                             pass
@@ -334,7 +450,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                                             feat_centroid,
                                             nearest_point)
                                 area_points_list.append(nearest_point[0].tuple)
-                            # the intersection generates a LineString (2 pts)
+                            # intersection generates a LineString (2 pts)
                             else:
                                 for coords_tuple in intersection_line.tuple:
                                     nearest_point = check_nearest_point(
@@ -343,7 +459,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                                         nearest_point)
                                 area_points_list.append(nearest_point[0].tuple)
 
-                    # close polygon and save concave_hull of all points
+                    # close polygon and save convex hull of all points
                     if area_points_list.__len__() > 0:
                         area_points_list.append(area_points_list[0])
                     internal_area_polygon = Polygon(area_points_list, srid=3857)
@@ -351,24 +467,14 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                     internal_area_feature = HelperCompoundsArea(
                         shapefile_id=cur_shp_id,
                         poly=internal_area_polygon,
+                        type=cur_shp_type,
                         storedarea=internal_area_polygon.area
                     )
                     internal_area_feature.save()
 
-            result = HelperCompoundsArea.objects.filter(type=cur_group)\
-                .aggregate(Sum('storedarea'))['storedarea__sum']
+                results = context_results(cur_shp_id)
 
-            data = {
-                'group': cur_group,
-                'value': 'Area2',
-                'status': cur_status,
-                'message': cur_status_message,
-                'result': result,
-                'unit': 'sq_m',
-                'geom': 'yes'
-            }
-
-            return render_to_response(self.template_name, data)
+            return render_to_response(self.template_name, {'context': results})
 
 
 class GetStatGeojsonView(LoginRequiredMixin, View):
@@ -384,15 +490,13 @@ class GetStatGeojsonView(LoginRequiredMixin, View):
 
             cur_shp_id = kwargs['pk']
             stat = kwargs['stat']
-            group = self.request.POST.get('group')
-
-            cur_model_name = 'helper' + group + stat
+            table = request.POST.get('table')
 
             # iterate on helper models, select the one containing the statistics
             # we are interested in (according to parameters passed by AJAX POST)
             for model in get_models(get_app('appgeostat')):
                 if 'helper' in model._meta.model_name:
-                    if model._meta.model_name == cur_model_name:
+                    if model._meta.model_name == table:
                         CurModel = model
 
             # create a geoJSON string from the result of the statistical geometry

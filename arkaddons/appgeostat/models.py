@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 
 
 class Shapefile(models.Model):
@@ -22,29 +22,56 @@ class Shapefile(models.Model):
     def count_features(self):
         return self.feature_set.count()
 
-    # ditches
-    def count_ditches(self):
+    def ditches_count(self):
         return self.helperditchesnumber_set.filter(type='ditch').count()
 
-    def perimeter_ditches(self):
-        return self.helperditchesnumber_set.filter(type='ditch')\
-            .aggregate(Sum('perimeter'))['perimeter__sum']
+    def ditches_perimeter(self):
+        try:
+            return int(self.helperditchesnumber_set.filter(type='ditch')
+                       .aggregate(Sum('perimeter'))['perimeter__sum'])/2
+        except:
+            return None
 
-    def area_ditches(self):
-        return self.helpercompoundsarea_set.filter(type='ditch')\
-            .aggregate(Sum('storedarea'))['storedarea__sum']
+    def ditches_area(self):
+        try:
+            return self.helpercompoundsarea_set.filter(type='ditch')\
+                .aggregate(Sum('storedarea'))['storedarea__sum']
+        except:
+            return None
 
-    # compounds
-    def count_compounds(self):
-        return self.helperditchesnumber_set.filter(type='compound').count()
+    def ditches_avg_area(self):
+        try:
+            return self.helpercompoundsarea_set.filter(type='ditch') \
+                .aggregate(Avg('storedarea'))['storedarea__avg']
+        except:
+            return None
 
-    def perimeter_compounds(self):
-        return self.helperditchesnumber_set.filter(type='compound') \
-            .aggregate(Sum('perimeter'))['perimeter__sum']
+    def compounds_count(self):
+        try:
+            return self.helperditchesnumber_set.filter(type='compound').count()
+        except:
+            return None
 
-    def area_compounds(self):
-        return self.helpercompoundsarea_set.filter(type='compound') \
-            .aggregate(Sum('storedarea'))['storedarea__sum']
+    def compounds_perimeter(self):
+        try:
+            return int(self.helperditchesnumber_set.filter(type='compound')
+                       .aggregate(Sum('perimeter'))['perimeter__sum'])/2
+        except:
+            return None
+
+    def compounds_area(self):
+        try:
+            return self.helpercompoundsarea_set.filter(type='compound') \
+                .aggregate(Sum('storedarea'))['storedarea__sum']
+        except:
+            return None
+
+    def compounds_avg_area(self):
+        try:
+            return self.helpercompoundsarea_set.filter(type='compound') \
+                .aggregate(Avg('storedarea'))['storedarea__avg']
+        except:
+            return None
 
 
 class Attribute(models.Model):
