@@ -113,6 +113,8 @@
         }
     </script>
     <script type="text/javascript">
+        $('.btn-pop').popover();
+
         /**
          * Function to return the position of a property in an array of
          * objects; if the property is not in any of the objects of the
@@ -136,17 +138,20 @@
             });
         }
 
+        var rowSelector = $('#row-statistics');
+
         /**
          * On click on any button with `.btn-stats` class, starts a POST request
          * using `pk` and `url` from the button attributes. Returns a rendered
-         * template (table row) from geographical calculation and adds the new
-         * row in the correct position inside the table.
+         * template (table) with geographical calculation data and replace the
+         * old table with the new. Finally, activates buttons using JavaScript.
          */
-        $('#row-statistics').on('click', '.btn-stats', function(){
+        rowSelector.on('click', '.btn-stats', function(){
             var value = $(this).attr('value');
             var stat_url = window.location.pathname + '/' + value;
             $.post(stat_url, {'pk': {{ shape.pk }}}, function(data){
                 $('#table-statistic').replaceWith(data);
+                $('.btn-pop').popover()
             });
         });
 
@@ -156,7 +161,7 @@
          * interceptor has been used because the table row is inserted when
          * clicking on `.btn-stats` and injected after page load.
          */
-        $('#row-statistics').on('click', '.btn-show', function(){
+        rowSelector.on('click', '.btn-show', function(){
             var value = $(this).attr('value');
             var table = $(this).attr('table');
             var post_attr = $(this).attr('geom');

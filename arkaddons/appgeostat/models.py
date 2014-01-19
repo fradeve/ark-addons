@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, Count
 
 
 class Shapefile(models.Model):
@@ -70,6 +70,29 @@ class Shapefile(models.Model):
         try:
             return self.helpercompoundsarea_set.filter(type='compound') \
                 .aggregate(Avg('storedarea'))['storedarea__avg']
+        except:
+            return None
+
+    def compounds_access(self):
+        if self.helpercompoundsaccess_set.count() > 0:
+            count_list = self.helpercompoundsaccess_set.values('orientation')\
+                .distinct()\
+                .annotate(Count('orientation'))
+            count_dict = {}
+            for item in count_list:
+                cardinals = {0: 'E', 1: 'NE', 2: 'N', 3: 'NW',
+                             4: 'W', 5: 'SW', 6: 'S', 7: 'SE'}
+                count_dict.update({
+                    cardinals[int(item['orientation'])]:
+                    item['orientation__count']
+                })
+            return count_dict
+        else:
+            return None
+
+    def compounds_access_count(self):
+        try:
+            return self.helpercompoundsaccess_set.count()
         except:
             return None
 
@@ -150,10 +173,22 @@ class HelperDitchesNumber(models.Model):
 
 class HelperCompoundsArea(models.Model):
     """
-    Table to save all the helper layer containing compounds area
+    Table to save all the helper objects describing compounds areas
     """
     shapefile = models.ForeignKey(Shapefile)
     objects = models.GeoManager()
     poly = models.PolygonField(srid=3857)
     storedarea = models.FloatField(null=True)
     type = models.TextField(max_length=255, null=True)
+    open = models.NullBooleanField()
+
+
+class HelperCompoundsAccess(models.Model):
+    """
+    Table to save all the helper objects representing compound access LineString
+    """
+    shapefile = models.ForeignKey(Shapefile)
+    objects = models.GeoManager()
+    poly = models.LineStringField(srid=3857)
+    length = models.FloatField(null=True)
+    orientation = models.IntegerField(null=True)

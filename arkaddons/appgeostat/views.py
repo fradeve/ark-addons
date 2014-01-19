@@ -6,9 +6,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, render_to_response
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.gis.geos import GEOSGeometry            # general geometry
-from django.contrib.gis.geos import Point, LineString, Polygon # base geometries
-from django.contrib.gis.geos import MultiPolygon            # complex geometries
+from django.contrib.gis.geos import GEOSGeometry                    # gener geom
+from django.contrib.gis.geos import Point, LineString, Polygon      # base geoms
+from django.contrib.gis.geos import MultiPolygon                    # more geoms
 from django.views.generic import View, ListView, DeleteView, DetailView
 
 from braces.views import LoginRequiredMixin
@@ -19,13 +19,15 @@ from .models import Shapefile, Feature
 from .models import HelperSettlementArea
 from .models import HelperDitchesNumber
 from .models import HelperCompoundsArea
+from .models import HelperCompoundsAccess
 
 from appgeostat import importer
 from .forms import ImportShapefileForm
-from .utils import get_geos_geometry
+from .utils import get_geos_geometry, get_side_dict
 from .jenks import get_jenks_breaks
 from .jenks import classify
-from .trigonometry import get_round_vertex, check_nearest_point
+from .trigonometry import get_round_vertex
+from .trigonometry import check_nearest_point
 
 
 @login_required
@@ -196,6 +198,25 @@ def context_results(shp_id):
                 'unit': 'sq_m',
                 'actions_off': '',
                 'actions_on': '',
+            },
+            'compound-access': {
+                'display': 'Access',
+                'value': cur_shp.compounds_access_count(),
+                'actions_off': {
+                    'request-ajax': {
+                        'value': 'compound-access'
+                    }
+                },
+                'actions_on': {
+                    'map': {
+                        'table': 'helpercompoundsaccess'
+                    },
+                    'info': {
+                        'position': 'top',
+                        'title': 'Compounds orientation',
+                        'content': cur_shp.compounds_access()
+                    }
+                }
             }
         }
     }
@@ -401,6 +422,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                 cur_shp_geom.transform(3857)
 
                 for feature in cur_shp_geom:
+                    # the list that will contains compound's area perimeter pts
                     area_points_list = []
 
                     # get geometry type from HelperDitchesNumber
@@ -459,18 +481,117 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                                         nearest_point)
                                 area_points_list.append(nearest_point[0].tuple)
 
-                    # close polygon and save convex hull of all points
-                    if area_points_list.__len__() > 0:
-                        area_points_list.append(area_points_list[0])
-                    internal_area_polygon = Polygon(area_points_list, srid=3857)
+                    # close polygon and save convex hull
+                    area_points_list.append(area_points_list[0])
+                    internal_area_polygon =\
+                        Polygon(area_points_list, srid=3857)
+                    if cur_shp_type == 'compound':
+                        # recognize open/closed compound
+                        tr = settings.GEOSTAT_SETTINGS['open_compound_treshold']
+                        closed_limit = 360 - ((tr * 360) / 100)
+                        if area_points_list.__len__() > closed_limit:
+                            structure_open = False
+                        else:
+                            structure_open = True
+                    else:
+                        structure_open = None
 
                     internal_area_feature = HelperCompoundsArea(
                         shapefile_id=cur_shp_id,
                         poly=internal_area_polygon,
+                        storedarea=internal_area_polygon.area,
                         type=cur_shp_type,
-                        storedarea=internal_area_polygon.area
+                        open=structure_open
                     )
                     internal_area_feature.save()
+
+                results = context_results(cur_shp_id)
+
+            return render_to_response(self.template_name, {'context': results})
+
+
+class CompoundAccessTemplateView(LoginRequiredMixin, View):
+
+    template_name = "appgeostat/shp_detail_table.html"
+
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax:
+            cur_shp_id = kwargs['pk']
+            cur_shp = Shapefile.objects.get(id=cur_shp_id)
+
+            error_msg = 'You need to calculate compounds areas ' + \
+                        ' before start recognizing access zones.' + \
+                        ' Use the "Area" button.'
+            no_msg = 'There are no compound in this settlement.'
+
+            # check if values for ditches and compounds have already been
+            # calculated; if not, raise a warning in the interface
+            if cur_shp.helpercompoundsarea_set\
+                    .filter(type='compound')\
+                    .count() == 0:
+                results = context_results(cur_shp_id)
+                if cur_shp.helpercompoundsarea_set \
+                    .filter(type='ditch')\
+                        .count() == 0:
+                    # we have neither ditches or compounds
+                    results['compound']['compound-access']['message'] = error_msg
+                else:
+                    # we have ditches but no compounds
+                    results['compound']['compound-access']['message'] = no_msg
+            else:
+                # iterate on all open compounds
+                for compound in cur_shp.helpercompoundsarea_set\
+                        .filter(type='compound', open=True):
+                    # get sides and relative lengths as dictionary
+                    sides = get_side_dict(compound)
+                    # get longest side in area polygon as a LineString
+                    access_linestr = max(sides, key=sides.get)
+
+                    feature_centroid = compound.poly.centroid
+
+                    # get compound's farthest point from centroid
+                    max_point = Point(compound.poly.convex_hull.extent[2],
+                                      compound.poly.convex_hull.extent[3],
+                                      srid=3857)
+                    radius = max_point.distance(feature_centroid)
+
+                    # draw cardinal points around the compound every 45 degree,
+                    # and rotate them by 12 degree to align perpendicularly to N
+                    cardinal_pts = get_round_vertex(
+                        45,
+                        radius,
+                        feature_centroid.x,
+                        feature_centroid.y,
+                        12)
+
+                    # create "cake slices" using cardinal points
+                    polygon_list = []
+                    for i, item in enumerate(cardinal_pts):
+                        points = (feature_centroid.coords,
+                                  item.coords,
+                                  cardinal_pts[i-1].coords,
+                                  feature_centroid.coords)
+                        polygon_list.append(Polygon(points))
+                    sectors = MultiPolygon(polygon_list)
+
+                    # get access side centroid
+                    access_centroid = access_linestr.centroid
+
+                    # find sector containing the access centroid; get direction
+                    for sector in sectors:
+                        if sector.contains(access_centroid):
+                            direction = sectors.index(sector)
+                        else:
+                            pass
+
+                    # save the access LineString in a separate table
+                    new_compound_access = HelperCompoundsAccess(
+                        shapefile_id=cur_shp_id,
+                        poly=access_linestr,
+                        length=access_linestr.length,
+                        orientation=direction
+                    )
+                    new_compound_access.save()
 
                 results = context_results(cur_shp_id)
 

@@ -1,6 +1,9 @@
 from osgeo import ogr
 import pyproj
 
+from itertools import izip
+
+from django.contrib.gis.geos import LineString, Point
 from django.contrib.gis.geos.collections import MultiPolygon, MultiLineString
 from django.contrib.gis.geos.collections import GeometryCollection
 
@@ -189,3 +192,18 @@ def get_geos_geometry(shp):
         feat_list.append(geometry)
     geometry = GeometryCollection(feat_list)
     return geometry
+
+
+def grouped(iterable, n):
+    return izip(*[iter(iterable)]*n)
+
+
+def get_side_dict(polygon):
+    side_dict = {}
+    points_list = polygon.poly.coords[0]
+    for i, point in enumerate(points_list):
+        new_side_line = LineString(point, points_list[i-1])
+        new_side_len = new_side_line.length
+        new_side = {new_side_line: new_side_len}
+        side_dict.update(new_side)
+    return side_dict

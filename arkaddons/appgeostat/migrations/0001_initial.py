@@ -81,8 +81,19 @@ class Migration(SchemaMigration):
             ('poly', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857)),
             ('storedarea', self.gf('django.db.models.fields.FloatField')(null=True)),
             ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
+            ('open', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'appgeostat', ['HelperCompoundsArea'])
+
+        # Adding model 'HelperCompoundsAccess'
+        db.create_table(u'appgeostat_helpercompoundsaccess', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
+            ('poly', self.gf('django.contrib.gis.db.models.fields.LineStringField')(srid=3857)),
+            ('length', self.gf('django.db.models.fields.FloatField')(null=True)),
+            ('orientation', self.gf('django.db.models.fields.IntegerField')(null=True)),
+        ))
+        db.send_create_signal(u'appgeostat', ['HelperCompoundsAccess'])
 
 
     def backwards(self, orm):
@@ -106,6 +117,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'HelperCompoundsArea'
         db.delete_table(u'appgeostat_helpercompoundsarea')
+
+        # Deleting model 'HelperCompoundsAccess'
+        db.delete_table(u'appgeostat_helpercompoundsaccess')
 
 
     models = {
@@ -135,9 +149,18 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"})
         },
+        u'appgeostat.helpercompoundsaccess': {
+            'Meta': {'object_name': 'HelperCompoundsAccess'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'length': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
+            'orientation': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'poly': ('django.contrib.gis.db.models.fields.LineStringField', [], {'srid': '3857'}),
+            'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"})
+        },
         u'appgeostat.helpercompoundsarea': {
             'Meta': {'object_name': 'HelperCompoundsArea'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'open': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
             'poly': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857'}),
             'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"}),
             'storedarea': ('django.db.models.fields.FloatField', [], {'null': 'True'}),

@@ -1,0 +1,25 @@
+<button class="btn btn-default btn-sm btn-pop"
+        href="#"
+        title
+        role="button"
+        data-toggle="popover"
+        data-html="true"
+        data-content=
+        "
+            <table class='table'>
+                <tr>
+                    <td>Orientation</td>
+                    <td>Count</td>
+                </tr>
+                {% for orient, count in content.items %}
+                    <tr>
+                        <td>{{ orient }}</td>
+                        <td>{{ count }}</td>
+                    <tr>
+                {% endfor %}
+            </table>
+        "
+        data-original-title="{{ title }}"
+        data-placement="{{ placement }}">
+        <i class="glyphicon glyphicon-stats"></i>
+</button>

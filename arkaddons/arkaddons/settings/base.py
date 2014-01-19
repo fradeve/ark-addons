@@ -227,6 +227,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 LEAFLET_CONFIG = {
     'RESET_VIEW': False,
     'NO_GLOBALS': False,
+    'ATTRIBUTION_PREFIX': 'M. Ciminale, UniBa'
 }
 ########## END LEAFLET CONFIGURATION
 
@@ -303,6 +304,18 @@ LAYERS_STYLES = {
         },
         'palette': ''
     },
+    'compound-access': {
+        'attributes': {
+            'orientation': ''
+        },
+        'style': {
+            'fillColor': 'green',
+            'color': 'green',
+            'weight': 3.5,
+            'opacity': 1.65
+        },
+        'palette': ''
+    },
     'number': {
         'attributes': {
             'class_n': ''
@@ -337,7 +350,8 @@ LAYERS_STYLES = {
 GEOSTAT_SETTINGS = {
     'avg_ditch_perimeter': '',
     'avg_compound_perimeter': '',
-    'jenk_natural_breaks_classes': '5'
+    'jenk_natural_breaks_classes': '5',
+    'open_compound_treshold': 5
 }
 ########## END GEOSTAT SETTINGS CONFIGURATION
 

@@ -13,6 +13,7 @@ from .views import ListShapefileView, DetailShapefileView, DeleteShapefileView
 from .views import AreaTemplateView
 from .views import DitchCompoundView
 from .views import CompoundAreaTemplateView
+from .views import CompoundAccessTemplateView
 # views returning a geoJSON
 from .views import GetStatGeojsonView
 # views to save values in database
@@ -56,6 +57,12 @@ urlpatterns = patterns('',
                        url(r'^(?P<pk>[^/]+)/ditch-compound-area$',
                            CompoundAreaTemplateView.as_view(),
                            name='shape_comp_area'),
+
+                       # [POST] recognize compound's access side
+                       # returns: HTML, rendered template
+                       url(r'^(?P<pk>[^/]+)/compound-access$',
+                           CompoundAccessTemplateView.as_view(),
+                           name='shape_comp_access'),
 
                        # wizard to recognize shapefile's ditches/compounds;
                        # same DetailView as above, with different template

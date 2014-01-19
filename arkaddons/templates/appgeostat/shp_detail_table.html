@@ -9,8 +9,14 @@
                     <td id="{{ stat_name }}">{{ content.display }}</td>
                     <td>
                         {% if content.value != None and content.value != 0 %}
-                            {{ content.value|floatformat:0 }}
-                            {% if content.unit == 'sq_m' %}m&sup2{% elif content.unit == 'm' %}m{% else %}{% endif %}
+                            {% if content.type == 'string' %}
+                                {% for item in content.value|cut:", " %}
+                                    {{ item }}
+                                {% endfor %}
+                            {% else %}
+                                {{ content.value|floatformat:0 }}
+                                {% if content.unit == 'sq_m' %}m&sup2{% elif content.unit == 'm' %}m{% else %}{% endif %}
+                            {% endif %}
                         {% endif %}
                     </td>
                     <td>
@@ -21,6 +27,8 @@
                                         {% include 'appgeostat/shp_detail_btn_showmap.html' with value=stat_name table=settings.table geom=settings.filter|default:'geojson' %}
                                     {% elif action == 'edit' %}
                                         {% include 'appgeostat/shp_detail_btn_action.html' with value=settings.stat link=settings.link %}
+                                    {% elif action == 'info' %}
+                                        {% include 'appgeostat/shp_detail_btn_info.html' with content=settings.content title=settings.title placement=settings.position %}
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
@@ -39,6 +47,8 @@
                     <tr class="warning">
                         <td colspan="3"><p class="text-danger"><small>{{ content.message }}</small></p></td>
                     </tr>
+                {% endif %}
+                {% if content.popup %}
                 {% endif %}
             {% endfor %}
         </table>
