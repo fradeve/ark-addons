@@ -37,6 +37,8 @@
                             <li>If you find that each ditch is represented by a class, just select all the ditches you see on the map, clicking on it; when you are ok, select the "Finish" button that will appear on the bottom of the map.</li>
                             <li>If you see that ditches and compounds share the same color, we need to change the number of classes when calculating Jenk Natural Breaks. Please click on the "Next" button.</li>
                         </ul>
+                        <button class="btn btn-sm pull-left btn-default btn-no-ditches">< No ditches</button>
+                        <button class="btn btn-sm pull-right btn-default next">Next ></button>
                     </section>
                     <section class="step" data-step-title="Define classes">
                         Since some ditches and compounds are sharing the same color, we need to change the number of classes calculated with the Jenks Natural Break algorythm.<br><br>
@@ -185,14 +187,21 @@
             /**
              * easyWizard controls
              */
+
             var wizardSelector = $('#myWizard');
 
-            wizardSelector.easyWizard({
-                'buttonsClass': 'btn btn-default',
-                'submitButton': false
+            $(wizardSelector, '.btn-no-ditches').bind('click', function(e) {
+                $.post(save_ditch_class_url,
+                        {'ditches': ''},
+                        function(response){
+                            if (response = 'success'){
+                                window.location.href = shape_detail_url; // redirect
+                            }
+                        }
+                );
             });
 
-            wizardSelector.on('click', '.next', function(){
+            $(wizardSelector, '.next').bind('click', function(e) {
                 $('#btn-confirm-classes').addClass('disabled'); // restore btn state
                 clickedDitches.length = 0; // empty the clicked layers array
                 $('#classes-list').html(''); // empty map's classes list
@@ -202,6 +211,12 @@
                     'max': 12,
                     'value': {{ default_classes }}
                 });
+                wizardSelector.easyWizard('nextStep');
+            });
+
+            wizardSelector.easyWizard({
+                'submitButton': false,
+                'showButtons': false
             });
         }
     </script>

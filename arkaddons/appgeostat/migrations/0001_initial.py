@@ -69,6 +69,7 @@ class Migration(SchemaMigration):
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
             ('poly', self.gf('django.contrib.gis.db.models.fields.MultiPolygonField')(srid=3857)),
             ('perimeter', self.gf('django.db.models.fields.FloatField')(null=True)),
+            ('area', self.gf('django.db.models.fields.FloatField')(null=True)),
             ('class_n', self.gf('django.db.models.fields.IntegerField')(null=True)),
             ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
         ))
@@ -168,6 +169,7 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.helperditchesnumber': {
             'Meta': {'object_name': 'HelperDitchesNumber'},
+            'area': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
             'class_n': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'perimeter': ('django.db.models.fields.FloatField', [], {'null': 'True'}),

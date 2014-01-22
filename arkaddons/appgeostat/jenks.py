@@ -68,4 +68,7 @@ def classify(value, breaks):
     for i in range(1, len(breaks)):
         if value < breaks[i]:
             return i
-    return len(breaks) - 1
+    return len(breaks)
+    # Francesco de Virgilio: the original functions had `return len(breaks)-1`,
+    # but it returned the same class for the last two values in the list, even
+    # if they were _really_ different (e.g. 306 and 4008).

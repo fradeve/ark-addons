@@ -332,7 +332,8 @@ class DitchCompoundView(LoginRequiredMixin, View):
                     new_feat = HelperDitchesNumber(
                         poly=feature,
                         shapefile_id=cur_shp_id,
-                        perimeter=feature.length)
+                        perimeter=feature.length,
+                        area=None)
                     new_feat.save()
                 cur_feat = HelperDitchesNumber.objects.filter(
                     shapefile_id=cur_shp_id)
@@ -388,8 +389,9 @@ class SaveDitchesClassesView(LoginRequiredMixin, View):
 
             cur_features.update(type=None)  # clean type field
 
-            for item in ditches_classes:  # write all ditches
-                cur_features.filter(class_n=int(item)).update(type='ditch')
+            if ditches_classes is not None:
+                for item in ditches_classes:  # write all ditches
+                    cur_features.filter(class_n=int(item)).update(type='ditch')
 
             cur_features.exclude(type='ditch').update(type='compound')
 
@@ -414,8 +416,11 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
             if results['ditch']['ditch-number']['value'] is 0:
                 if results['compound']['compound-number']['value'] is 0:
                     results['ditch']['ditch-area']['message'] =\
-                        results['compound']['compound-area']['message'] = error_msg
-            else:
+                        results['compound']['compound-area']['message'] =\
+                        error_msg
+                    return render_to_response(
+                        self.template_name, {'context': results})
+
                 cur_shp = Shapefile.objects.get(id=cur_shp_id)
                 cur_shp_geom = get_geos_geometry(cur_shp)
                 cur_shp_geom.set_srid(4326)

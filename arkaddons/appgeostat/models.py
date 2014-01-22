@@ -167,6 +167,7 @@ class HelperDitchesNumber(models.Model):
     objects = models.GeoManager()
     poly = models.MultiPolygonField(srid=3857)
     perimeter = models.FloatField(null=True)
+    area = models.FloatField(null=True)
     class_n = models.IntegerField(null=True)
     type = models.TextField(max_length=255, null=True)
 
