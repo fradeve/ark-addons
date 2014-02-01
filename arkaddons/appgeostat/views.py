@@ -471,33 +471,20 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
             cur_shp_id = kwargs['pk']
+            cur_shp = Shapefile.objects.get(id=cur_shp_id)
 
-            # check if values for ditches and compounds have already been
-            # calculated; if not, disable buttons
-            results = context_results(cur_shp_id)
-            if results['ditch']['ditch-number']['value'] and results['compound']['compound-number']['value'] is 0:
-                results['ditch']['ditch-area']['actions_off']['request-ajax']['disabled'] = 'true'
-                return render_to_response(
-                    self.template_name, {'context': results})
+            # check if the statistic has already been calculated
+            if cur_shp.stat_ditch_area is True:
+                pass
             else:
-                cur_shp = Shapefile.objects.get(id=cur_shp_id)
-                cur_shp_geom = get_geos_geometry(cur_shp)
-                cur_shp_geom.set_srid(4326)
-                cur_shp_geom.transform(3857)
+                cur_shp_geom = cur_shp.helperditchesnumber_set.all()
 
-                # TODO: instead of deriving ditches to calculate areas from the
-                #       get_geos_geometry, just iterate on HelperDitchesCompounds
                 for feature in cur_shp_geom:
                     # the list that will contains compound's area perimeter pts
                     area_points_list = []
 
-                    # get geometry type from HelperDitchesNumber
-                    cur_shp_type = HelperDitchesNumber.objects \
-                        .filter(perimeter=feature.length) \
-                        .first().type
-
                     # [A] get convex hull and its centroid
-                    feat_convex_hull = feature.convex_hull
+                    feat_convex_hull = feature.poly.convex_hull
                     feat_centroid = feat_convex_hull.centroid
 
                     # [B] feature's hull farthest point from centroid
@@ -519,7 +506,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                     # create new line between point and centroid
                         line = LineString(feat_centroid, point, srid=3857)
                         # line intersects geometry: get point nearest to centroid
-                        intersection_line = line.intersection(feature)
+                        intersection_line = line.intersection(feature.poly)
                         if intersection_line.num_coords == 0:  # no intersection
                             pass
                         # intersection in 1 point
@@ -547,11 +534,14 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                                         nearest_point)
                                 area_points_list.append(nearest_point[0].tuple)
 
-                    # close polygon and save convex hull
+                    # close polygon, get projected area and save
                     area_points_list.append(area_points_list[0])
-                    internal_area_polygon = \
-                        Polygon(area_points_list, srid=3857)
-                    if cur_shp_type == 'compound':
+                    internal_area_polygon = Polygon(area_points_list, srid=3857)
+
+                    proj_area_polygon = internal_area_polygon
+                    proj_area_polygon.transform(cur_shp.proj)
+
+                    if feature.type == 'compound':
                         # recognize open/closed compound
                         tr = settings.GEOSTAT_SETTINGS['open_compound_treshold']
                         closed_limit = 360 - ((tr * 360) / 100)
@@ -565,9 +555,8 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                     internal_area_feature = HelperCompoundsArea(
                         shapefile_id=cur_shp_id,
                         poly=internal_area_polygon,
-                        storedarea=
-                        internal_area_polygon.transform(cur_shp.proj).area,
-                        type=cur_shp_type,
+                        storedarea=proj_area_polygon.area,
+                        type=feature.type,
                         open=structure_open
                     )
                     internal_area_feature.save()
@@ -575,8 +564,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                 cur_shp.stat_ditch_area = True
                 cur_shp.save()
 
-                results = context_results(cur_shp_id)
-
+            results = context_results(cur_shp_id)
             return render_to_response(self.template_name, {'context': results})
 
 
@@ -588,26 +576,10 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
             cur_shp_id = kwargs['pk']
             cur_shp = Shapefile.objects.get(id=cur_shp_id)
 
-            error_msg = 'You need to calculate compounds areas ' + \
-                        ' before start recognizing access zones.' + \
-                        ' Use the "Area" button.'
-            no_msg = 'There are no compound in this settlement.'
-
             # check if values for ditches and compounds have already been
             # calculated; if not, raise a warning in the interface
-            if cur_shp.helpercompoundsarea_set \
-                .filter(type='compound') \
-                .count() == 0:
-                results = context_results(cur_shp_id)
-                if cur_shp.helpercompoundsarea_set \
-                    .filter(type='ditch') \
-                    .count() == 0:
-                    # we have neither ditches or compounds
-                    results['compound']['compound-access'][
-                        'message'] = error_msg
-                else:
-                    # we have ditches but no compounds
-                    results['compound']['compound-access']['message'] = no_msg
+            if cur_shp.stat_comp_acc:
+                pass
             else:
                 # iterate on all open compounds
                 for compound in cur_shp.helpercompoundsarea_set \
@@ -617,6 +589,11 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                     # get longest side in area polygon as a LineString
                     access_linestr = max(sides, key=sides.get)
 
+                    # get access lenght as projected value
+                    proj_access_linestr = access_linestr
+                    proj_access_linestr.transform(cur_shp.proj)
+
+                    # get the centroid of the access side
                     feature_centroid = compound.poly.centroid
 
                     # get compound's farthest point from centroid
@@ -632,7 +609,8 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                         radius,
                         feature_centroid.x,
                         feature_centroid.y,
-                        12)  # TODO: test 11,25 degree, should be correct value
+                        3857,
+                        12)
 
                     # create "cake slices" using cardinal points
                     polygon_list = []
@@ -641,11 +619,12 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                                   item.coords,
                                   cardinal_pts[i - 1].coords,
                                   feature_centroid.coords)
-                        polygon_list.append(Polygon(points))
-                    sectors = MultiPolygon(polygon_list)
+                        polygon_list.append(Polygon(points, srid=3857))
+                    sectors = MultiPolygon(polygon_list, srid=3857)
 
                     # get access side centroid
                     access_centroid = access_linestr.centroid
+                    access_centroid.transform(3857)
 
                     # find sector containing the access centroid; get direction
                     for sector in sectors:
@@ -658,7 +637,7 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                     new_compound_access = HelperCompoundsAccess(
                         shapefile_id=cur_shp_id,
                         poly=access_linestr,
-                        length=access_linestr.transform(cur_shp.proj).length,
+                        length=proj_access_linestr.length,
                         orientation=direction
                     )
                     new_compound_access.save()
@@ -666,8 +645,7 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                 cur_shp.stat_comp_acc = True
                 cur_shp.save()
 
-                results = context_results(cur_shp_id)
-
+            results = context_results(cur_shp_id)
             return render_to_response(self.template_name, {'context': results})
 
 
