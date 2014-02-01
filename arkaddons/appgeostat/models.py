@@ -8,9 +8,16 @@ class Shapefile(models.Model):
     geom_type = models.CharField(max_length=50, null=True)
     encoding = models.CharField(max_length=20, null=True)
     desc = models.CharField(max_length=500, null=True)
+    proj = models.IntegerField(max_length=6)
     dateadded = models.DateTimeField(null=True)
     classes = models.IntegerField(null=True)
     jnb = models.CharField(max_length=500, null=True)
+
+    # the following fields contain the statistics' boolean current status
+    stat_sett_area = models.BooleanField(default=False)
+    stat_ditch_comp = models.BooleanField(default=False)
+    stat_ditch_area = models.BooleanField(default=False)
+    stat_comp_acc = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.filename
@@ -19,7 +26,7 @@ class Shapefile(models.Model):
     def get_absolute_url(self):
         return 'shape_detail', (), {'pk': self.id}
 
-    def count_features(self):
+    def features_count(self):
         return self.feature_set.count()
 
     def ditches_count(self):
@@ -155,7 +162,7 @@ class HelperSettlementArea(models.Model):
     """
     shapefile = models.ForeignKey(Shapefile)
     objects = models.GeoManager()
-    poly = models.PolygonField()
+    poly = models.PolygonField(srid=3857)
     storedarea = models.FloatField(null=True)
 
 

@@ -198,11 +198,11 @@ def grouped(iterable, n):
     return izip(*[iter(iterable)]*n)
 
 
-def get_side_dict(polygon):
+def get_side_dict(polygon, custom_srid):
     side_dict = {}
     points_list = polygon.poly.coords[0]
     for i, point in enumerate(points_list):
-        new_side_line = LineString(point, points_list[i-1])
+        new_side_line = LineString(point, points_list[i-1], srid=custom_srid)
         new_side_len = new_side_line.length
         new_side = {new_side_line: new_side_len}
         side_dict.update(new_side)

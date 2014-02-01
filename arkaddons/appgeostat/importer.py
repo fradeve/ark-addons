@@ -21,7 +21,7 @@ from .models import AttributeValue
 import utils
 
 
-def import_data(shapefile, character_encoding, description, dateadded):
+def import_data(shapefile, character_encoding, description, proj, dateadded):
     # Save the uploaded file into a temporary file on disk.
 
     fd, fname = tempfile.mkstemp(suffix=".zip")
@@ -99,6 +99,7 @@ def import_data(shapefile, character_encoding, description, dateadded):
                           geom_type=geometry_name,
                           encoding=character_encoding,
                           desc=description,
+                          proj=proj,
                           dateadded=dateadded)
     shapefile.save()
 

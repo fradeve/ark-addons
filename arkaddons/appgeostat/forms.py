@@ -17,3 +17,4 @@ class ImportShapefileForm(forms.Form):
     character_encoding = forms.ChoiceField(choices=CHARACTER_ENCODINGS,
                                            initial="utf8")
     description = forms.CharField(label="Description for this file")
+    projection = forms.IntegerField(label="Cartographic projection")

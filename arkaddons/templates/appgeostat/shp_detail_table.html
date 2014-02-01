@@ -34,9 +34,9 @@
                             {% else %}
                                 {% for action, settings in content.actions_off.items %}
                                     {% if action == 'request-page' %}
-                                        {% include 'appgeostat/shp_detail_btn_stat.html' with link=settings.link %}
+                                        {% include 'appgeostat/shp_detail_btn_stat.html' with link=settings.link disabled=settings.status %}
                                     {% elif action == 'request-ajax' %}
-                                        {% include 'appgeostat/shp_detail_btn_stat.html' with value=settings.value %}
+                                        {% include 'appgeostat/shp_detail_btn_stat.html' with value=settings.value disabled=settings.status %}
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}

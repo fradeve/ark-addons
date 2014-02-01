@@ -16,9 +16,14 @@ class Migration(SchemaMigration):
             ('geom_type', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
             ('encoding', self.gf('django.db.models.fields.CharField')(max_length=20, null=True)),
             ('desc', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
+            ('proj', self.gf('django.db.models.fields.IntegerField')(max_length=6)),
             ('dateadded', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('classes', self.gf('django.db.models.fields.IntegerField')(null=True)),
             ('jnb', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
+            ('stat_sett_area', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('stat_ditch_comp', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('stat_ditch_area', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('stat_comp_acc', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'appgeostat', ['Shapefile'])
 
@@ -58,7 +63,7 @@ class Migration(SchemaMigration):
         db.create_table(u'appgeostat_helpersettlementarea', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
-            ('poly', self.gf('django.contrib.gis.db.models.fields.PolygonField')()),
+            ('poly', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857)),
             ('storedarea', self.gf('django.db.models.fields.FloatField')(null=True)),
         ))
         db.send_create_signal(u'appgeostat', ['HelperSettlementArea'])
@@ -180,7 +185,7 @@ class Migration(SchemaMigration):
         u'appgeostat.helpersettlementarea': {
             'Meta': {'object_name': 'HelperSettlementArea'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'poly': ('django.contrib.gis.db.models.fields.PolygonField', [], {}),
+            'poly': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857'}),
             'shapefile': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.Shapefile']"}),
             'storedarea': ('django.db.models.fields.FloatField', [], {'null': 'True'})
         },
@@ -194,7 +199,12 @@ class Migration(SchemaMigration):
             'geom_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'jnb': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
-            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'})
+            'proj': ('django.db.models.fields.IntegerField', [], {'max_length': '6'}),
+            'srs_wkt': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
+            'stat_comp_acc': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'stat_ditch_area': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'stat_ditch_comp': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'stat_sett_area': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 
