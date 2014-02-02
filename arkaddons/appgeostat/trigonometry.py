@@ -9,7 +9,7 @@ from math import sin, cos, radians
 from django.contrib.gis.geos import Point
 
 
-def get_round_vertex(angle, radius, point_x, point_y, projection, rotation=0):
+def get_round_vertex(angle, radius, point_x, point_y, projection=3857, rotation=0):
     """
     Returns a list of GEOS points representing a circle around the point
     (point_x, point_y) of radius `radius`, separated of an `angle` value (in

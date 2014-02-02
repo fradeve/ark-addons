@@ -74,7 +74,6 @@ class Migration(SchemaMigration):
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
             ('poly', self.gf('django.contrib.gis.db.models.fields.MultiPolygonField')(srid=3857)),
             ('perimeter', self.gf('django.db.models.fields.FloatField')(null=True)),
-            ('area', self.gf('django.db.models.fields.FloatField')(null=True)),
             ('class_n', self.gf('django.db.models.fields.IntegerField')(null=True)),
             ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
         ))
@@ -84,6 +83,7 @@ class Migration(SchemaMigration):
         db.create_table(u'appgeostat_helpercompoundsarea', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
+            ('feature', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.HelperDitchesNumber'], null=True)),
             ('poly', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857)),
             ('storedarea', self.gf('django.db.models.fields.FloatField')(null=True)),
             ('type', self.gf('django.db.models.fields.TextField')(max_length=255, null=True)),
@@ -95,6 +95,7 @@ class Migration(SchemaMigration):
         db.create_table(u'appgeostat_helpercompoundsaccess', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('shapefile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.Shapefile'])),
+            ('comp', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['appgeostat.HelperCompoundsArea'], null=True)),
             ('poly', self.gf('django.contrib.gis.db.models.fields.LineStringField')(srid=3857)),
             ('length', self.gf('django.db.models.fields.FloatField')(null=True)),
             ('orientation', self.gf('django.db.models.fields.IntegerField')(null=True)),
@@ -157,6 +158,7 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.helpercompoundsaccess': {
             'Meta': {'object_name': 'HelperCompoundsAccess'},
+            'comp': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.HelperCompoundsArea']", 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'length': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
             'orientation': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
@@ -165,6 +167,7 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.helpercompoundsarea': {
             'Meta': {'object_name': 'HelperCompoundsArea'},
+            'feature': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['appgeostat.HelperDitchesNumber']", 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'open': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
             'poly': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857'}),
@@ -174,7 +177,6 @@ class Migration(SchemaMigration):
         },
         u'appgeostat.helperditchesnumber': {
             'Meta': {'object_name': 'HelperDitchesNumber'},
-            'area': ('django.db.models.fields.FloatField', [], {'null': 'True'}),
             'class_n': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'perimeter': ('django.db.models.fields.FloatField', [], {'null': 'True'}),

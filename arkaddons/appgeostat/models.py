@@ -174,7 +174,6 @@ class HelperDitchesNumber(models.Model):
     objects = models.GeoManager()
     poly = models.MultiPolygonField(srid=3857)
     perimeter = models.FloatField(null=True)
-    area = models.FloatField(null=True)
     class_n = models.IntegerField(null=True)
     type = models.TextField(max_length=255, null=True)
 
@@ -184,6 +183,7 @@ class HelperCompoundsArea(models.Model):
     Table to save all the helper objects describing compounds areas
     """
     shapefile = models.ForeignKey(Shapefile)
+    feature = models.OneToOneField(HelperDitchesNumber, null=True)
     objects = models.GeoManager()
     poly = models.PolygonField(srid=3857)
     storedarea = models.FloatField(null=True)
@@ -196,6 +196,7 @@ class HelperCompoundsAccess(models.Model):
     Table to save all the helper objects representing compound access LineString
     """
     shapefile = models.ForeignKey(Shapefile)
+    comp = models.OneToOneField(HelperCompoundsArea, null=True)
     objects = models.GeoManager()
     poly = models.LineStringField(srid=3857)
     length = models.FloatField(null=True)

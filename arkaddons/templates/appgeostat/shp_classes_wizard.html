@@ -190,7 +190,7 @@
 
             var wizardSelector = $('#myWizard');
 
-            $(wizardSelector, '.btn-no-ditches').bind('click', function(e) {
+            $('.btn-no-ditches').bind('click', function(e) {
                 $.post(save_ditch_class_url,
                         {'ditches': ''},
                         function(response){
@@ -201,7 +201,7 @@
                 );
             });
 
-            $(wizardSelector, '.next').bind('click', function(e) {
+            $('.next').bind('click', function(e) {
                 $('#btn-confirm-classes').addClass('disabled'); // restore btn state
                 clickedDitches.length = 0; // empty the clicked layers array
                 $('#classes-list').html(''); // empty map's classes list

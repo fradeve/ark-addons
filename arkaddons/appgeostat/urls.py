@@ -14,10 +14,12 @@ from .views import AreaTemplateView
 from .views import DitchCompoundView
 from .views import CompoundAreaTemplateView
 from .views import CompoundAccessTemplateView
-# views returning a geoJSON
-from .views import GetStatGeojsonView
 # views to save values in database
 from .views import SaveDitchesClassesView, SaveDefaultClassesView
+# views returning a geoJSON
+from .views import GetStatGeojsonView
+# views returning a file
+from .views import ExportCsv
 
 urlpatterns = patterns('',
                        # list all loaded SHPs
@@ -39,6 +41,11 @@ urlpatterns = patterns('',
                        url(r'^(?P<pk>[^/]+)/delete$',
                            DeleteShapefileView.as_view(),
                            name='shape_delete'),
+
+                       # download compounds data
+                       url(r'^(?P<pk>[^/]+)/csv$',
+                           ExportCsv.as_view(),
+                           name='shape_download'),
 
                        # [POST] get shapefile area
                        # returns: HTML, rendered template

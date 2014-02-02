@@ -15,7 +15,7 @@
             <tr>
                 <th>Shapefile name</th>
                 <th>Description</th>
-                <th>Geometry type</th>
+                <th>Structures</th>
             </tr>
             </thead>
             {% if shapes %}
@@ -29,7 +29,7 @@
                             {{ shape.desc }}
                         </td>
                         <td>
-                            {{ shape.geom_type }}
+                            {{ shape.features_count }}
                         </td>
                     </tr>
                 {% endfor %}

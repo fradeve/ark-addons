@@ -29,7 +29,7 @@
     {% else %}
         <p class="text-muted">No description available</p>
     {% endif %}
-    | {{ shape.count_features }} structures
+    | {{ shape.features_count }} structures
 {% endblock %}
 
 {% block page_added %}
@@ -60,7 +60,7 @@
             </div>
             <div class="col-md-4" id="row-statistics">
                 <div class="btn-group btn-group-justified btn-group-sm">
-                    <a type="button" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i> PDF report</a>
+                    <a type="button" class="btn btn-default" href="{% url 'shape_download' shape.pk %}"><i class="glyphicon glyphicon-list-alt"></i> Download CSV </a>
                     <a type="button" class="btn btn-default"><i class="glyphicon glyphicon-stats"></i> Plot statistics</a>
                     <a type="button" class="btn btn-default" href="{% url 'shape_delete' shape.pk %}"><i class="glyphicon glyphicon-remove-circle"></i> Delete</a>
                 </div>

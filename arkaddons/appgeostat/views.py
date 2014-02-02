@@ -1,5 +1,6 @@
 import datetime
 import json
+import csv
 from django.conf import settings
 from django.db.models import get_app, get_models
 from django.http import HttpResponse
@@ -9,7 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.gis.geos import GEOSGeometry                    # gener geom
 from django.contrib.gis.geos import Point, LineString, Polygon      # base geoms
 from django.contrib.gis.geos import MultiPolygon                    # more geoms
+from django.contrib.gis.geos.error import GEOSException
 from django.views.generic import View, ListView, DeleteView, DetailView
+from django.core.exceptions import ObjectDoesNotExist
 
 from braces.views import LoginRequiredMixin
 
@@ -391,8 +394,7 @@ class DitchCompoundView(LoginRequiredMixin, View):
                     new_feat = HelperDitchesNumber(
                         poly=feature,
                         shapefile_id=cur_shp_id,
-                        perimeter=proj_feature.length,
-                        area=None)
+                        perimeter=proj_feature.length)
                     new_feat.save()
 
                 cur_shp.stat_ditch_comp = cur_shp.stat_ditch_comp = True
@@ -498,7 +500,8 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                     # get vertexes in a circle (center=centroid), every n angle
                     vertexes_list = get_round_vertex(1, radius,
                                                      feat_centroid.x,
-                                                     feat_centroid.y)
+                                                     feat_centroid.y,
+                                                     3857)
 
                     # for each point in vertex list
                     for point in vertexes_list:
@@ -506,7 +509,10 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                     # create new line between point and centroid
                         line = LineString(feat_centroid, point, srid=3857)
                         # line intersects geometry: get point nearest to centroid
-                        intersection_line = line.intersection(feature.poly)
+                        try:
+                            intersection_line = line.intersection(feature.poly)
+                        except GEOSException:
+                            pass
                         if intersection_line.num_coords == 0:  # no intersection
                             pass
                         # intersection in 1 point
@@ -554,6 +560,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
 
                     internal_area_feature = HelperCompoundsArea(
                         shapefile_id=cur_shp_id,
+                        feature=feature,
                         poly=internal_area_polygon,
                         storedarea=proj_area_polygon.area,
                         type=feature.type,
@@ -636,6 +643,7 @@ class CompoundAccessTemplateView(LoginRequiredMixin, View):
                     # save the access LineString in a separate table
                     new_compound_access = HelperCompoundsAccess(
                         shapefile_id=cur_shp_id,
+                        comp=compound,
                         poly=access_linestr,
                         length=proj_access_linestr.length,
                         orientation=direction
@@ -691,3 +699,52 @@ class GetStatGeojsonView(LoginRequiredMixin, View):
             }
 
             return HttpResponse(json.dumps(response))
+
+
+class ExportCsv(LoginRequiredMixin, DetailView):
+    model = Shapefile
+
+    def get(self, request, *args, **kwargs):
+        cur_shp_id = self.kwargs['pk']
+
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="export.csv"'
+        writer = csv.writer(response)
+
+        data = Shapefile.objects.get(id=cur_shp_id).helperditchesnumber_set.all()
+
+        writer.writerow([
+            'shapefile_id',
+            'structure_id',
+            'structure_type',
+            'structure_perim',
+            'perim_class',
+            'structure_area',
+            'structure_open',
+            'access_length',
+            'compound_orient'
+        ])
+
+        for feature in data:
+            try:
+                access_len = feature.helpercompoundsarea\
+                    .helpercompoundsaccess.length
+                access_orient = feature.helpercompoundsarea\
+                    .helpercompoundsaccess.orientation
+            except ObjectDoesNotExist:
+                access_len = ''
+                access_orient = ''
+
+            writer.writerow([
+                feature.shapefile_id,
+                feature.id,
+                feature.type,
+                feature.perimeter,
+                feature.class_n,
+                feature.helpercompoundsarea.storedarea,
+                feature.helpercompoundsarea.open,
+                access_len,
+                access_orient
+            ])
+
+        return response
