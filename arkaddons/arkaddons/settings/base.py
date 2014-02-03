@@ -351,7 +351,12 @@ GEOSTAT_SETTINGS = {
     'avg_ditch_perimeter': '',
     'avg_compound_perimeter': '',
     'jenk_natural_breaks_classes': '5',
-    'open_compound_treshold': 5
+    'open_compound_treshold': 5,
+    # following dict defienes matches between orientation number got from
+    # views.CompoundAccessTemplateView and cardinal positions. Surely you
+    # don't want to change this.
+    'cardinals': {0: 'E', 1: 'NE', 2: 'N', 3: 'NW',
+                  4: 'W', 5: 'SW', 6: 'S', 7: 'SE'}
 }
 ########## END GEOSTAT SETTINGS CONFIGURATION
 

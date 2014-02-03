@@ -562,6 +562,7 @@ class CompoundAreaTemplateView(LoginRequiredMixin, View):
                         shapefile_id=cur_shp_id,
                         feature=feature,
                         poly=internal_area_polygon,
+                        perimeter=internal_area_polygon.length,
                         storedarea=proj_area_polygon.area,
                         type=feature.type,
                         open=structure_open
@@ -711,16 +712,20 @@ class ExportCsv(LoginRequiredMixin, DetailView):
         response['Content-Disposition'] = 'attachment;filename="export.csv"'
         writer = csv.writer(response)
 
-        data = Shapefile.objects.get(id=cur_shp_id).helperditchesnumber_set.all()
+        data = Shapefile.objects.get(id=cur_shp_id)\
+            .helperditchesnumber_set\
+            .all()\
+            .order_by('type')
 
         writer.writerow([
             'shapefile_id',
-            'structure_id',
-            'structure_type',
-            'structure_perim',
+            'struct_id',
+            'struct_type',
+            'struct_perim',
             'perim_class',
-            'structure_area',
-            'structure_open',
+            'struct_area',
+            'struct_area_perim',
+            'struct_open',
             'access_length',
             'compound_orient'
         ])
@@ -729,11 +734,11 @@ class ExportCsv(LoginRequiredMixin, DetailView):
             try:
                 access_len = feature.helpercompoundsarea\
                     .helpercompoundsaccess.length
-                access_orient = feature.helpercompoundsarea\
-                    .helpercompoundsaccess.orientation
+                access_orient = settings.GEOSTAT_SETTINGS['cardinals'][
+                    feature.helpercompoundsarea
+                    .helpercompoundsaccess.orientation]
             except ObjectDoesNotExist:
-                access_len = ''
-                access_orient = ''
+                access_len = access_orient = ''
 
             writer.writerow([
                 feature.shapefile_id,
@@ -742,6 +747,7 @@ class ExportCsv(LoginRequiredMixin, DetailView):
                 feature.perimeter,
                 feature.class_n,
                 feature.helpercompoundsarea.storedarea,
+                feature.helpercompoundsarea.perimeter,
                 feature.helpercompoundsarea.open,
                 access_len,
                 access_orient

@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
 from django.db.models import Sum, Avg, Count
+from django.conf import settings
 
 
 class Shapefile(models.Model):
@@ -86,9 +87,8 @@ class Shapefile(models.Model):
                 .distinct()\
                 .annotate(Count('orientation'))
             count_dict = {}
+            cardinals = settings.GEOSTAT_SETTINGS['cardinals']
             for item in count_list:
-                cardinals = {0: 'E', 1: 'NE', 2: 'N', 3: 'NW',
-                             4: 'W', 5: 'SW', 6: 'S', 7: 'SE'}
                 count_dict.update({
                     cardinals[int(item['orientation'])]:
                     item['orientation__count']
@@ -186,6 +186,7 @@ class HelperCompoundsArea(models.Model):
     feature = models.OneToOneField(HelperDitchesNumber, null=True)
     objects = models.GeoManager()
     poly = models.PolygonField(srid=3857)
+    perimeter = models.FloatField(null=True)
     storedarea = models.FloatField(null=True)
     type = models.TextField(max_length=255, null=True)
     open = models.NullBooleanField()
