@@ -4,8 +4,8 @@ __license__ = "GNU GPL 3.0 or later"
 
 __version__ = ""
 
-from django.views.generic import ListView, TemplateView, CreateView, DetailView,\
-    FormView
+from django.views.generic import CreateView, ListView, DetailView,\
+    TemplateView, FormView
 from django.http import HttpResponse
 
 from braces.views import LoginRequiredMixin
@@ -13,6 +13,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import link
 import MySQLdb
+from _mysql_exceptions import OperationalError
 
 from .models import ArkProjectModel
 from .arkmodels import CxtTblCxt
@@ -46,7 +47,8 @@ class CheckDbStatusView(FormView):
 
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            current_prj = ArkProjectModel.objects.get(projectslug=request.POST.get('slug'))
+            current_prj = ArkProjectModel.objects.get(
+                projectslug=request.POST.get('slug'))
             try:
                 db = MySQLdb.connect(host=str(current_prj.arkdbhost),
                                      user=str(current_prj.arkdbuser),
@@ -54,24 +56,25 @@ class CheckDbStatusView(FormView):
                                      db=str(current_prj.arkdbname),
                                      port=int(current_prj.arkdbport))
                 return HttpResponse('active')
-            except:
+            except OperationalError:
                 return HttpResponse('')
 
 
 class CxtOneViewSet(viewsets.ReadOnlyModelViewSet):
-
-        queryset = CxtTblCxt.objects.using('ark_arkprescot2').filter(cxt_cd='PCO06_220')
+        queryset = CxtTblCxt.objects.all()
         serializer_class = CxtSerializer
+
+        def get_queryset(self):
+            cur_project = self.kwargs['slug']
+            return CxtTblCxt.objects.using(cur_project)
 
 
 class CxtAllViewSet(viewsets.ReadOnlyModelViewSet):
-
-    queryset = CxtTblCxt.objects.using('ark_arkprescot2').all()
+    queryset = CxtTblCxt.objects.using('ark_arktest').all()
     serializer_class = CxtSerializer
 
 
 class RetrieveViewSet(viewsets.ReadOnlyModelViewSet):
-
     queryset = CxtTblCxt.objects.using('ark_arkprescot2').all()
     serializer_class = CxtSerializer
 

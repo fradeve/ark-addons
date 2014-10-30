@@ -114,7 +114,7 @@ SECRET_KEY = r"$uor)tb_%ak-^0$)+&bc08k)z5*a#cejgik*8d91maur^*z-m%"
 ########## SITE CONFIGURATION
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 ########## END SITE CONFIGURATION
 
 

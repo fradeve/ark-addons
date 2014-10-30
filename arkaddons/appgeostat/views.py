@@ -709,7 +709,8 @@ class ExportCsv(LoginRequiredMixin, DetailView):
         cur_shp_id = self.kwargs['pk']
 
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment;filename="export.csv"'
+        response['Content-Disposition'] = \
+            'attachment;filename="export_' + str(cur_shp_id) + '.csv"'
         writer = csv.writer(response)
 
         data = Shapefile.objects.get(id=cur_shp_id)\
@@ -718,16 +719,16 @@ class ExportCsv(LoginRequiredMixin, DetailView):
             .order_by('type')
 
         writer.writerow([
-            'shapefile_id',
-            'struct_id',
-            'struct_type',
-            'struct_perim',
-            'perim_class',
-            'struct_area',
-            'struct_area_perim',
-            'struct_open',
-            'access_length',
-            'compound_orient'
+            'shapefile-id',
+            'struct-id',
+            'struct-type',
+            'struct-perim',
+            'perim-class',
+            'struct-area',
+            'struct-area-perim',
+            'struct-open',
+            'access-length',
+            'compound-orient'
         ])
 
         for feature in data:

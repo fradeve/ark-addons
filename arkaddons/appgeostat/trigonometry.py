@@ -6,7 +6,7 @@ __version__ = "0.1"
 
 from math import sin, cos, radians
 
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, MultiPoint
 
 
 def get_round_vertex(angle, radius, point_x, point_y, projection=3857, rotation=0):
@@ -34,6 +34,10 @@ def get_round_vertex(angle, radius, point_x, point_y, projection=3857, rotation=
         else:
             vertex_list.append(Point(vertex_x, vertex_y, srid=projection))
         angle += angle_orig
+
+    # test printing
+    testpoints = MultiPoint(vertex_list)
+    print(testpoints.geojson)
 
     return vertex_list
 
